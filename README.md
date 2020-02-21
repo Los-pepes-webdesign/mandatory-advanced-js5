@@ -86,10 +86,9 @@ import MaterialIcon, {add} from 'material-icons-react';
 
 **Clone a project:** git clone githublink
 
-**Merge branch into other branch:**
+**Merge branch into other branch:** git merge branch_name
+- Go into the branch you want to merge INTO.
 
-*(Go into the branch you want to merge INTO.)*
-git merge branch_name
 
 **Create new branch:**
 git branch branch_name
