@@ -77,3 +77,26 @@ import MaterialIcon, {colorPalette} from 'material-icons-react';
 
 <MaterialIcon icon="dashboard" color='#7bb92f' />
 ```
+
+## Git Instructions
+
+Get Branch: git pull origin <branchname>
+Get Master: git pull origin master
+
+git clone githublink
+
+Merge branch into other branch:
+Go into the branch you want to merge INTO.
+git merge <branch_name>
+
+Create new branch:
+git branch <name>
+
+Switch branch:
+git checkout <branch_name>
+
+Delete branch:
+git branch -d <name>
+
+Show all branches:
+git branch
