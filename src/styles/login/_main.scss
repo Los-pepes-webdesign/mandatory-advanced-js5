@@ -1,6 +1,8 @@
-
-
 .login__main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   &__buttonContainer{
     width:250px;
@@ -20,12 +22,28 @@
       margin: auto;
       transition: .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
+      &::after {
+        content: 'CONNECT';
+        @include absoluteCenter();
+        opacity: 0;
+        color: $purple;
+        transition: .2s;
+        letter-spacing: 1px;
+        font-size: 1rem;
+        font-family: $fontBody;
+      }
+
       &:hover{
         cursor: pointer;
         width:125px;
         background-color: white;
         box-shadow: 0px 5px 5px rgba(0,0,0,0.2);
         transition:.3s;
+
+        &::after {
+          opacity: 1;
+          transition: .5s .2s;
+        }
       }
       &:active{
         box-shadow: 0px 2px 5px rgba(0,0,0,0.2);

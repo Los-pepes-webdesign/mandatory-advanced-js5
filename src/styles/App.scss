@@ -1,4 +1,13 @@
 @import './reset';
 @import './variables';
+@import './utilities_';
 @import './login/login';
 @import url(https://fonts.googleapis.com/css?family=Inknut+Antiqua:400|Domine|Coromant&display=swap);
+
+h1 {
+    font-family: $fontHeader;
+}
+
+button, p, span {
+    font-family: $fontBody;
+}

@@ -1,0 +1,24 @@
+%flexCC {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%flexColumnCC {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+%flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
