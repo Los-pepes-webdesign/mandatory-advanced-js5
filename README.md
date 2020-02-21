@@ -117,8 +117,6 @@ git branch
 
 We decided on this color palette because it is almost more Los Pepes than Los Pepes itself.
 
-*(https://github.com/Los-pepes-webdesign/mandatory-advanced-js5/edit/master/public/lospepespalette.jpg)*
-
 
 ## Mandatory Advanced js 5
 The description for the assignment is located in the create-react-app 
