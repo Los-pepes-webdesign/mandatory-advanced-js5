@@ -38,3 +38,29 @@ We apply the use of BEM modified for SCSS when writing stylesheet. Example:
 ```
 
 For further reading, check [https://www.joeforshaw.com/blog/writing-scss-with-bem] or [http://getbem.com/introduction/] for documentation.
+
+
+
+## Libraries
+
+### Animations with GreenSock (GSAP)
+
+Please use GSAP along with useEffect and useRef hooks for all your animation needs. Example running animation when component mounts:
+
+```
+const DOMElementRef = useRef(null);
+
+useEffect(function() {
+  gsap.from(DOMElementRef.current, {
+    duration: '1s',
+    y: '-50px',
+    opacity: '0'
+  }
+}, []);
+
+return (
+  <DOMElement ref={DOMElementRef} />
+)
+```
+
+**Documentation** can be found at [https://greensock.com/docs/] and a **tutorial** at [https://greensock.com/get-started/].
