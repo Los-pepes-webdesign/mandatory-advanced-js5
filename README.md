@@ -105,11 +105,15 @@ git branch
 
 
 ## Los Pepes Color Palette
-`#581845`
-`#900C3F`
-`#C70039`
-`#FF5733`
-`#FFC30F`
+**HEX:** `#581845` **SCSS:** `$purple`
+
+**HEX:**`#900C3F` **SCSS:** `$wine`
+
+**HEX:**`#C70039` **SCSS:** `$red`
+
+**HEX:**`#FF5733` **SCSS:** `$orange`
+
+**HEX:**`#FFC30F` **SCSS:** `$yellow`
 
 We decided on this color palette because it is almost more Los Pepes than Los Pepes itself.
 
