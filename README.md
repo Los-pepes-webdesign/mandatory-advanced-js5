@@ -80,23 +80,25 @@ import MaterialIcon, {add} from 'material-icons-react';
 
 ## Git Instructions
 
-**Get Branch:** git pull origin <branchname>
+**Get Branch:** git pull origin branch_name
+
 **Get Master:** git pull origin master
 
 **Clone a project:** git clone githublink
 
 **Merge branch into other branch:**
-(Go into the branch you want to merge INTO.)
-git merge <branch_name>
+
+*(Go into the branch you want to merge INTO.)*
+git merge branch_name
 
 **Create new branch:**
-git branch <name>
+git branch branch_name
 
 **Switch branch:**
-git checkout <branch_name>
+git checkout branch_name
 
 **Delete branch:**
-git branch -d <name>
+git branch -d branch_name
 
 **Show all branches:**
 git branch
