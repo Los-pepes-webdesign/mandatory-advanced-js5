@@ -63,4 +63,27 @@ return (
 )
 ```
 
+## Git Instructions
+
+Get Branch: git pull origin <branchname>
+Get Master: git pull origin master
+
+git clone githublink
+
+Merge branch into other branch:
+Go into the branch you want to merge INTO.
+git merge <branch_name>
+
+Create new branch:
+git branch <name>
+
+Switch branch:
+git checkout <branch_name>
+
+Delete branch:
+git branch -d <name>
+
+Show all branches:
+git branch
+
 **Documentation** can be found at [https://greensock.com/docs/] and a **tutorial** at [https://greensock.com/get-started/].
