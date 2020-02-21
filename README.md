@@ -1,21 +1,3 @@
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Opens [http://localhost:3000] to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm install`
-
-Installs all dependencies required to run the app.
-
-
-
 ## Standards
 
 ### BEM modified for SCSS
@@ -105,12 +87,17 @@ git branch
 
 
 ## Los Pepes Color Palette
-`#581845`
-`#900C3F`
-`#C70039`
-`#FF5733`
-`#FFC30F`
-(https://github.com/Los-pepes-webdesign/mandatory-advanced-js5/edit/master/public/lospepespalette.jpg)
+**HEX:** `#581845` **SCSS:** `$purple`
+
+**HEX:**`#900C3F` **SCSS:** `$wine`
+
+**HEX:**`#C70039` **SCSS:** `$red`
+
+**HEX:**`#FF5733` **SCSS:** `$orange`
+
+**HEX:**`#FFC30F` **SCSS:** `$yellow`
+
+We decided on this color palette because it is almost more Los Pepes than Los Pepes itself.
 
 
 ## Mandatory Advanced js 5
