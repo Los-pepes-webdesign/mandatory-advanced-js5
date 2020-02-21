@@ -78,7 +78,7 @@ import MaterialIcon, {add} from 'material-icons-react';
 <MaterialIcon icon="add" color='#7bb92f' />
 ```
 
-### Git Instructions
+## Git Instructions
 
 **Get Branch:** git pull origin <branchname>
 **Get Master:** git pull origin master
