@@ -3,8 +3,9 @@ import Header from './Header';
 
 export default function Login() {
 	return (
-
-		<Header />
+		<div className="login">
+			<Header />
+		</div>
 
 	);
 
