@@ -1,0 +1,15 @@
+.login__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 45vh;
+  background-color: $purple;
+
+
+  h1 {
+    padding-left: 20px;
+    font-size: 46px;
+  }
+}
