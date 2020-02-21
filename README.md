@@ -103,5 +103,15 @@ We decided on this color palette because it is almost more Los Pepes than Los Pe
 ## Mandatory Advanced js 5
 The description for the assignment is located in the create-react-app 
 
+https://www.dropbox.com/
+
+https://www.dropbox.com/developers/reference/oauth-guide
+
+http://dropbox.github.io/dropbox-sdk-js/
+
+https://dropbox.github.io/dropbox-sdk-js/Dropbox.html
+
+https://www.dropbox.com/developers/reference/webhooks
+
 ### Project description
 https://github.com/Los-pepes-webdesign/mandatory-advanced-js5/blob/master/Avancerad%20JS%20-%20Grupp-projekt.pdf
