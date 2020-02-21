@@ -104,3 +104,6 @@ git branch
 
 ## Mandatory Advanced js 5
 The description for the assignment is located in the create-react-app 
+
+### Project description
+https://github.com/Los-pepes-webdesign/mandatory-advanced-js5/blob/master/Avancerad%20JS%20-%20Grupp-projekt.pdf
