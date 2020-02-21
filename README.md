@@ -22,6 +22,7 @@ Installs all dependencies required to run the app.
 
 We apply the use of BEM modified for SCSS when writing stylesheet. Example:
 
+```
 .class {
   &__nested {
     &__deep {
@@ -34,5 +35,6 @@ We apply the use of BEM modified for SCSS when writing stylesheet. Example:
     }
   }
 }
+```
 
 For further reading, check [https://www.joeforshaw.com/blog/writing-scss-with-bem] or [http://getbem.com/introduction/] for documentation.
