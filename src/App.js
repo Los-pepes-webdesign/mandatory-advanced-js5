@@ -1,6 +1,6 @@
 import React from 'react';
-import Main from './components/pages/Main.js';
-import Login from './components/pages/Login.js';
+import Main from './components/pages/main/Main';
+import Login from './components/pages/login/Login';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import './styles/App.scss';
