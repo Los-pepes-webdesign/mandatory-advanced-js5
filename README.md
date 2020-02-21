@@ -100,3 +100,7 @@ git branch -d <name>
 
 **Show all branches:**
 git branch
+
+
+## Mandatory Advanced js 5
+The description for the assignment is located in the create-react-app 
