@@ -73,9 +73,9 @@ This package provides a convenient react component for using Google's Material I
 #### Usage
  
 ```
-import MaterialIcon, {colorPalette} from 'material-icons-react';
+import MaterialIcon, {add} from 'material-icons-react';
 
-<MaterialIcon icon="dashboard" color='#7bb92f' />
+<MaterialIcon icon="add" color='#7bb92f' />
 ```
 
 ### Git Instructions
