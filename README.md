@@ -104,6 +104,15 @@ git branch -d branch_name
 git branch
 
 
+## Los Pepes Color Palette
+`#581845`
+`#900C3F`
+`#C70039`
+`#FF5733`
+`#FFC30F`
+(https://github.com/Los-pepes-webdesign/mandatory-advanced-js5/edit/master/public/lospepespalette.jpg)
+
+
 ## Mandatory Advanced js 5
 The description for the assignment is located in the create-react-app 
 
