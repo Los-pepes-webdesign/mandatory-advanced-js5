@@ -7,14 +7,12 @@ import './styles/App.scss';
 
 function App() {
 	return (
-		<div className='App'>
-			<HelmetProvider>
-				<Router>
-					<Route path='/login' component={Login} />
-					<Route path='/' component={Main} />
-				</Router>
-			</HelmetProvider>
-		</div>
+		<HelmetProvider>
+			<Router>
+				<Route path='/login' component={Login} />
+				<Route path='/' component={Main} />
+			</Router>
+		</HelmetProvider>
 	);
 }
 
