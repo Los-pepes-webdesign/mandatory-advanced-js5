@@ -12,6 +12,7 @@ const dropbox = new Dropbox({
 	});
 
 export default function Main() {
+	const [allFiles, setAllFiles] = useState([]);
 
 	useEffect(() => {
 		if (window.location.hash.length < 2) return <Redirect to='/login' />;
@@ -20,21 +21,22 @@ export default function Main() {
 		getAllFiles(token);
 	}, [])
 
-
-
 		function getAllFiles (token) {
 			dropbox.setAccessToken(token);
 			dropbox.filesListFolder({
 			path: ''
-		}).then(response =>
-			console.log(response));
-		}
+		}).then(response => {
+			console.log(response);
+			setAllFiles(response.entries);
+			}
+		)}
+
 	return (
 		<div className='main'>
 			<Mainmenu />
 			<Header />
 			<Profile />
-			<Content />
+			<Content files={allFiles} />
 		</div>
 	);
 }
