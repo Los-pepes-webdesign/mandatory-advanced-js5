@@ -17,6 +17,8 @@ export default function Content({files}) {
 			{files.map((files) =>
 				<tr>
 					<td>{files.name}</td>
+					<td>{files.server_modified}</td>
+					<td></td>
 				</tr>
 			)}
 				</tbody>
