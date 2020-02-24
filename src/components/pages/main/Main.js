@@ -12,15 +12,17 @@ const dropbox = new Dropbox({
 	});
 
 export default function Main() {
+
 	useEffect(() => {
-		getAllFiles();
+		if (window.location.hash.length < 2) return <Redirect to='/login' />;
+			const regex = new RegExp(/=(.*)(?=&token_type)/, 'i');
+			const token = window.location.hash.match(regex)[1];
+		getAllFiles(token);
 	}, [])
 
-	if (window.location.hash.length < 2) return <Redirect to='/login' />;
-		const regex = new RegExp(/=(.*)(?=&token_type)/, 'i');
-		const token = window.location.hash.match(regex)[1];
 
-		function getAllFiles () {
+
+		function getAllFiles (token) {
 			dropbox.setAccessToken(token);
 			dropbox.filesListFolder({
 			path: ''
