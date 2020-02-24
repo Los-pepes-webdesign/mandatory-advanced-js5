@@ -13,6 +13,8 @@ const dropbox = new Dropbox({
 
 export default function Main() {
 	const [allFiles, setAllFiles] = useState([]);
+	const [URLfile, setURLfile] = useState('');
+	const [fileName, setFileName] = useState('')
 
 	useEffect(() => {
 		if (window.location.hash.length < 2) return <Redirect to='/login' />;
@@ -28,8 +30,23 @@ export default function Main() {
 		}).then(response => {
 			console.log(response);
 			setAllFiles(response.entries);
-			}
-		)}
+		})
+	}
+
+function downloadSingle () {
+	dropbox.filesGetTemporaryLink({ path: '/testpic.png'})
+			.then(response => {
+				console.log(response);
+				const blob = response.fileBlob;
+				const url = URL.createObjectURL(blob);
+				console.log(url);
+				console.log(blob);
+				setURLfile(url);
+			})
+			.catch(error => {
+			console.log(error);
+		})
+}
 
 	return (
 		<div className='main'>
@@ -37,6 +54,7 @@ export default function Main() {
 			<Header />
 			<Profile />
 			<Content files={allFiles} />
+			<a onClick={downloadSingle} href={URLfile} download="testpic.png">test download</a>
 		</div>
 	);
 }
