@@ -1,12 +1,17 @@
 @import './header';
 
 .main {
-	height: 100vh;
-	background-color: $body;
-	display: grid;
-    grid-template: 
-    'mainmenu header profile' 120px 
-    'mainmenu content content' auto / 1fr 7fr 1fr;
+
+    height: 100vh;
+    background-color: $body;
+    display: grid;
+    grid-template:
+        'mainmenu header profile' 120px
+        'mainmenu content content' auto / 1fr 7fr 1fr;
+
+    & .mainmenu{
+        grid-area: mainmenu;
+    }
 
 	& .header {
 		grid-area: header;
@@ -16,11 +21,21 @@
 		grid-area: profile;
 	}
 
-	& .content {
-		grid-area: content;
-	}
+    & .content {
+        grid-area: content;
 
-	& .content {
-		grid-area: content;
-	}
+
+        table {
+
+          tr {
+            td, th {
+              padding: 70px;
+            }
+            td:first-child, th:first-child {
+              padding-right: 250px;
+            }
+          }
+        }
+    }
+
 }
