@@ -1,60 +1,48 @@
-import React, {useState, useReducer, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { Dropbox } from 'dropbox';
+import { dropbox, setState$ } from '../../../utilities/store';
+
 import Mainmenu from './Mainmenu';
 import Header from './Header';
 import Content from './Content';
 import Profile from './Profile';
 
-const dropbox = new Dropbox({
-	clientId : 'wwft9hg3g9qhuth',
-	fetch
-	});
-
 export default function Main() {
-	const [allFiles, setAllFiles] = useState([]);
-	const [URLfile, setURLfile] = useState('');
-	const [fileName, setFileName] = useState('')
+	const [ invalidHash, setInvalidHash ] = useState(false);
 
 	useEffect(() => {
-		if (window.location.hash.length < 2) return <Redirect to='/login' />;
+		if (window.location.hash.length < 2) {
+			setInvalidHash(true);
+		} else {
 			const regex = new RegExp(/=(.*)(?=&token_type)/, 'i');
 			const token = window.location.hash.match(regex)[1];
-		getAllFiles(token);
-	}, [])
-
-		function getAllFiles (token) {
 			dropbox.setAccessToken(token);
-			dropbox.filesListFolder({
-			path: ''
-		}).then(response => {
-			console.log(response);
-			setAllFiles(response.entries);
-		})
-	}
-
-function downloadSingle () {
-	dropbox.filesGetTemporaryLink({ path: '/testpic.png'})
-			.then(response => {
-				console.log(response);
-				const blob = response.fileBlob;
-				const url = URL.createObjectURL(blob);
-				console.log(url);
-				console.log(blob);
-				setURLfile(url);
-			})
-			.catch(error => {
-			console.log(error);
-		})
-}
+			dropbox.filesListFolder({ path: '' }).then(({ entries }) => {
+				const folders = entries.filter((file) => file['.tag'] === 'folder');
+				const files = entries.filter((file) => file['.tag'] === 'file');
+				const promises = files.map((file) => dropbox.filesGetTemporaryLink({ path: file.path_lower }));
+				Promise.all(promises).then((result) => {
+					setState$(
+						[ ...folders, ...result.map((path, index) => ({ ...files[index], href: path.link })) ],
+						'setFiles'
+					);
+				});
+			});
+			dropbox.usersGetCurrentAccount().then((response) => {
+				setState$(response, 'setProfile');
+			});
+		}
+	}, []);
 
 	return (
-		<div className='main'>
-			<Mainmenu />
-			<Header />
-			<Profile />
-			<Content files={allFiles} />
-			<a onClick={downloadSingle} href={URLfile} download="testpic.png">test download</a>
-		</div>
+		<React.Fragment>
+			{invalidHash && <Redirect to='/login' />}
+			<div className='main'>
+				<Mainmenu />
+				<Header />
+				<Profile />
+				<Content />
+			</div>
+		</React.Fragment>
 	);
 }

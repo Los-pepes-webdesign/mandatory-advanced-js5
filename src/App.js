@@ -10,7 +10,7 @@ function App() {
 		<HelmetProvider>
 			<Router>
 				<Route path='/login' component={Login} />
-				<Route path='/' component={Main} />
+				<Route exact path='/' component={Main} />
 			</Router>
 		</HelmetProvider>
 	);
