@@ -4,7 +4,7 @@ import { useObservable, state$ } from '../../../utilities/store';
 
 export default function Content() {
 	const { files } = useObservable(state$);
-	console.log(files)
+	console.log(files);
 	return (
 		<main className='content'>
 			<table>
@@ -21,13 +21,18 @@ export default function Content() {
 							<td>{file.name}</td>
 							<td>{file.server_modified}</td>
 							<td>
-							<div>
-							<ul>
-								<li><a href={file.href} download={file.name}>Download</a></li>
-								</ul>
-							<MoreVertIcon />
-							</div>
-
+								<div>
+									<ul>
+										<li>
+											<a
+												href={file.href}
+												download={file.name}>
+												Download
+											</a>
+										</li>
+									</ul>
+									<MoreVertIcon />
+								</div>
 							</td>
 						</tr>
 					))}

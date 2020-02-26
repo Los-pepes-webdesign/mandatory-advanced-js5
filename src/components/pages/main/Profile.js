@@ -12,7 +12,9 @@ export default function Profile() {
 		<div className='profile'>
 			<AccountBoxIcon />
 			<div className='profile__information'>
-				<div className='greeting'>Hola, {profile.name.display_name}</div>
+				<div className='greeting'>
+					Hola, {profile.name.display_name}
+				</div>
 				<div className='email'>{profile.email}</div>
 			</div>
 			<div className='profile__more'>

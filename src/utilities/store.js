@@ -7,6 +7,16 @@ export const dropbox = new Dropbox({
 	fetch
 });
 
+export const token$ = new BehaviorSubject(localStorage.getItem('token'));
+
+export const setToken$ = (token) => {
+	if (!token) localStorage.removeItem('token');
+	else localStorage.setItem('token', token);
+
+	dropbox.setAccessToken(token);
+	token$.next(token);
+};
+
 export function useObservable(observable) {
 	const [ value, setValue ] = useState(observable.value);
 
