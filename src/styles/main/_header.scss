@@ -1,0 +1,51 @@
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&__form {
+		display: inline-block;
+		position: relative;
+		border: none;
+
+		&__input {
+			height: 40px;
+			padding: 0 40px 0 0px;
+			border-radius: 20px;
+			border: 0;
+			width: 0;
+			box-sizing: border-box;
+			transition: 0.4s ease;
+
+			&::placeholder {
+				font-size: 14px;
+			}
+
+			&:focus {
+				width: 500px;
+				padding-left: 20px;
+				outline: none;
+			}
+		}
+
+		&__button {
+			position: absolute;
+			background-color: $yellow;
+			border-radius: 20px;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			height: 40px;
+			width: 40px;
+			border: none;
+		}
+
+		&:hover {
+			& > input {
+				width: 500px;
+				padding-left: 20px;
+				outline: none;
+			}
+		}
+	}
+}

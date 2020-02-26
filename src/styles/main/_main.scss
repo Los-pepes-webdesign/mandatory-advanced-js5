@@ -1,6 +1,8 @@
+@import './header';
 @import './profile';
 
 .main {
+
     height: 100vh;
     background-color: $body;
     display: grid;
@@ -8,20 +10,21 @@
         'mainmenu header profile' 120px
         'mainmenu content content' auto / 1fr 7fr 1fr;
 
-    & .mainmenu {
+    & .mainmenu{
         grid-area: mainmenu;
     }
 
-    & .header {
-        grid-area: header;
-    }
+	& .header {
+		grid-area: header;
+	}
 
-    & .profile {
-        grid-area: profile;
-    }
+	& .profile {
+		grid-area: profile;
+	}
 
     & .content {
         grid-area: content;
 
     }
+
 }

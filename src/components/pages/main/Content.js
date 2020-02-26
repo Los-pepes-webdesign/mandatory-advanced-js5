@@ -1,12 +1,15 @@
 import React from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useObservable, state$ } from '../../../utilities/store';
+import {
+	useObservable,
+	state$
+} from '../../../utilities/store';
 
 export default function Content() {
 	const { files } = useObservable(state$);
 	console.log(files);
 	return (
-		<main className='content'>
+		<main className="content">
 			<table>
 				<thead>
 					<tr>
@@ -25,8 +28,13 @@ export default function Content() {
 									<ul>
 										<li>
 											<a
-												href={file.href}
-												download={file.name}>
+												href={
+													file.href
+												}
+												download={
+													file.name
+												}
+											>
 												Download
 											</a>
 										</li>
