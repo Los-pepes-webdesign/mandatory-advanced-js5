@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import { dropbox, setState$ } from '../../../utilities/store';
+import { dropbox, setState$, setToken$ } from '../../../utilities/store';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -15,6 +15,7 @@ export default function ProfileMore(profile) {
 
   function logoutUser() {
     console.log(dropbox);
+    setToken$(null);
     dropbox.authTokenRevoke();
     updateLogout(!logout);
     // Add && in redirect condition to check that the Token really is revoked
