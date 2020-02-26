@@ -1,28 +1,33 @@
 import React from 'react';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useObservable, state$ } from '../../../utilities/store';
 
-export default function Content({files}) {
-	console.log(files);
+export default function Content() {
+	const { files } = useObservable(state$);
+
 	return (
-		<main className='content'>
+		<main className="content">
 			<table>
 				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Modified</th>
-						<th></th>
+
+						<th />
 					</tr>
 				</thead>
 				<tbody>
-
-			{files.map((files) =>
-				<tr>
-					<td>{files.name}</td>
-					<td>{files.server_modified}</td>
-					<td></td>
-				</tr>
-			)}
+					{files.map((file) => (
+						<tr key={file.id}>
+							<td>{file.name}</td>
+							<td>{file.server_modified}</td>
+							<td>
+								<MoreVertIcon />
+							</td>
+						</tr>
+					))}
 				</tbody>
 			</table>
 		</main>
-		)
+	);
 }

@@ -4,11 +4,9 @@
 	height: 100vh;
 	background-color: $body;
 	display: grid;
-	grid-template: 'mainmenu header profile' 120px 'mainmenu content content' auto / 1fr 7fr 1fr;
-
-	& .mainmenu {
-		grid-area: mainmenu;
-	}
+    grid-template: 
+    'mainmenu header profile' 120px 
+    'mainmenu content content' auto / 1fr 7fr 1fr;
 
 	& .header {
 		grid-area: header;
@@ -20,18 +18,9 @@
 
 	& .content {
 		grid-area: content;
+	}
 
-		table {
-			tr {
-				td,
-				th {
-					padding: 70px;
-				}
-				td:first-child,
-				th:first-child {
-					padding-right: 250px;
-				}
-			}
-		}
+	& .content {
+		grid-area: content;
 	}
 }
