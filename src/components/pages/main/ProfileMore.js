@@ -14,9 +14,8 @@ export default function ProfileMore(profile) {
   }
 
   function logoutUser() {
-    console.log(dropbox);
-    setToken$(null);
     dropbox.authTokenRevoke();
+    setToken$(null);
     updateLogout(!logout);
     // Add && in redirect condition to check that the Token really is revoked
   }
