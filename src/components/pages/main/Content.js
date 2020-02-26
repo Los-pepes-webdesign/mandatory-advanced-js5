@@ -7,7 +7,6 @@ import {
 
 export default function Content() {
 	const { files } = useObservable(state$);
-	console.log(files);
 	return (
 		<main className="content">
 			<table>

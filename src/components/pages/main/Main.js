@@ -28,6 +28,7 @@ export default function Main() {
 			) &&
 			!token$.value
 		) {
+			console.log(token$.value);
 			setHashStatus('invalid');
 		} else {
 			if (!token$.value) {
@@ -72,36 +73,7 @@ export default function Main() {
 							],
 							'setFiles'
 						);
-						const promises = files.map((file) =>
-							dropbox.filesGetTemporaryLink({
-								path: file.path_lower
-							})
-						);
-						Promise.all(
-							promises
-						).then((result) => {
-							setState$(
-								[
-									...folders,
-									...result.map(
-										(path, index) => ({
-											...files[index],
-											href: path.link
-										})
-									)
-								],
-								'setFiles'
-							);
-						});
 					});
-					dropbox
-						.usersGetCurrentAccount()
-						.then((response) => {
-							setState$(
-								response,
-								'setProfile'
-							);
-						});
 				});
 
 			dropbox
@@ -124,11 +96,11 @@ export default function Main() {
 				<Profile />
 
 				<Switch>
-					<Route path="/" component={Content} />
 					<Route
 						path="/search"
 						component={QueriedContent}
 					/>
+					<Route path="/" component={Content} />
 				</Switch>
 			</div>
 		</React.Fragment>
