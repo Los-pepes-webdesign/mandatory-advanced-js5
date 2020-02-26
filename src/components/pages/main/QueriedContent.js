@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-export default function QueriedContent(){
-    return(
-        
-    )
+export default function QueriedContent() {
+	return <div>HEllo</div>;
 }

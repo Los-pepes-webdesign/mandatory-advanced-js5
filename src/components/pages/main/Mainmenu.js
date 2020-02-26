@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function Menu() {
-	return <aside className='mainmenu' />;
+	return <aside className='mainmenu'>Files</aside>;
 }
