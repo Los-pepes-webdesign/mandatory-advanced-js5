@@ -108,6 +108,14 @@ export default function Main() {
 				.then((profile) => {
 					setState$(profile, 'setProfile');
 				});
+
+
+			// Get user space usage and save it to the global state
+			dropbox.usersGetSpaceUsage()
+		  .then((userSpace) => {
+		    setState$(userSpace, 'setUserSpace');
+		  });
+
 		}
 	}, []);
 

@@ -1,3 +1,163 @@
+.profile {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  margin-top: 25px;
+}
+
+
+.profile__info__greeting {
+  width: 115px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.profile__userIconContainer {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  margin-top: 3px;
+  background-color: $wine;
+  border-radius: 10px;
+}
+
+.profile__userIconContainer__userIcon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: $yellow;
+}
+
+.profile__info__moreButton {
+  position: relative;
+  height: 22px;
+  width: 16px;
+  margin-top: 11px;
+
+  border: none;
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: $purple;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.profile__info__moreButton:hover {
+  color: $yellow;
+}
+
+.profile__info__moreButton:active {
+  color: $red;
+}
+
+.moreVertIcon {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  margin-left: -16px;
+  margin-top: -13px;
+}
+
+.profile__more__refLinkInputDummy {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  left: 0px;
+  top: -1000px;
+}
+
 .profile__more {
-    position: relative;
+  padding: 10px 0 10px 0;
+  position: absolute;
+  width: 180px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+  background-color: $body;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+
+  -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+  -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+  box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+
+}
+
+.profile__more__lineBreak {
+  width: 150px;
+  height: 1px;
+  background-color: $purple;
+  margin: auto;
+}
+
+.profile__more__lineBreakFat {
+  width: 150px;
+  height: 2px;
+  background-color: $purple;
+  margin: auto;
+}
+
+.profile__more__logoutButton {
+  width: 100px;
+  height: 20px;
+  border: none;
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.profile__more__logoutButton:hover {
+  color: $yellow;
+}
+
+.profile__more__logoutButton:active {
+  color: $wine;
+}
+
+.profile__more__profileInfo__email__text {
+  padding-top: 5px;
+  font-size: 12px;
+}
+
+.profile__more__refLinkButton {
+  display: flex;
+  position: relative;
+  width: 150px;
+  height: 30px;
+  border: none;
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  background-color: $yellow;
+  border-radius: 10px;
+  color: $wine;
+}
+
+.profile__more__refLinkButton:hover {
+  background-color: $hover;
+}
+
+.profile__more__refLinkButton:active {
+  background-color: $wine;
+  color: $yellow;
+}
+
+.profile__more__refLinkButton__linkIcon {
+  position: absolute;
+  left: 75px;
+  top: 15px;
+  margin-left: -10px;
+  margin-top: -11px;
+  transform: rotate(45deg);
+}
+
+.profile__more__refLinkButton__textContainer {
+  padding-left: 24px;
+  width: 57px;
 }

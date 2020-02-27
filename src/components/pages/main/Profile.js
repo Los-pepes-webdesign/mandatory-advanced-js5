@@ -12,20 +12,20 @@ export default function Profile() {
 
 	return (
 		<div className='profile'>
-			<AccountBoxIcon />
-
+			<div className="profile__userIconContainer">
+				<AccountBoxIcon className="profile__userIconContainer__userIcon"/>
+			</div>
 			<div className='profile__info'>
-				<div className='profile__info__userAvatar'>[AvatarIcon]</div>
 				<div className='profile__info__greeting'>
-					Hola, {profile.name.given_name}!
+					<p className='profile__info__greeting__text'>Hola, {profile.name.given_name}!</p>
 				</div>
 			</div>
 			<button
 				className='profile__info__moreButton'
 				onClick={() => updateShowMore(!showMore)}>
-				<MoreVertIcon />
+				<MoreVertIcon className="moreVertIcon" />
 			</button>
-			{showMore ? <ProfileMore profile={profile} /> : null}
+			{showMore ? <ProfileMore /> : null}
 		</div>
 	);
 }

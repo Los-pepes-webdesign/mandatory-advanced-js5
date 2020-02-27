@@ -48,6 +48,9 @@ export function setState$(value, action) {
 		case 'setProfile':
 			state$.next({ ...state$.value, profile: value });
 			break;
+		case 'setUserSpace':
+			state$.next({ ...state$.value, userSpace: value });
+			break;
 		default:
 			throw new Error('Invalid action.');
 	}
