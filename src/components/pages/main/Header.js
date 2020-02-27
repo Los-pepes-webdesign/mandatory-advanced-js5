@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
-import {
-	dropbox,
-	setState$
-} from '../../../utilities/store';
+import { dropbox, setState$ } from '../../../utilities/store';
 
 export default function Header() {
-	const [ filterSearch, updateFilterSearch ] = useState(
-		''
-	);
+	const [ filterSearch, updateFilterSearch ] = useState('');
 	const [ focus, updateFocus ] = useState(null);
 
 	function filter(e) {
@@ -75,10 +70,8 @@ export default function Header() {
 				<button
 					className="header__closeButton"
 					style={{
-						opacity: focus ? 1 : 0,
-						pointerEvents: focus
-							? 'all'
-							: 'none',
+						opacity: focus === 'true' ? 1 : 0,
+						pointerEvents: focus === 'true' ? 'all' : 'none',
 						color: '#900C3F'
 					}}
 					onClick={onBlur}
