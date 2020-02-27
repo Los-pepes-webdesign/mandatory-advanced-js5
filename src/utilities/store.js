@@ -62,6 +62,9 @@ export function setState$(value, action) {
 				queriedFiles: value
 			});
 			break;
+		case 'setUserSpace':
+			state$.next({ ...state$.value, userSpace: value });
+			break;
 		default:
 			throw new Error('Invalid action.');
 	}
