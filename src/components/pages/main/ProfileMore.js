@@ -73,11 +73,11 @@ export default function ProfileMore() {
         <input className="profile__more__refLinkInputDummy" ref={refInput} type="text" readOnly value={profile.referral_link} />
         <button className="profile__more__refLinkButton" onClick={copyToClipboard}>
           <div className="profile__more__refLinkButton__textContainer">
-            <p classNameCopy="profile__more__refLinkButton__textContainer__text">Copy</p>
+            <p className="profile__more__refLinkButton__textContainer__text">Copy</p>
           </div>
           <LinkIcon className="profile__more__refLinkButton__linkIcon"/>
           <div className="profile__more__refLinkButton__textContainer">
-            <p classNameCopy="profile__more__refLinkButton__textContainer__text">link</p>
+            <p className="profile__more__refLinkButton__textContainer__text">link</p>
           </div>
         </button>
         <div className="profile__more__lineBreak"></div>
