@@ -18,8 +18,6 @@ export default function ProfileMore() {
 
 	// Logs out user by setting local token to <null> and revokes token from Dropbox API
 	function logoutUser() {
-		console.log(userSpace);
-
 		dropbox.authTokenRevoke();
 		setToken$(null);
 	}
