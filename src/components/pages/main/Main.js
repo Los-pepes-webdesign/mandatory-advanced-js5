@@ -1,6 +1,6 @@
 // library imports
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, Switch, Route } from 'react-router';
 
 // store imports
 import {
@@ -15,6 +15,7 @@ import Mainmenu from './Mainmenu';
 import Header from './Header';
 import Content from './Content';
 import Profile from './Profile';
+import QueriedContent from './QueriedContent';
 
 // component
 export default function Main() {
@@ -27,6 +28,7 @@ export default function Main() {
 			) &&
 			!token$.value
 		) {
+			console.log(token$.value);
 			setHashStatus('invalid');
 		} else {
 			if (!token$.value) {
@@ -71,36 +73,7 @@ export default function Main() {
 							],
 							'setFiles'
 						);
-						const promises = files.map((file) =>
-							dropbox.filesGetTemporaryLink({
-								path: file.path_lower
-							})
-						);
-						Promise.all(
-							promises
-						).then((result) => {
-							setState$(
-								[
-									...folders,
-									...result.map(
-										(path, index) => ({
-											...files[index],
-											href: path.link
-										})
-									)
-								],
-								'setFiles'
-							);
-						});
 					});
-					dropbox
-						.usersGetCurrentAccount()
-						.then((response) => {
-							setState$(
-								response,
-								'setProfile'
-							);
-						});
 				});
 
 			dropbox
@@ -130,7 +103,13 @@ export default function Main() {
 				<Header />
 				<Profile />
 
-				<Content />
+				<Switch>
+					<Route
+						path="/search"
+						component={QueriedContent}
+					/>
+					<Route path="/" component={Content} />
+				</Switch>
 			</div>
 		</React.Fragment>
 	);

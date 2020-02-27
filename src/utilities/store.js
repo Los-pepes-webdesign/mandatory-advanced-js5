@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import { BehaviorSubject } from 'rxjs';
 
 export const dropbox = new Dropbox({
-	clientId : 'wwft9hg3g9qhuth',
+	clientId: 'wwft9hg3g9qhuth',
 	fetch
 });
 
-export const token$ = new BehaviorSubject(localStorage.getItem('token'));
+export const token$ = new BehaviorSubject(
+	localStorage.getItem('token')
+);
 
 export const setToken$ = (token) => {
 	if (!token) localStorage.removeItem('token');
@@ -22,9 +24,11 @@ export function useObservable(observable) {
 
 	useEffect(
 		() => {
-			const subscription = observable.subscribe((newValue) => {
-				setValue(newValue);
-			});
+			const subscription = observable.subscribe(
+				(newValue) => {
+					setValue(newValue);
+				}
+			);
 
 			return () => subscription.unsubscribe();
 		},
@@ -35,9 +39,10 @@ export function useObservable(observable) {
 }
 
 export const state$ = new BehaviorSubject({
-	files       : [],
-	currentPath : '',
-	profile     : {}
+	files: [],
+	currentPath: '',
+	profile: {},
+	queriedFiles: []
 });
 
 export function setState$(value, action) {
@@ -46,7 +51,16 @@ export function setState$(value, action) {
 			state$.next({ ...state$.value, files: value });
 			break;
 		case 'setProfile':
-			state$.next({ ...state$.value, profile: value });
+			state$.next({
+				...state$.value,
+				profile: value
+			});
+			break;
+		case 'setQueriedFiles':
+			state$.next({
+				...state$.value,
+				queriedFiles: value
+			});
 			break;
 		case 'setUserSpace':
 			state$.next({ ...state$.value, userSpace: value });
