@@ -1,6 +1,6 @@
 // library imports
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, Switch, Route } from 'react-router';
 
 // store imports
 import {
@@ -15,6 +15,7 @@ import Mainmenu from './Mainmenu';
 import Header from './Header';
 import Content from './Content';
 import Profile from './Profile';
+import QueriedContent from './QueriedContent';
 
 // component
 export default function Main() {
@@ -70,7 +71,11 @@ export default function Main() {
 				<Mainmenu />
 				<Header />
 				<Profile />
-				<Content />
+
+				<Switch>
+					<Route path='/search' component={QueriedContent} />
+					<Route path='/' component={Content} />
+				</Switch>
 			</div>
 		</React.Fragment>
 	);

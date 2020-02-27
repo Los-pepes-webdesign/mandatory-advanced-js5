@@ -1,18 +1,22 @@
 .header {
+	background-color: transparent;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
+	padding-right: 32px;
 
 	&__form {
 		display: inline-block;
 		position: relative;
 		border: none;
+		margin-right: 12px;
 
 		&__input {
 			height: 40px;
 			padding: 0 40px 0 0px;
 			border-radius: 20px;
-			border: 0;
+			outline: none;
+			border: none;
 			width: 0;
 			box-sizing: border-box;
 			transition: 0.4s ease;
@@ -21,10 +25,14 @@
 				font-size: 14px;
 			}
 
-			&:focus {
+			&:focus, &:valid {
 				width: 500px;
 				padding-left: 20px;
+			}
+
+			&:required {
 				outline: none;
+				border: none;
 			}
 		}
 
@@ -47,5 +55,14 @@
 				outline: none;
 			}
 		}
+	}
+	&__closeButton{
+		width: 40px;
+		height: 40px;
+		border-radius: 20px;
+		background-color: transparent;
+		border: none;
+		outline: none;
+		transition: 0.5s ease;
 	}
 }
