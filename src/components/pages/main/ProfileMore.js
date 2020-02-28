@@ -2,7 +2,9 @@ import React, { useRef } from 'react';
 import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
 import { dropbox, setToken$, token$, useObservable, state$ } from '../../../utilities/store';
-import { userSpaceFormatting } from '../../../utilities/helpers';
+import { usedSpaceFormatting } from '../../../utilities/helpers';
+import {maxSpaceFormatting } from '../../../utilities/helpers';
+// import { userSpaceFormatting } from '../../../utilities/helpers';
 
 export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
@@ -39,7 +41,7 @@ export default function ProfileMore() {
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{userSpaceFormatting(userSpace)}{' '}
+						{usedSpaceFormatting(userSpace)} of {' '} {maxSpaceFormatting(userSpace)} used
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />
