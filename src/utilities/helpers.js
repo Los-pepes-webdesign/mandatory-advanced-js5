@@ -1,4 +1,5 @@
-// FUNCTION: usedSpaceFormatting(), return value of currently used space on PepesBox formatted to two decimals with suffix (bytes, KB, MB, GB)
+// FUNCTION: formatSize(), return value of currently used space on PepesBox formatted to two decimals with suffix (bytes, KB, MB, GB)
+
 export function formatSize(size) {
 	const kb = 1e3;
 	const mb = 1e6;

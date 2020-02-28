@@ -39,7 +39,7 @@ export default function Content() {
 										<ul>
 											<li>
 												<a href={file.link} download={file.name}>
-													Save to disk
+													Download
 												</a>
 											</li>
 											<li>

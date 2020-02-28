@@ -1,5 +1,5 @@
 .profile {
-  width: 200px;
+  width: 220px;
   height: 50px;
   display: flex;
   margin-top: 38px;
@@ -23,8 +23,8 @@
   &__userIconContainer {
     @extend %flexCC;
     position: relative;
-    width: 35px;
-    height: 35px;
+    width: 34px;
+    height: 34px;
     margin-top: 3px;
     background-color: $wine;
     border-radius: 10px;
