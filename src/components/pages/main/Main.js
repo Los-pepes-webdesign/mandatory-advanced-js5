@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, Switch, Route } from 'react-router';
 
 // store imports
-import { dropbox, setState$, token$, setToken$, useObservable } from '../../../utilities/store';
+import { token$, setToken$, useObservable } from '../../../utilities/store';
+import { init } from '../../../utilities/dropbox';
 
 // component imports
 import Mainmenu from './Mainmenu';
@@ -14,9 +15,9 @@ import QueriedContent from './QueriedContent';
 
 // component
 export default function Main() {
-	const [ hashStatus, setHashStatus ] = useState(null);
-	const accessToken = useObservable(token$);
-	
+	const [ hashStatus, setHashStatus ] = useState(null); // controls redirect to '/login' or '/'
+	const accessToken = useObservable(token$); // token subscription
+
 	useEffect(
 		() => {
 			if (!window.location.hash.includes('access_token') && !accessToken) {
@@ -29,39 +30,8 @@ export default function Main() {
 					setToken$(token);
 					setHashStatus('valid');
 				}
-				else {
-					dropbox.setAccessToken(accessToken);
-				}
 
-				dropbox.filesListFolder({ path: '' }).then(({ entries }) => {
-					const folders = entries.filter((file) => file['.tag'] === 'folder');
-					const files = entries.filter((file) => file['.tag'] === 'file');
-					const promises = files.map((file) =>
-						dropbox.filesGetTemporaryLink({ path: file.path_lower })
-					);
-
-					Promise.all(promises).then((result) => {
-						setState$(
-							[
-								...folders,
-								...result.map((path, index) => ({
-									...files[index],
-									href : path.link
-								}))
-							],
-							'setFiles'
-						);
-					});
-				});
-
-				dropbox.usersGetCurrentAccount().then((profile) => {
-					setState$(profile, 'setProfile');
-				});
-
-				// Get user space usage and save it to the global state
-				dropbox.usersGetSpaceUsage().then((userSpace) => {
-					setState$(userSpace, 'setUserSpace');
-				});
+				init();
 			}
 		},
 		[ accessToken ]
@@ -75,7 +45,6 @@ export default function Main() {
 				<Mainmenu />
 				<Header />
 				<Profile />
-
 				<Switch>
 					<Route path='/search' component={QueriedContent} />
 					<Route path='/' component={Content} />

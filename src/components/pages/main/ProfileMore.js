@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
-import { dropbox, setToken$, token$, useObservable, state$ } from '../../../utilities/store';
-import { usedSpaceFormatting } from '../../../utilities/helpers';
-import {maxSpaceFormatting } from '../../../utilities/helpers';
+import { setToken$, token$, useObservable, state$ } from '../../../utilities/store';
+import { formatSize } from '../../../utilities/helpers';
+import { maxSpaceFormatting } from '../../../utilities/helpers';
+import { dropbox } from '../../../utilities/dropbox';
+
 
 export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
@@ -29,9 +31,7 @@ export default function ProfileMore() {
 			<div className='profile__more'>
 				<div className='profile__more__profileInfo'>
 					<div className='profile__more__profileInfo__name'>
-						<p className='profile__more__profileInfo__name__text'>
-							{profile.name.display_name}
-						</p>
+						<p className='profile__more__profileInfo__name__text'>{profile.name.display_name}</p>
 					</div>
 					<div className='profile__more__profileInfo__email'>
 						<p className='profile__more__profileInfo__email__text'>{profile.email}</p>
@@ -40,13 +40,10 @@ export default function ProfileMore() {
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{usedSpaceFormatting(userSpace.used)} of {maxSpaceFormatting(userSpace.allocation.allocated)} used
+						{formatSize(userSpace.used)} / {maxSpaceFormatting(userSpace.allocation.allocated)}
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />
-				<div className='profile__more__refLinkHeader'>
-					<p className='profile__more__refLinkHeader__text'>Referral Link</p>
-				</div>
 				<input
 					className='profile__more__refLinkInputDummy'
 					ref={refInput}
@@ -56,7 +53,7 @@ export default function ProfileMore() {
 				/>
 				<button className='profile__more__refLinkButton' onClick={copyToClipboard}>
 					<div className='profile__more__refLinkButton__textContainer'>
-						<p className='profile__more__refLinkButton__textContainer__text'>Copy</p>
+						<p className='profile__more__refLinkButton__textContainer__text'>Referral</p>
 					</div>
 					<LinkIcon className='profile__more__refLinkButton__linkIcon' />
 					<div className='profile__more__refLinkButton__textContainer'>

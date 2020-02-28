@@ -4,7 +4,8 @@ import { Redirect } from 'react-router';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { dropbox, setState$ } from '../../../utilities/store';
+import { setState$ } from '../../../utilities/store';
+import { dropbox } from '../../../utilities/dropbox';
 
 export default function Header() {
 	const [ filterSearch, updateFilterSearch ] = useState('');
@@ -28,8 +29,8 @@ export default function Header() {
 		e.preventDefault();
 		dropbox
 			.filesSearch({
-				path  : '',
-				query : filterSearch.toLowerCase()
+				path: '',
+				query: filterSearch.toLowerCase()
 			})
 			.then((response) => {
 				const queries = response.matches.map(({ metadata }) => metadata);
@@ -58,7 +59,7 @@ export default function Header() {
 					<button className='header__form__button' name='button' onClick={search}>
 						<SearchIcon
 							style={{
-								color : '#900C3F'
+								color: '#900C3F'
 							}}
 						/>
 					</button>
@@ -66,9 +67,9 @@ export default function Header() {
 				<button
 					className='header__closeButton'
 					style={{
-						opacity       : focus === 'true' ? 1 : 0,
-						pointerEvents : focus === 'true' ? 'all' : 'none',
-						color         : '#900C3F'
+						opacity: focus === 'true' ? 1 : 0,
+						pointerEvents: focus === 'true' ? 'all' : 'none',
+						color: '#900C3F'
 					}}
 					onClick={onBlur}
 				>
