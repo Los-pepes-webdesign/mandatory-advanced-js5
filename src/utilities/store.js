@@ -1,13 +1,9 @@
-import { Dropbox } from 'dropbox';
 import { useState, useEffect } from 'react';
 import { BehaviorSubject } from 'rxjs';
-
-export const dropbox = new Dropbox({
-	clientId : 'wwft9hg3g9qhuth',
-	fetch
-});
+import { dropbox } from './dropbox';
 
 export const token$ = new BehaviorSubject(localStorage.getItem('token'));
+dropbox.setAccessToken(token$.value);
 
 export const setToken$ = (token) => {
 	if (!token) localStorage.removeItem('token');
@@ -35,15 +31,19 @@ export function useObservable(observable) {
 }
 
 export const state$ = new BehaviorSubject({
-	files        : [],
-	currentPath  : '',
-	profile      : {},
-	queriedFiles : [],
-	userSpace    : {}
+	files: [],
+	currentPath: '',
+	profile: {},
+	queriedFiles: [],
+	userSpace: {}
 });
 
 export function setState$(value, action) {
 	switch (action) {
+		case 'init':
+			const { files, profile, userSpace } = value;
+			state$.next({ ...state$.value, files, profile, userSpace });
+			break;
 		case 'setFiles': // expects value to be an array of files
 			state$.next({ ...state$.value, files: value });
 			break;
@@ -60,3 +60,5 @@ export function setState$(value, action) {
 			throw new Error('Invalid action.');
 	}
 }
+
+export const imageExtensions = [ 'jpg', 'jpeg', 'png', 'bmp', 'gif', 'webp' ];

@@ -1,31 +1,26 @@
-// userSpace values are defined in bytes therefore we need to make sure they are correctly formatted
-// FUNCTION: userSpaceFormatting(), converts space values to a more user friendly format
-export function formatUserSpace(userSpace) {
-	console.log(userSpace);
-
+// FUNCTION: usedSpaceFormatting(), return value of currently used space on PepesBox formatted to two decimals with suffix (bytes, KB, MB, GB)
+export function formatSize(size) {
 	const kb = 1e3;
 	const mb = 1e6;
 	const gb = 1e9;
 	const tb = 1e12;
-	const maxSpaceDecimalized = userSpace.allocation.allocated / gb;
-	const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' GB';
 
-	if (userSpace.used < kb) {
-		return userSpace.used + ' bytes of ' + maxSpaceFormatted + ' used';
+	if (size < kb) {
+		return size + ' bytes';
 	}
-	else if (userSpace.used < mb && userSpace.used > kb) {
-		let decimalized = userSpace.used / kb;
+	else if (size < mb && size > kb) {
+		let decimalized = size / kb;
 		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' KB';
-		return formatted + ' of ' + maxSpaceFormatted + ' used';
+		return formatted;
 	}
-	else if (userSpace.used < gb && userSpace.used > mb) {
-		let decimalized = userSpace.used / mb;
+	else if (size < gb && size > mb) {
+		let decimalized = size / mb;
 		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' MB';
-		return formatted + ' of ' + maxSpaceFormatted + ' used';
+		return formatted;
 	}
-	else if (userSpace.used < tb && userSpace.used > gb) {
-		let decimalized = userSpace.used / gb;
+	else if (size < tb && size > gb) {
+		let decimalized = size / gb;
 		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' GB';
-		return formatted + ' of ' + maxSpaceFormatted + ' used';
+		return formatted;
 	}
 }
