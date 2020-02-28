@@ -7,6 +7,28 @@ export function formatSize(size) {
 	const tb = 1e12;
 	const pb = 1e15;
 
+
+ // Hur importerar man userSpace från global state hit?
+ // Det räcker med en formatSize funktion om man kör denna if-satsen
+ // för att se om size är === totalt utrymme
+ // isf return integer GB/
+ // =======================================================================================================
+	// if (size === userSpace.allocation.allocated) {
+	// 	if (size > gb && size < tb) {
+	// 		const maxSpaceDecimalized = size / gb;
+	// 		const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' GB';
+	// 		return maxSpaceFormatted;
+	// 	} else if (size > tb && size < pb) {
+	// 		const maxSpaceDecimalized = size / tb;
+	// 		const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' TB';
+	// 		return maxSpaceFormatted;
+	// 	} else {
+	// 		throw new Error('Invalid size.');
+	// 	}
+	// }
+	// =======================================================================================================
+
+
 	if (size < kb) {
 		return size + ' bytes';
 	}
