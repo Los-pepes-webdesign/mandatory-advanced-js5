@@ -16,7 +16,7 @@ import QueriedContent from './QueriedContent';
 export default function Main() {
 	const [ hashStatus, setHashStatus ] = useState(null);
 	const accessToken = useObservable(token$);
-
+	
 	useEffect(
 		() => {
 			if (!window.location.hash.includes('access_token') && !accessToken) {
