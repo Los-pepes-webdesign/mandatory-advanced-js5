@@ -1,15 +1,31 @@
 .profile {
-  width: 200px;
+  width: 220px;
   height: 50px;
   display: flex;
   margin-top: 38px;
+  display: flex;
+  align-items: center;
 }
 
+.profile__info {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
 
 .profile__info__greeting {
-  width: 115px;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__info__greeting__text {
+  font-size: 14px;
 }
 
 .profile__userIconContainer {
@@ -23,8 +39,9 @@
 
 .profile__userIconContainer__userIcon {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   color: $yellow;
 }
 
@@ -53,10 +70,10 @@
   justify-content: space-around;
   align-items: center;
   margin-top: 50px;
-  margin-right: 20px;
   background-color: $body;
   border: 1px solid lightgrey;
   border-radius: 5px;
+  transform: translate(14px, 94px);
 
   -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
@@ -71,12 +88,8 @@
   color: $red;
 }
 
-.moreVertIcon {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  margin-left: -16px;
-  margin-top: -13px;
+.arrowDropDownIcon {
+    transform: translateY(-7px);
 }
 
 .profile__more__refLinkInputDummy {
@@ -102,21 +115,24 @@
 }
 
 .profile__more__logoutButton {
-  width: 100px;
+  width: 150px;
   height: 20px;
   border: none;
   background: none;
   text-decoration: none;
   cursor: pointer;
   outline: none;
+
 }
 
 .profile__more__logoutButton:hover {
-  color: $yellow;
+  background-color: $hover;
+  border-radius:10px;
 }
 
 .profile__more__logoutButton:active {
-  color: $wine;
+  color: $yellow;
+  background-color: $wine;
 }
 
 .profile__more__profileInfo__email__text {
@@ -160,4 +176,12 @@
 .profile__more__refLinkButton__textContainer {
   padding-left: 24px;
   width: 57px;
+}
+
+.profile__more__spaceUsageText {
+  font-size: 12px;
+}
+
+.profile__more__refLinkHeader__text {
+  font-size: 12px;
 }
