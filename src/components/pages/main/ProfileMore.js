@@ -4,7 +4,6 @@ import { Redirect } from 'react-router';
 import { dropbox, setToken$, token$, useObservable, state$ } from '../../../utilities/store';
 import { usedSpaceFormatting } from '../../../utilities/helpers';
 import {maxSpaceFormatting } from '../../../utilities/helpers';
-// import { userSpaceFormatting } from '../../../utilities/helpers';
 
 export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
@@ -18,7 +17,7 @@ export default function ProfileMore() {
 		document.execCommand('copy');
 	}
 
-	// Logs out user by setting local token to <null> and revokes token from Dropbox API
+	// Logs out user by revoking token from Dropbox API and setting local token to <null>
 	function logoutUser() {
 		dropbox.authTokenRevoke();
 		setToken$(null);

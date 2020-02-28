@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {
 	useObservable,
 	state$
 } from '../../../utilities/store';
+import FileMore from "./FileMore";
 
 export default function Content() {
 	const { files } = useObservable(state$);
+	const [ showMore, updateShowMore ] = useState(false);
+	const [ buttonPos, updateButtonPos ] = useState({x: "0px", y: "0px"});
+
+	function getButtonPosition(e){
+		updateShowMore(!showMore);
+		const buttonPosX = e.target.getBoundingClientRect().x;
+		const buttonPosY = e.target.getBoundingClientRect().y;
+		updateButtonPos({x: buttonPosX, y: buttonPosY});
+	}
+
 	return (
 		<main className="content">
 			<table>
@@ -38,13 +49,16 @@ export default function Content() {
 											</a>
 										</li>
 									</ul>
-									<MoreVertIcon />
+									<button className="fileMoreButton" onClick={getButtonPosition}>
+										<MoreVertIcon />
+									</button>
 								</div>
 							</td>
 						</tr>
 					))}
 				</tbody>
 			</table>
+			{showMore && <FileMore buttonPosition={buttonPos} />}
 		</main>
 	);
 }

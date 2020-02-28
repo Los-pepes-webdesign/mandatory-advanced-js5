@@ -1,0 +1,34 @@
+.fileMore {
+  position: absolute;
+  width: 100px;
+  height: 150px;
+  padding: 10px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  background-color: $body;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+
+  -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+  -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+  box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+}
+
+.fileMore__textContainer {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding-left: 19px;
+}
+
+.fileMore__textContainer:hover {
+  background-color: $wine;
+  color: $yellow;
+
+  cursor: pointer;
+}
+
+.fileMore__textContainer__text {
+  font-size: 13px;
+}

@@ -18,9 +18,8 @@ export default function Menu() {
 			 })
 			 .catch(function(error) {
 					 console.error(error);
-				 });
-
-		 }
+				});
+		}
 	}
 
 
@@ -30,11 +29,10 @@ export default function Menu() {
 		dropbox.filesCreateFolderV2({path: '/' + folderInputRef.current.value })
   	.then(function(response) {
     console.log(response);
-  })
-  .catch(function(error) {
+  	})
+  	.catch(function(error) {
     console.error(error);
-  });
-
+  	});
 	}
 
 	return (
@@ -51,7 +49,6 @@ export default function Menu() {
 					 <input type="text" ref={folderInputRef} id="create-folder" />
 					 <button type="submit">Submit</button>
 				 </form>
-
 		</aside>
 		);
 }
