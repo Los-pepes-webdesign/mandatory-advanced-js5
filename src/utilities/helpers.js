@@ -1,6 +1,8 @@
 // userSpace values are defined in bytes therefore we need to make sure they are correctly formatted
 // FUNCTION: userSpaceFormatting(), converts space values to a more user friendly format
-export function userSpaceFormatting(userSpace) {
+export function formatUserSpace(userSpace) {
+	console.log(userSpace);
+
 	const kb = 1e3;
 	const mb = 1e6;
 	const gb = 1e9;

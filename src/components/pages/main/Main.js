@@ -4,6 +4,7 @@ import { Redirect, Switch, Route } from 'react-router';
 
 // store imports
 import { dropbox, setState$, token$, setToken$, useObservable } from '../../../utilities/store';
+import { formatUserSpace } from '../../../utilities/helpers';
 
 // component imports
 import Mainmenu from './Mainmenu';
@@ -39,6 +40,8 @@ export default function Main() {
 					const promises = files.map((file) =>
 						dropbox.filesGetTemporaryLink({ path: file.path_lower })
 					);
+
+					console.log(files);
 
 					Promise.all(promises).then((result) => {
 						setState$(

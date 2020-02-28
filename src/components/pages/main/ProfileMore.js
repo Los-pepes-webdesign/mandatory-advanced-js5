@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
 import { dropbox, setToken$, token$, useObservable, state$ } from '../../../utilities/store';
-import { userSpaceFormatting } from '../../../utilities/helpers';
+import { formatUserSpace } from '../../../utilities/helpers';
 
 export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
@@ -40,9 +40,7 @@ export default function ProfileMore() {
 				</div>
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
-					<p className='profile__more__spaceUsageText'>
-						{userSpaceFormatting(userSpace)}{' '}
-					</p>
+					<p className='profile__more__spaceUsageText'>{formatUserSpace(userSpace)} </p>
 				</div>
 				<div className='profile__more__lineBreak' />
 				<div className='profile__more__refLinkHeader'>
