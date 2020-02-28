@@ -41,7 +41,7 @@ export default function ProfileMore() {
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{usedSpaceFormatting(userSpace)} of {' '} {maxSpaceFormatting(userSpace)} used
+						{usedSpaceFormatting(userSpace.used)} of {' '} {maxSpaceFormatting(userSpace.allocation.allocated)} used
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />
