@@ -5,7 +5,10 @@ import { dropbox } from './dropbox';
 export const token$ = new BehaviorSubject(localStorage.getItem('token'));
 dropbox.setAccessToken(token$.value);
 
+dropbox.setAccessToken(token$.value);
+
 export const setToken$ = (token) => {
+	console.log('SET TOKEN');
 	if (!token) localStorage.removeItem('token');
 	else localStorage.setItem('token', token);
 
@@ -48,7 +51,12 @@ export function setState$(value, action) {
 		case 'setFiles': // expects value to be an array of files
 			{
 				const { files, filesContinued, hasMore } = value;
-				state$.next({ ...state$.value, files, filesContinued, hasMore });
+				state$.next({
+					...state$.value,
+					files,
+					filesContinued,
+					hasMore
+				});
 			}
 			break;
 		case 'setQueriedFiles':

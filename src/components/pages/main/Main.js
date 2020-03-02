@@ -20,10 +20,19 @@ export default function Main({ location }) {
 
 	useEffect(
 		() => {
-			if (!window.location.hash.includes('access_token') && !accessToken) {
+			console.log('path changed', location.pathname);
+		},
+		[ location.pathname ]
+	);
+
+	useEffect(
+		() => {
+			if (
+				!window.location.hash.includes('access_token') &&
+				!accessToken
+			) {
 				setHashStatus('invalid');
-			}
-			else {
+			} else {
 				if (!accessToken) {
 					const regex = new RegExp(/=(.*)(?=&token_type)/, 'i');
 					const token = window.location.hash.match(regex)[1];
@@ -40,15 +49,15 @@ export default function Main({ location }) {
 
 	return (
 		<React.Fragment>
-			{hashStatus === 'invalid' && <Redirect to='/login' />}
-			{hashStatus === 'valid' && <Redirect to='/' />}
-			<div className='main'>
+			{hashStatus === 'invalid' && <Redirect to="/login" />}
+			{hashStatus === 'valid' && <Redirect to="/" />}
+			<div className="main">
 				<Mainmenu />
 				<Header />
 				<Profile />
 				<Switch>
-					<Route path='/search' component={QueriedContent} />
-					<Route path='/' component={Content} />
+					<Route path="/search" component={QueriedContent} />
+					<Route path="/" component={Content} />
 				</Switch>
 			</div>
 		</React.Fragment>

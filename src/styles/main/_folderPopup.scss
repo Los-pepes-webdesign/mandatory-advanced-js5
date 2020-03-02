@@ -1,13 +1,10 @@
 
 .folder-popup {
+  @extend %absoluteCenter;
   background-color: white;
-  z-index: 999999999999;
-  position: fixed;
+  z-index: 1;
   height: 500px;
   width: 600px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 9px 0px rgba(171,171,171,1);
   -moz-box-shadow: 0px 0px 9px 0px rgba(171,171,171,1);
@@ -53,4 +50,18 @@
 .popup-container {
   display: flex;
   justify-content: center;
+}
+
+.popup-folders {
+  overflow: scroll;
+  max-height: 250px;
+  margin-left: 20px;
+  margin-top: 50px;
+
+  div {
+    padding: 10px;
+  }
+  div:hover {
+    cursor: pointer;
+  }
 }

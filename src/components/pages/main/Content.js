@@ -15,14 +15,23 @@ import DeletionModal from './Content.DeletionModal';
 import MoreFiles from './Content.MoreFiles';
 
 export default function Content() {
-	const [ localState, setLocalState ] = useState({ path: '', modal: false, loading: true });
+	const [ localState, setLocalState ] = useState({
+		path: '',
+		modal: false,
+		loading: true
+	});
+	const { files, hasMore } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 
-	const { files, hasMore } = useObservable(state$);
+	function getButtonPosition(e, fileId) {
+		if (showMore === fileId) {
+			updateShowMore(false);
+		}
+		else {
+			updateShowMore(fileId);
+		}
 
-	function getButtonPosition(e) {
-		updateShowMore(!showMore);
 		const buttonPosX = e.target.getBoundingClientRect().x;
 		const buttonPosY = e.target.getBoundingClientRect().y;
 		updateButtonPos({ x: buttonPosX, y: buttonPosY });
@@ -73,9 +82,20 @@ export default function Content() {
 								<td className='file__size'>{file.size}</td>
 								<td className='file__more'>
 									<div>
-										<button className='fileMoreButton' onClick={getButtonPosition}>
+										<button
+											className='fileMoreButton'
+											onClick={(e) => getButtonPosition(e, file.id)}
+										>
 											<MoreVertIcon />
 										</button>
+										{showMore === file.id && (
+											<FileMore
+												buttonPosition={buttonPos}
+												fileDetails={file}
+												showMoreFunction={updateShowMore}
+												onClose={() => updateShowMore(false)}
+											/>
+										)}
 										<ul>
 											<li>
 												<a href={file.link} download={file.name}>
@@ -101,7 +121,6 @@ export default function Content() {
 						))}
 					</tbody>
 				</table>
-				{showMore && <FileMore buttonPosition={buttonPos} />}
 				{hasMore && <MoreFiles />}
 			</main>
 		</React.Fragment>

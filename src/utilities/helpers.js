@@ -9,25 +9,25 @@ export function formatSize(size) {
 
 	if (size < kb) {
 		return size + ' bytes';
-	}
-	else if (size < mb && size > kb) {
+	} else if (size < mb && size > kb) {
 		let decimalized = size / kb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' KB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' KB';
 		return formatted;
-	}
-	else if (size < gb && size > mb) {
+	} else if (size < gb && size > mb) {
 		let decimalized = size / mb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' MB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' MB';
 		return formatted;
-	}
-	else if (size < tb && size > gb) {
+	} else if (size < tb && size > gb) {
 		let decimalized = size / gb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' GB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' GB';
 		return formatted;
-	}
-	else if (size < pb && size > tb) {
+	} else if (size < pb && size > tb) {
 		let decimalized = size / gb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' TB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' TB';
 		return formatted;
 	} else {
 		throw new Error('Invalid size.');
