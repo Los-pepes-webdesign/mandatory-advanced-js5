@@ -46,9 +46,11 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 				</form>
 			</div>
 			<div className='popup-folders'>
-				{files
-					.filter((file) => file['.tag'] === 'folder')
-					.map((file) => <div onClick={() => setPath(file.path_lower)}>{file.name}</div>)}
+				{files.filter((file) => file['.tag'] === 'folder').map((file) => (
+					<div key={file.id} onClick={() => setPath(file.path_lower)}>
+						{file.name}
+					</div>
+				))}
 			</div>
 		</div>,
 		document.querySelector('body')

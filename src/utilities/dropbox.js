@@ -86,8 +86,6 @@ export function getFolderContent(path) {
 					const { links, thumbnails } = sortLinksAndThumbs(response);
 					const files = [ ...folders, ...formatFiles(sortedFiles, links, thumbnails) ];
 
-					console.log(files);
-
 					setState$({ files, filesContinued, hasMore }, 'setFiles');
 				})
 				.catch(console.error);
@@ -118,8 +116,6 @@ export function init() {
 				.then((response) => {
 					const { links, thumbnails } = sortLinksAndThumbs(response);
 					files = [ ...folders, ...formatFiles(files, links, thumbnails) ];
-
-					console.log(files);
 
 					setState$({ files, profile, userSpace }, 'init');
 				})

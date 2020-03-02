@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import { dropbox } from '../../../utilities/dropbox';
 import FolderPopup from './FolderPopup';
 
-export default function Menu({ location }) {
-	console.log(location);
+export default function Menu() {
 	const fileInputRef = useRef(null);
 	const [ visible, toggleVisible ] = useState('hidden');
 	const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
