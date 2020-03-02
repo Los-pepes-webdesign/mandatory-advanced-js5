@@ -13,10 +13,15 @@ export default function Content() {
 	});
 	const { files } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
-	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
+	const [ buttonPos, updateButtonPos ] = useState({x: "0px", y: "0px"});
 
-	function getButtonPosition(e) {
-		updateShowMore(!showMore);
+	function getButtonPosition(e, fileId){
+		if (showMore === fileId) {
+			updateShowMore(false);
+		} else {
+		  updateShowMore(fileId);
+	  }
+
 		const buttonPosX = e.target.getBoundingClientRect().x;
 		const buttonPosY = e.target.getBoundingClientRect().y;
 		updateButtonPos({ x: buttonPosX, y: buttonPosY });
@@ -58,12 +63,17 @@ export default function Content() {
 								<td>{file.size}</td>
 								<td>
 									<div>
+<<<<<<< HEAD
 										<button
 											className="fileMoreButton"
 											onClick={getButtonPosition}
 										>
+=======
+										<button className="fileMoreButton" onClick={(e) => getButtonPosition(e, file.id)} >
+>>>>>>> 19e3f0a8d0d6d1be8dd2f2777381107a90caed81
 											<MoreVertIcon />
 										</button>
+										{showMore === file.id && <FileMore buttonPosition={buttonPos} fileDetails={file} showMoreFunction={updateShowMore} onClose={() => updateShowMore(false)} />}
 										<ul>
 											<li>
 												<a
@@ -93,7 +103,6 @@ export default function Content() {
 						))}
 					</tbody>
 				</table>
-				{showMore && <FileMore buttonPosition={buttonPos} />}
 			</main>
 		</React.Fragment>
 	);
