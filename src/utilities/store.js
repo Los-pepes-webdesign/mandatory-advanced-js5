@@ -1,14 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BehaviorSubject } from 'rxjs';
-<<<<<<< HEAD
-
-export const dropbox = new Dropbox({
-	clientId: 'wwft9hg3g9qhuth',
-	fetch
-});
-=======
 import { dropbox } from './dropbox';
->>>>>>> 471f961e9d593d0fba1b7be18b3a9f745eca95ff
 
 export const token$ = new BehaviorSubject(localStorage.getItem('token'));
 dropbox.setAccessToken(token$.value);
@@ -41,16 +33,10 @@ export function useObservable(observable) {
 
 export const state$ = new BehaviorSubject({
 	files: [],
-<<<<<<< HEAD
-	currentPath: '',
-	profile: {},
-	queriedFiles: [],
-=======
 	filesContinued: [],
 	hasMore: false,
 	queriedFiles: [],
 	profile: {},
->>>>>>> 471f961e9d593d0fba1b7be18b3a9f745eca95ff
 	userSpace: {}
 });
 
@@ -65,7 +51,12 @@ export function setState$(value, action) {
 		case 'setFiles': // expects value to be an array of files
 			{
 				const { files, filesContinued, hasMore } = value;
-				state$.next({ ...state$.value, files, filesContinued, hasMore });
+				state$.next({
+					...state$.value,
+					files,
+					filesContinued,
+					hasMore
+				});
 			}
 			break;
 		case 'setProfile':
