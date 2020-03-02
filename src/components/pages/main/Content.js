@@ -75,11 +75,13 @@ export default function Content() {
 										file.name
 									)}
 								</td>
-								<td className='file__starred' />
 								<td className='file__modified'>
 									<Moment format='YYYY/MM/DD'>{file.server_modified}</Moment>
 								</td>
 								<td className='file__size'>{file.size}</td>
+								<td className='file__starred'>
+									{file.starred ? <StarRoundedIcon /> : <StarBorderRoundedIcon />}
+								</td>
 								<td className='file__more'>
 									<div>
 										<button
@@ -94,27 +96,13 @@ export default function Content() {
 												fileDetails={file}
 												showMoreFunction={updateShowMore}
 												onClose={() => updateShowMore(false)}
+												delete={() =>
+													setLocalState({
+														path: file.path_lower,
+														modal: true
+													})}
 											/>
 										)}
-										<ul>
-											<li>
-												<a href={file.link} download={file.name}>
-													Download
-												</a>
-											</li>
-											<li>
-												<button
-													type='button'
-													onClick={() =>
-														setLocalState({
-															path: file.path_lower,
-															modal: true
-														})}
-												>
-													Delete
-												</button>
-											</li>
-										</ul>
 									</div>
 								</td>
 							</tr>

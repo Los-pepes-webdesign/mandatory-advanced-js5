@@ -7,15 +7,10 @@
 @import './main/main';
 @import './main/content/';
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
 	font-family: $fontHeader;
 }
 
-button,
-p,
-span {
+button, p, span, a {
 	font-family: $fontBody;
 }

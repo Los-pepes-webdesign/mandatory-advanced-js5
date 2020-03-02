@@ -45,12 +45,21 @@ export default function FileMore(props) {
 					<p className='fileMore__textContainer__text'>Move</p>
 				</div>
 				<div className='fileMore__textContainer'>
-					<p className='fileMore__textContainer__text'>Download</p>
+					<a
+						href={props.fileDetails.link}
+						download={props.fileDetails.name}
+						className='fileMore__textContainer__text'
+					>
+						Download
+					</a>
 				</div>
 				<div className='fileMore__textContainer'>
 					<p className='fileMore__textContainer__text'>Details</p>
 				</div>
 				<div className='fileMore__textContainer'>
+					<p className='fileMore__textContainer__text'>Favorite</p>
+				</div>
+				<div className='fileMore__textContainer' onClick={props.delete}>
 					<p className='fileMore__textContainer__text'>Delete</p>
 				</div>
 			</div>
