@@ -4,7 +4,7 @@ import { Redirect, Switch, Route } from 'react-router';
 
 // store imports
 import { token$, setToken$, useObservable } from '../../../utilities/store';
-import { init } from '../../../utilities/dropbox';
+import { init, getFolderContent } from '../../../utilities/dropbox';
 
 // component imports
 import Mainmenu from './Mainmenu';
@@ -14,7 +14,7 @@ import Profile from './Profile';
 import QueriedContent from './QueriedContent';
 
 // component
-export default function Main() {
+export default function Main({ location }) {
 	const [ hashStatus, setHashStatus ] = useState(null); // controls redirect to '/login' or '/'
 	const accessToken = useObservable(token$); // token subscription
 
@@ -31,10 +31,11 @@ export default function Main() {
 					setHashStatus('valid');
 				}
 
-				init();
+				if (location.pathname === '/') init();
+				else getFolderContent(location.pathname);
 			}
 		},
-		[ accessToken ]
+		[ accessToken, location ]
 	);
 
 	return (

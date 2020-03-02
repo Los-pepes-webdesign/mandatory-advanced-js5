@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useObservable, state$ } from '../../../utilities/store';
-import FileMore from "./FileMore";
+import FileMore from './FileMore';
 import DeletionModal from './Content.DeletionModal';
 
 export default function Content() {
@@ -16,9 +17,10 @@ export default function Content() {
 		} else {
 		  updateShowMore(fileId);
 	  }
+
 		const buttonPosX = e.target.getBoundingClientRect().x;
 		const buttonPosY = e.target.getBoundingClientRect().y;
-		updateButtonPos({x: buttonPosX, y: buttonPosY});
+		updateButtonPos({ x: buttonPosX, y: buttonPosY });
 	}
 
 	return (
@@ -41,8 +43,14 @@ export default function Content() {
 					<tbody>
 						{files.map((file) => (
 							<tr key={file.id}>
-								<td>{file.name}</td>
-								<td>{file.client_modified}</td>
+								<td>
+									{file['.tag'] === 'folder' ? (
+										<Link to={file.path_lower}>{file.name}</Link>
+									) : (
+										file.name
+									)}
+								</td>
+								<td>{file.server_modified}</td>
 								<td>{file.size}</td>
 								<td>
 									<div>
