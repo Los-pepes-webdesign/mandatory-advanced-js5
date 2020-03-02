@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useObservable, state$ } from '../../../utilities/store';
 import FileMore from './FileMore';
-import DeletionModal from './Content.DeletionModal';
 
 export default function Content() {
-	const [ localState, setLocalState ] = useState({ path: '', modal: false, loading: true });
 	const { files } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({x: "0px", y: "0px"});
@@ -25,9 +23,6 @@ export default function Content() {
 
 	return (
 		<React.Fragment>
-			{localState.modal && (
-				<DeletionModal path={localState.path} closeModal={() => setLocalState({ path: '', modal: false })} />
-			)}
 			<main className='content'>
 				<table>
 					<thead>
@@ -63,19 +58,7 @@ export default function Content() {
 												<a href={file.link} download={file.name}>
 													Download
 												</a>
-											</li>
-											<li>
-												<button
-													type='button'
-													onClick={() =>
-														setLocalState({
-															path: file.path_lower,
-															modal: true
-														})}
-												>
-													Delete
-												</button>
-											</li>
+											</li>										
 										</ul>
 									</div>
 								</td>
