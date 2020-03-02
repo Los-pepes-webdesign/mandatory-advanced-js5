@@ -6,7 +6,7 @@ import FolderPopup from './FolderPopup'
 export default function Menu() {
 	const fileInputRef = useRef(null);
 	const [folderInput, updateFolderInput] = useState('');
-	const [visible, toggleVisible] = useState('visible');
+	const [visible, toggleVisible] = useState('hidden');
 	const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
 
 	function fileUpload(e) {
