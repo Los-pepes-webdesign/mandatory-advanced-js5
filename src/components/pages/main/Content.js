@@ -9,10 +9,13 @@ export default function Content() {
 	const { files } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({x: "0px", y: "0px"});
-	console.log(files);
 
-	function getButtonPosition(e){
-		updateShowMore(!showMore);
+	function getButtonPosition(e, fileId){
+		if (showMore === fileId) {
+			updateShowMore(false);
+		} else {
+		  updateShowMore(fileId);
+	  }
 		const buttonPosX = e.target.getBoundingClientRect().x;
 		const buttonPosY = e.target.getBoundingClientRect().y;
 		updateButtonPos({x: buttonPosX, y: buttonPosY});
@@ -43,9 +46,10 @@ export default function Content() {
 								<td>{file.size}</td>
 								<td>
 									<div>
-										<button className="fileMoreButton" onClick={getButtonPosition}>
+										<button className="fileMoreButton" onClick={(e) => getButtonPosition(e, file.id)} >
 											<MoreVertIcon />
 										</button>
+										{showMore === file.id && <FileMore buttonPosition={buttonPos} fileDetails={file} showMoreFunction={updateShowMore} onClose={() => updateShowMore(false)} />}
 										<ul>
 											<li>
 												<a href={file.link} download={file.name}>
@@ -71,7 +75,6 @@ export default function Content() {
 						))}
 					</tbody>
 				</table>
-				{showMore && <FileMore buttonPosition={buttonPos} />}
 			</main>
 		</React.Fragment>
 	);
