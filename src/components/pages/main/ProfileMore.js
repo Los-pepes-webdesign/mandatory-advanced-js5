@@ -3,7 +3,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
 import { setToken$, token$, useObservable, state$ } from '../../../utilities/store';
 import { formatSize } from '../../../utilities/helpers';
-import { maxSpaceFormatting } from '../../../utilities/helpers';
+import { formatMaxSpace } from '../../../utilities/helpers';
 import { dropbox } from '../../../utilities/dropbox';
 
 
@@ -40,7 +40,7 @@ export default function ProfileMore() {
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{formatSize(userSpace.used)} / {maxSpaceFormatting(userSpace.allocation.allocated)}
+						{formatSize(userSpace.used)} / {formatMaxSpace(userSpace.allocation.allocated)}
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />
