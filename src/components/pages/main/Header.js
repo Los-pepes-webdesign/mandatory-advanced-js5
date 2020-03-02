@@ -3,7 +3,13 @@ import { Redirect } from 'react-router';
 
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
+<<<<<<< HEAD
 import { dropbox, setState$ } from '../../../utilities/store';
+=======
+
+import { setState$ } from '../../../utilities/store';
+import { dropbox } from '../../../utilities/dropbox';
+>>>>>>> 471f961e9d593d0fba1b7be18b3a9f745eca95ff
 
 export default function Header() {
 	const [ filterSearch, updateFilterSearch ] = useState('');
