@@ -3,7 +3,9 @@ import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
 import { setToken$, token$, useObservable, state$ } from '../../../utilities/store';
 import { formatSize } from '../../../utilities/helpers';
+import { maxSpaceFormatting } from '../../../utilities/helpers';
 import { dropbox } from '../../../utilities/dropbox';
+
 
 export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
@@ -17,7 +19,7 @@ export default function ProfileMore() {
 		document.execCommand('copy');
 	}
 
-	// Logs out user by setting local token to <null> and revokes token from Dropbox API
+	// Logs out user by revoking token from Dropbox API and setting local token to <null>
 	function logoutUser() {
 		dropbox.authTokenRevoke();
 		setToken$(null);
@@ -38,7 +40,7 @@ export default function ProfileMore() {
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{formatSize(userSpace.used)} / {formatSize(userSpace.allocation.allocated)}
+						{formatSize(userSpace.used)} / {maxSpaceFormatting(userSpace.allocation.allocated)}
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />

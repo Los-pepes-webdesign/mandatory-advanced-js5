@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useObservable, state$ } from '../../../utilities/store';
-
+import FileMore from "./FileMore";
 import DeletionModal from './Content.DeletionModal';
 
 export default function Content() {
 	const [ localState, setLocalState ] = useState({ path: '', modal: false, loading: true });
 	const { files } = useObservable(state$);
-
+	const [ showMore, updateShowMore ] = useState(false);
+	const [ buttonPos, updateButtonPos ] = useState({x: "0px", y: "0px"});
 	console.log(files);
+
+	function getButtonPosition(e){
+		updateShowMore(!showMore);
+		const buttonPosX = e.target.getBoundingClientRect().x;
+		const buttonPosY = e.target.getBoundingClientRect().y;
+		updateButtonPos({x: buttonPosX, y: buttonPosY});
+	}
 
 	return (
 		<React.Fragment>
@@ -35,7 +43,9 @@ export default function Content() {
 								<td>{file.size}</td>
 								<td>
 									<div>
-										<MoreVertIcon />
+										<button className="fileMoreButton" onClick={getButtonPosition}>
+											<MoreVertIcon />
+										</button>
 										<ul>
 											<li>
 												<a href={file.link} download={file.name}>
@@ -61,6 +71,7 @@ export default function Content() {
 						))}
 					</tbody>
 				</table>
+				{showMore && <FileMore buttonPosition={buttonPos} />}
 			</main>
 		</React.Fragment>
 	);
