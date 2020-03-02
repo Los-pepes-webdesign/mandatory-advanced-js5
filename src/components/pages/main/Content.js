@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
+
+// store
+import { useObservable, state$ } from '../../../utilities/store';
+
+// icons
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
-import { useObservable, state$ } from '../../../utilities/store';
+
+// components
 import FileMore from './FileMore';
 import MoreFiles from './Content.MoreFiles';
 

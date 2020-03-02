@@ -1,7 +1,30 @@
 .file {
-    &__starred{
+    height: 64px;
+    &:hover { background-color: #e7e7e7; }
+    &__thumbnail {
+
+    }
+    &__name {
+
+    }
+    &__modified {
+
+    }
+    &__size {
+
+    }
+    &__starred {
         svg {
-            fill: 'green';
+            fill: $orange;
         }
+        &:hover {
+            svg { 
+                fill: $yellow; 
+                cursor: pointer;
+            }
+        }
+    }
+    &__more {
+
     }
 }
