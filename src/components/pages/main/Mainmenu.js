@@ -1,18 +1,16 @@
 import React, { useState, useRef } from 'react';
-import { setState$, token$, setToken$, useObservable } from '../../../utilities/store';
 import { dropbox } from '../../../utilities/dropbox';
-import FolderPopup from './FolderPopup'
+import FolderPopup from './FolderPopup';
 
 export default function Menu() {
 	const fileInputRef = useRef(null);
-	const [folderInput, updateFolderInput] = useState('');
-	const [visible, toggleVisible] = useState('hidden');
+	const [ folderInput, updateFolderInput ] = useState('');
+	const [ visible, toggleVisible ] = useState('hidden');
 	const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
 
 	function fileUpload(e) {
 		e.preventDefault();
 		let file = fileInputRef.current.files[0];
-		console.log(file);
 		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
 			dropbox
 				.filesUpload({ path: '/' + file.name, contents: file })
@@ -37,14 +35,14 @@ export default function Menu() {
 			});
 	}
 
-function updateInputFolder (e) {
-	console.log(e.target.value)
-	updateFolderInput(e.target.value)
-}
+	function updateInputFolder(e) {
+		console.log(e.target.value);
+		updateFolderInput(e.target.value);
+	}
 
-function toggleFolderView () {
-	visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
-}
+	function toggleFolderView() {
+		visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
+	}
 	return (
 		<aside className='mainmenu'>
 			<p>Upload File</p>
@@ -53,7 +51,13 @@ function toggleFolderView () {
 				<input ref={fileInputRef} type='file' id='file-upload' />
 				<button type='submit'>Submit</button>
 			</form>
-				<FolderPopup onSubmit={newFolder} onChange={updateInputFolder} name={folderInput} visibility={visible} toggle={toggleFolderView}/>
+			<FolderPopup
+				onSubmit={newFolder}
+				onChange={updateInputFolder}
+				name={folderInput}
+				visibility={visible}
+				toggle={toggleFolderView}
+			/>
 			<button onClick={toggleFolderView}>New Folder</button>
 		</aside>
 	);

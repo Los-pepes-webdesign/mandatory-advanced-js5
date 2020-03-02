@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+
+import FolderIcon from '@material-ui/icons/Folder';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
+
 import { useObservable, state$ } from '../../../utilities/store';
+
 import FileMore from './FileMore';
 import DeletionModal from './Content.DeletionModal';
+import MoreFiles from './Content.MoreFiles';
 
 export default function Content() {
 	const [ localState, setLocalState ] = useState({ path: '', modal: false, loading: true });
-	const { files } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
+
+	const { files, hasMore } = useObservable(state$);
 
 	function getButtonPosition(e) {
 		updateShowMore(!showMore);
@@ -27,7 +37,9 @@ export default function Content() {
 				<table>
 					<thead>
 						<tr>
+							<th />
 							<th>Name</th>
+							<th />
 							<th>Modified</th>
 							<th>Size</th>
 							<th />
@@ -37,17 +49,29 @@ export default function Content() {
 				<table>
 					<tbody>
 						{files.map((file) => (
-							<tr key={file.id}>
-								<td>
+							<tr className='file' key={file.id}>
+								<td className='file__thumbnail'>
+									{file['.tag'] === 'folder' ? (
+										<FolderIcon />
+									) : file.thumbnail ? (
+										<img src={`data:image/png;base64, ${file.thumbnail}`} alt='' />
+									) : (
+										<InsertDriveFileIcon />
+									)}
+								</td>
+								<td className='file__name'>
 									{file['.tag'] === 'folder' ? (
 										<Link to={file.path_lower}>{file.name}</Link>
 									) : (
 										file.name
 									)}
 								</td>
-								<td>{file.server_modified}</td>
-								<td>{file.size}</td>
-								<td>
+								<td className='file__starred' />
+								<td className='file__modified'>
+									<Moment format='YYYY/MM/DD'>{file.server_modified}</Moment>
+								</td>
+								<td className='file__size'>{file.size}</td>
+								<td className='file__more'>
 									<div>
 										<button className='fileMoreButton' onClick={getButtonPosition}>
 											<MoreVertIcon />
@@ -78,6 +102,7 @@ export default function Content() {
 					</tbody>
 				</table>
 				{showMore && <FileMore buttonPosition={buttonPos} />}
+				{hasMore && <MoreFiles />}
 			</main>
 		</React.Fragment>
 	);

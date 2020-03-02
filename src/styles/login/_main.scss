@@ -26,7 +26,7 @@
 
       &::after {
         content: 'CONNECT';
-        @include absoluteCenter();
+        @extend %absoluteCenter;
         opacity: 0;
         color: $purple;
         transition: .2s;

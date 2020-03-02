@@ -51,14 +51,8 @@ export function setState$(value, action) {
 				state$.next({ ...state$.value, files, filesContinued, hasMore });
 			}
 			break;
-		case 'setProfile':
-			state$.next({ ...state$.value, profile: value });
-			break;
 		case 'setQueriedFiles':
 			state$.next({ ...state$.value, queriedFiles: value });
-			break;
-		case 'setUserSpace':
-			state$.next({ ...state$.value, userSpace: value });
 			break;
 		default:
 			throw new Error('Invalid action.');

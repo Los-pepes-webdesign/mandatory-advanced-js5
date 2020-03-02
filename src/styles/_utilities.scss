@@ -16,7 +16,7 @@
     flex-direction: column;
 }
 
-@mixin absoluteCenter {
+%absoluteCenter {
     position: absolute;
     top: 50%;
     left: 50%;
