@@ -7,28 +7,6 @@ export function formatSize(size) {
 	const tb = 1e12;
 	const pb = 1e15;
 
-
- // Hur importerar man userSpace från global state hit?
- // Det räcker med en formatSize funktion om man kör denna if-satsen
- // för att se om size är === totalt utrymme
- // isf return integer GB/
- // =======================================================================================================
-	// if (size === userSpace.allocation.allocated) {
-	// 	if (size > gb && size < tb) {
-	// 		const maxSpaceDecimalized = size / gb;
-	// 		const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' GB';
-	// 		return maxSpaceFormatted;
-	// 	} else if (size > tb && size < pb) {
-	// 		const maxSpaceDecimalized = size / tb;
-	// 		const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' TB';
-	// 		return maxSpaceFormatted;
-	// 	} else {
-	// 		throw new Error('Invalid size.');
-	// 	}
-	// }
-	// =======================================================================================================
-
-
 	if (size < kb) {
 		return size + ' bytes';
 	}
@@ -56,20 +34,19 @@ export function formatSize(size) {
 	}
 }
 
-
 // FUNCTION: maxSpaceFormatting(), takes argument value as a number in bytes formatted
-// and returns the value as an fromatted to an integer and with suffix (GB or TB)
-export function maxSpaceFormatting(size) {
+// and returns the value as rounded to integer and with suffix (GB or TB)
+export function formatMaxSpace(size) {
 	const gb = 1e9;
 	const tb = 1e12;
 	const pb = 1e15;
 	if (size > gb && size < tb) {
 		const maxSpaceDecimalized = size / gb;
-		const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' GB';
+		const maxSpaceFormatted = Math.round(maxSpaceDecimalized) + ' GB';
 		return maxSpaceFormatted;
 	} else if (size > tb && size < pb) {
 		const maxSpaceDecimalized = size / tb;
-		const maxSpaceFormatted = Math.round((maxSpaceDecimalized + Number.EPSILON) * 1) / 1 + ' TB';
+		const maxSpaceFormatted = Math.round(maxSpaceDecimalized) + ' TB';
 		return maxSpaceFormatted;
 	} else {
 		throw new Error('Invalid size.');
