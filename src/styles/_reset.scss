@@ -51,6 +51,15 @@ button {
 	outline: none;
 }
 
+input {
+	&:required {
+		border: none;
+	}
+	&:invalid {
+		border: none;
+	}
+}
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
