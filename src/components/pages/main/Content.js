@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-//import Moment from 'react-moment';
+import Moment from 'react-moment';
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -71,7 +71,7 @@ export default function Content() {
 								</td>
 								<td className='file__starred' />
 								<td className='file__modified'>
-								{/*	<Moment format='YYYY/MM/DD'>{file.server_modified}</Moment> */}
+									<Moment format='YYYY/MM/DD'>{file.server_modified}</Moment>
 								</td>
 								<td className='file__size'>{file.size}</td>
 								<td className='file__more'>
