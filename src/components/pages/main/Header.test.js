@@ -12,7 +12,20 @@ describe('testing Header', () => {
 		});
 		const inputText = wrapper.find('.header__form__input').props().value;
 		expect(inputText).toBe('jesper');
-		const filterState = wrapper.find('filterSearch');
-		expect(filterState.state()).toBe('jesper');
+	});
+	it('should run redirect on focus', () => {
+		const wrapper = shallow(<Header />);
+		wrapper.find('.header__form__input').simulate('focus');
+
+		const redirect = wrapper.find('Redirect');
+		expect(redirect.props()).toStrictEqual({ to: '/search' });
+	});
+
+	it('should redirect back on blur', () => {
+		const wrapper = shallow(<Header />);
+		wrapper.find('.header__closeButton').simulate('click');
+		const redirect = wrapper.find('Redirect');
+
+		expect(redirect.props()).toStrictEqual({ to: '/' });
 	});
 });
