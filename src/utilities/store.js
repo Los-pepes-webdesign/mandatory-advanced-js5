@@ -8,7 +8,7 @@ dropbox.setAccessToken(token$.value);
 export const setToken$ = (token) => {
 	if (!token) localStorage.removeItem('token');
 	else localStorage.setItem('token', token);
-	
+
 	dropbox.setAccessToken(token);
 	token$.next(token);
 };
@@ -30,20 +30,26 @@ export function useObservable(observable) {
 
 export const state$ = new BehaviorSubject({
 	files: [],
-	currentPath: '',
-	profile: {},
+	filesContinued: [],
+	hasMore: false,
 	queriedFiles: [],
+	profile: {},
 	userSpace: {}
 });
 
 export function setState$(value, action) {
 	switch (action) {
-		case 'init':
-			const { files, profile, userSpace } = value;
-			state$.next({ ...state$.value, files, profile, userSpace });
+		case 'init': // expects value to be an object
+			{
+				const { files, profile, userSpace } = value;
+				state$.next({ ...state$.value, files, profile, userSpace });
+			}
 			break;
 		case 'setFiles': // expects value to be an array of files
-			state$.next({ ...state$.value, files: value });
+			{
+				const { files, filesContinued, hasMore } = value;
+				state$.next({ ...state$.value, files, filesContinued, hasMore });
+			}
 			break;
 		case 'setProfile':
 			state$.next({ ...state$.value, profile: value });
@@ -58,5 +64,3 @@ export function setState$(value, action) {
 			throw new Error('Invalid action.');
 	}
 }
-
-export const imageExtensions = [ 'jpg', 'jpeg', 'png', 'bmp', 'gif', 'webp' ];

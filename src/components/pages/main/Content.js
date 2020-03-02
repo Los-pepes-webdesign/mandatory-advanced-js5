@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useObservable, state$ } from '../../../utilities/store';
-import FileMore from "./FileMore";
+import FileMore from './FileMore';
 import DeletionModal from './Content.DeletionModal';
 
 export default function Content() {
 	const [ localState, setLocalState ] = useState({ path: '', modal: false, loading: true });
 	const { files } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
-	const [ buttonPos, updateButtonPos ] = useState({x: "0px", y: "0px"});
-	console.log(files);
+	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 
-	function getButtonPosition(e){
+	function getButtonPosition(e) {
 		updateShowMore(!showMore);
 		const buttonPosX = e.target.getBoundingClientRect().x;
 		const buttonPosY = e.target.getBoundingClientRect().y;
-		updateButtonPos({x: buttonPosX, y: buttonPosY});
+		updateButtonPos({ x: buttonPosX, y: buttonPosY });
 	}
 
 	return (
@@ -38,12 +38,18 @@ export default function Content() {
 					<tbody>
 						{files.map((file) => (
 							<tr key={file.id}>
-								<td>{file.name}</td>
-								<td>{file.client_modified}</td>
+								<td>
+									{file['.tag'] === 'folder' ? (
+										<Link to={file.path_lower}>{file.name}</Link>
+									) : (
+										file.name
+									)}
+								</td>
+								<td>{file.server_modified}</td>
 								<td>{file.size}</td>
 								<td>
 									<div>
-										<button className="fileMoreButton" onClick={getButtonPosition}>
+										<button className='fileMoreButton' onClick={getButtonPosition}>
 											<MoreVertIcon />
 										</button>
 										<ul>
