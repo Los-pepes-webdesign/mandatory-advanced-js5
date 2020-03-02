@@ -35,7 +35,7 @@ export default function Main({ location }) {
 				else getFolderContent(location.pathname);
 			}
 		},
-		[ accessToken, location ]
+		[ accessToken, location.pathname ]
 	);
 
 	return (

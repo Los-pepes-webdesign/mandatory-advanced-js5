@@ -1,0 +1,42 @@
+.deletionModal {
+    @extend %absoluteCenter;
+    background-color: white;
+    height: 150px;
+    border-radius: 10px;
+    -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+    -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+    box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+
+    // animation settings
+    opacity: 0;
+    h4 {
+        border-radius: 10px 10px 0px 0px;
+        text-align: center;
+        background-color: $wine;
+        color: white;
+        span {
+            font-style: italic;
+            color: $yellow;
+        }
+    }
+    button {
+        box-sizing: content-box;
+        margin-top: 40px;
+        &:first-of-type {
+            margin-left: 20px;
+            margin-right: 10px;
+            background-color: $wine;
+            color: $yellow;
+            padding: 10px;
+            border-radius: 12px;
+            &:hover { color: $hover; }
+        }
+        &:last-of-type {
+            margin-left: 10px;
+            margin-right: 20px;
+            span {
+                color: $red;
+            }
+        }
+    }
+}
