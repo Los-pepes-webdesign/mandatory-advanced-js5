@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import Rename from './Rename';
 
+import DeletionModal from './Content.DeletionModal';
+
 export default function FileMore(props) {
+	const [ localState, setLocalState ] = useState({
+		path: '',
+		modal: false
+	});
 	const [ popRename, updatePopRename ] = useState(false);
 
 	function alertBox() {
@@ -59,12 +65,25 @@ export default function FileMore(props) {
 				<div className='fileMore__textContainer'>
 					<p className='fileMore__textContainer__text'>Favorite</p>
 				</div>
-				<div className='fileMore__textContainer' onClick={props.delete}>
+				<div
+					className='fileMore__textContainer'
+					onClick={() =>
+						setLocalState({
+							path: props.fileDetails.path_lower,
+							modal: true
+						})}
+				>
 					<p className='fileMore__textContainer__text'>Delete</p>
 				</div>
 			</div>
 			{popRename && (
 				<Rename fileRename={props.fileDetails} popRenameFunc={updatePopRename} onDone={props.onClose} />
+			)}
+			{localState.modal && (
+				<DeletionModal
+					path={localState.path}
+					closeModal={() => setLocalState({ ...localState, modal: false })}
+				/>
 			)}
 		</React.Fragment>
 	);

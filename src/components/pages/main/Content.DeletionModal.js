@@ -43,7 +43,8 @@ export default function DeletionModal({ path, closeModal }) {
 	}
 
 	function deleteItem(e) {
-		dropbox.filesDelete({ path }).then(() => closeModal()).catch(console.error);
+		dropbox.filesDelete({ path }).catch(console.error);
+		closeModal();
 	}
 
 	return ReactDOM.createPortal(

@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
-
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
-
 import { useObservable, state$ } from '../../../utilities/store';
-
 import FileMore from './FileMore';
-import DeletionModal from './Content.DeletionModal';
 import MoreFiles from './Content.MoreFiles';
 
 export default function Content() {
-	const [ localState, setLocalState ] = useState({
-		path: '',
-		modal: false,
-		loading: true
-	});
+	const [ isLoading, setIsLoading ] = useState(true);
 	const { files, hasMore } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
+
+	console.log(isLoading);
+
+	useEffect(
+		() => {
+			if (files.length !== 0) setIsLoading(false);
+		},
+		[ files ]
+	);
 
 	function getButtonPosition(e, fileId) {
 		if (showMore === fileId) {
@@ -39,9 +40,7 @@ export default function Content() {
 
 	return (
 		<React.Fragment>
-			{localState.modal && (
-				<DeletionModal path={localState.path} closeModal={() => setLocalState({ path: '', modal: false })} />
-			)}
+			{isLoading && <p>Loading...</p>}
 			<main className='content'>
 				<table>
 					<thead>
@@ -96,11 +95,6 @@ export default function Content() {
 												fileDetails={file}
 												showMoreFunction={updateShowMore}
 												onClose={() => updateShowMore(false)}
-												delete={() =>
-													setLocalState({
-														path: file.path_lower,
-														modal: true
-													})}
 											/>
 										)}
 									</div>
