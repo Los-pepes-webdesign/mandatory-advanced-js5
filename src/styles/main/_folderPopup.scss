@@ -54,3 +54,10 @@
   display: flex;
   justify-content: center;
 }
+
+.popup-folders {
+  overflow: scroll;
+  max-height: 250px;
+  margin-left: 20px;
+  margin-top: 50px;
+}

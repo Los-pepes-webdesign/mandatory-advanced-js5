@@ -3,9 +3,9 @@ import { setState$, token$, setToken$, useObservable } from '../../../utilities/
 import { dropbox } from '../../../utilities/dropbox';
 import FolderPopup from './FolderPopup'
 
-export default function Menu() {
+export default function Menu({ location }) {
+	console.log(location)
 	const fileInputRef = useRef(null);
-	const [folderInput, updateFolderInput] = useState('');
 	const [visible, toggleVisible] = useState('hidden');
 	const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
 
@@ -24,27 +24,9 @@ export default function Menu() {
 				});
 		}
 	}
-
-	function newFolder(e) {
-		e.preventDefault();
-		dropbox
-			.filesCreateFolderV2({ path: '/' + folderInput })
-			.then(function(response) {
-				console.log(response);
-			})
-			.catch(function(error) {
-				console.error(error);
-			});
+	function toggleFolderView () {
+		visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
 	}
-
-function updateInputFolder (e) {
-	console.log(e.target.value)
-	updateFolderInput(e.target.value)
-}
-
-function toggleFolderView () {
-	visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
-}
 	return (
 		<aside className='mainmenu'>
 			<p>Upload File</p>
@@ -53,7 +35,7 @@ function toggleFolderView () {
 				<input ref={fileInputRef} type='file' id='file-upload' />
 				<button type='submit'>Submit</button>
 			</form>
-				<FolderPopup onSubmit={newFolder} onChange={updateInputFolder} name={folderInput} visibility={visible} toggle={toggleFolderView}/>
+				<FolderPopup visibility={visible} toggle={toggleFolderView}/>
 			<button onClick={toggleFolderView}>New Folder</button>
 		</aside>
 	);
