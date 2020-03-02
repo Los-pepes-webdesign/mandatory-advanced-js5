@@ -31,6 +31,8 @@ export default function Header() {
 				query: filterSearch.toLowerCase()
 			})
 			.then((response) => {
+				console.log(response);
+
 				const queries = response.matches.map(
 					({ metadata }) => metadata
 				);

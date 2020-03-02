@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react';
 import { BehaviorSubject } from 'rxjs';
 
 export const dropbox = new Dropbox({
-	clientId : 'wwft9hg3g9qhuth',
+	clientId: 'wwft9hg3g9qhuth',
 	fetch
 });
 
 export const token$ = new BehaviorSubject(localStorage.getItem('token'));
 
+dropbox.setAccessToken(token$.value);
+
 export const setToken$ = (token) => {
+	console.log('SET TOKEN');
 	if (!token) localStorage.removeItem('token');
 	else localStorage.setItem('token', token);
 
@@ -35,11 +38,11 @@ export function useObservable(observable) {
 }
 
 export const state$ = new BehaviorSubject({
-	files        : [],
-	currentPath  : '',
-	profile      : {},
-	queriedFiles : [],
-	userSpace    : {}
+	files: [],
+	currentPath: '',
+	profile: {},
+	queriedFiles: [],
+	userSpace: {}
 });
 
 export function setState$(value, action) {
