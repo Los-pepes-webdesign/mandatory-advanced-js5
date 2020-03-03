@@ -20,26 +20,26 @@ export default function FileMore(props) {
 		function rename() {
 		let test = props.fileDetails.path_lower.split('');
 		let booly = false;
-		updatePopRename(!popRename);
 		for (let i = 0; i < test.length; i++) {
 			if (test[i] === '.') {
 
-				updateIsFolder(true);
+				booly = true;
+				updatePopRename(!popRename);
 				break;
 			}
 			else {
-				updateIsFolder(false);
+				booly = false;
 			}
 		}
 
-		if (!isFolder) {
+		if (!booly) {
 			console.log('FUNKAR INTE PÅ MAPPAR');
 			alert('FUNKAR INTE PÅ MAPPAR!');
 		}
 	}
 
 	function move(){
-		updatePopMove(!popMove);	
+		updatePopMove(!popMove);
 	}
 
 	return (
