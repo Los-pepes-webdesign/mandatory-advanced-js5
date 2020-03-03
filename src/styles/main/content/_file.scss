@@ -28,3 +28,31 @@
 
     }
 }
+
+.fileTable {
+    width: 100%;
+    &:first-of-type{ height: 64px; }
+    tr {width: 100%;}
+    td {font-size: 14px;}
+    th, td {
+        text-align: left;
+        &:nth-child(1) {
+            width: 64px;
+        }
+        &:nth-child(2) {
+            min-width: 300px;
+        }
+        &:nth-child(3) {
+            width: 122px;
+        }
+        &:nth-child(4) {
+            width: 122px;
+        }
+        &:nth-child(5) {
+            width: 64px;
+        }
+        &:nth-child(6) {
+            width: 64px;
+        }
+    }
+}

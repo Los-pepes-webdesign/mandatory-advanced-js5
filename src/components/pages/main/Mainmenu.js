@@ -21,9 +21,11 @@ export default function Menu() {
 				});
 		}
 	}
+
 	function toggleFolderView() {
 		visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
 	}
+
 	return (
 		<aside className='mainmenu'>
 			<p>Upload File</p>

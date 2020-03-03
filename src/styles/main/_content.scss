@@ -2,3 +2,18 @@
 @import './content/fileMore';
 @import './content/rename';
 @import './content/file';
+
+.content {
+    display: grid;
+    grid-template: 
+        "tableHeader" 64px
+        "tableContent"
+        / 1fr;
+    overflow-y: auto;
+
+    .tableHeader{ grid-area: tableHeader; }
+    .tableContent { 
+        grid-area: tableContent; 
+        // overflow-y: auto;
+    }
+}

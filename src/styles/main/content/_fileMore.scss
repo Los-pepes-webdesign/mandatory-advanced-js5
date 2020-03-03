@@ -8,7 +8,6 @@
   background-color: $body;
   border: 1px solid lightgrey;
   border-radius: 5px;
-
   -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
@@ -30,7 +29,6 @@
 .fileMore__textContainer:hover {
   background-color: $wine;
   color: $yellow;
-
   cursor: pointer;
 }
 

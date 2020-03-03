@@ -14,3 +14,7 @@ h1, h2, h3, h4 {
 button, p, span, a {
 	font-family: $fontBody;
 }
+
+body {
+	overflow: hidden;
+}
