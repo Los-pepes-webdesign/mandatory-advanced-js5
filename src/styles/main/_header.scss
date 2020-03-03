@@ -5,11 +5,35 @@
 	align-items: center;
 	padding-right: 32px;
 
+
+
 	&__form {
 		display: inline-block;
 		position: relative;
 		border: none;
 		margin-right: 12px;
+		
+		
+		
+		
+
+		&__wrapper{
+			width: 100%;
+			height: 50px;
+			margin-left: 10px;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+
+			&:hover {
+				& > form >input {
+					width: 55vw;
+					padding-left: 20px;
+					outline: none;
+				}
+			}
+			
+		}
 
 		&__input {
 			height: 40px;
@@ -20,13 +44,14 @@
 			width: 0;
 			box-sizing: border-box;
 			transition: 0.4s ease;
+			
 
 			&::placeholder {
 				font-size: 14px;
 			}
 
 			&:focus, &:valid {
-				width: 500px;
+				width: 55vw;
 				padding-left: 20px;
 			}
 
@@ -48,14 +73,9 @@
 			border: none;
 		}
 
-		&:hover {
-			& > input {
-				width: 500px;
-				padding-left: 20px;
-				outline: none;
-			}
-		}
+		
 	}
+
 	&__closeButton{
 		width: 40px;
 		height: 40px;
@@ -64,5 +84,8 @@
 		border: none;
 		outline: none;
 		transition: 0.5s ease;
+		
+		
 	}
+
 }
