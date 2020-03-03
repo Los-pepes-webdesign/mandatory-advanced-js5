@@ -36,6 +36,7 @@ export const state$ = new BehaviorSubject({
 	filesContinued: [],
 	hasMore: false,
 	queriedFiles: [],
+	starredFiles: [],
 	profile: {},
 	userSpace: {}
 });

@@ -50,7 +50,8 @@ export default function Content() {
 					<table className='fileTable'>
 						<thead>
 							<tr>
-								<th /> {/* thumbnail */}
+								{/* thumbnail */}
+								<th />
 								<th>
 									<h4>Name</h4>
 								</th>
@@ -60,8 +61,10 @@ export default function Content() {
 								<th>
 									<h4>Size</h4>
 								</th>
-								<th /> {/* starred */}
-								<th /> {/* more */}
+								{/* starred */}
+								<th />
+								{/* more */}
+								<th />
 							</tr>
 						</thead>
 					</table>

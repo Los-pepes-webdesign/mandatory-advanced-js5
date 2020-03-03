@@ -11,18 +11,12 @@ export default function FileMore(props) {
 	});
 	const [ popRename, updatePopRename ] = useState(false);
 	const [ popMove, updatePopMove ] = useState(false);
-	const [ isFolder, updateIsFolder ] = useState(false);
 
-	function alertBox() {
-		alert('Naj! Jesper jobbar på RENAME och MOVE');
-	}
-
-		function rename() {
+	function rename() {
 		let test = props.fileDetails.path_lower.split('');
 		let booly = false;
 		for (let i = 0; i < test.length; i++) {
 			if (test[i] === '.') {
-
 				booly = true;
 				updatePopRename(!popRename);
 				break;
@@ -38,7 +32,7 @@ export default function FileMore(props) {
 		}
 	}
 
-	function move(){
+	function move() {
 		updatePopMove(!popMove);
 	}
 
@@ -85,10 +79,18 @@ export default function FileMore(props) {
 				</div>
 			</div>
 			{popRename && (
-				<Rename fileRename={props.fileDetails} popRenameFunc={updatePopRename} onDone={props.onClose} />
+				<Rename
+					fileRename={props.fileDetails}
+					popRenameFunc={updatePopRename}
+					onDone={props.onClose}
+				/>
 			)}
 			{popMove && (
-				<Move fileMove={props.fileDetails} popMoveFunc={updatePopMove} onDone={props.onClose} />
+				<Move
+					fileMove={props.fileDetails}
+					popMoveFunc={updatePopMove}
+					onDone={props.onClose}
+				/>
 			)}
 			{localState.modal && (
 				<DeletionModal

@@ -33,10 +33,10 @@ export default function Menu() {
 	useEffect(
 		() => {
 			let string = hash
-				.replace(/\%20/g, ' ')
-				.replace(/\%C3%A5/g, 'å')
-				.replace(/\%C3%A4/g, 'ä')
-				.replace(/\%C3%B6/g, 'ö');
+				.replace(/%20/g, ' ')
+				.replace(/%C3%A5/g, 'å')
+				.replace(/%C3%A4/g, 'ä')
+				.replace(/%C3%B6/g, 'ö');
 			let paths = string.split('/');
 
 			setPaths(formatPaths(paths));
@@ -58,10 +58,8 @@ export default function Menu() {
 				<Link to='/'>Home</Link>
 			</p>
 			{paths.map((path) => (
-				<p>
-					<Link key={path.path} to={path.path}>
-						{path.title}
-					</Link>
+				<p key={path.path}>
+					<Link to={path.path}>{path.title}</Link>
 				</p>
 			))}
 		</aside>
