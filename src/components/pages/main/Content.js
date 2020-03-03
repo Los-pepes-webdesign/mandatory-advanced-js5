@@ -34,8 +34,7 @@ export default function Content() {
 	function getButtonPosition(e, fileId) {
 		if (showMore === fileId) {
 			updateShowMore(false);
-		}
-		else {
+		} else {
 			updateShowMore(fileId);
 		}
 
@@ -47,7 +46,7 @@ export default function Content() {
 	return (
 		<React.Fragment>
 			{isLoading && <p>Loading...</p>}
-			<main className='content'>
+			<main className="content">
 				<table>
 					<thead>
 						<tr>
@@ -63,35 +62,47 @@ export default function Content() {
 				<table>
 					<tbody>
 						{files.map((file) => (
-							<tr className='file' key={file.id}>
-								<td className='file__thumbnail'>
+							<tr className="file" key={file.id}>
+								<td className="file__thumbnail">
 									{file['.tag'] === 'folder' ? (
 										<FolderIcon />
 									) : file.thumbnail ? (
-										<img src={`data:image/png;base64, ${file.thumbnail}`} alt='' />
+										<img
+											src={`data:image/png;base64, ${file.thumbnail}`}
+											alt=""
+										/>
 									) : (
 										<InsertDriveFileIcon />
 									)}
 								</td>
-								<td className='file__name'>
+								<td className="file__name">
 									{file['.tag'] === 'folder' ? (
-										<Link to={file.path_lower}>{file.name}</Link>
+										<Link to={file.path_lower}>
+											{file.name}
+										</Link>
 									) : (
 										file.name
 									)}
 								</td>
-								<td className='file__modified'>
-									<Moment format='YYYY/MM/DD'>{file.server_modified}</Moment>
+								<td className="file__modified">
+									<Moment format="YYYY/MM/DD">
+										{file.server_modified}
+									</Moment>
 								</td>
-								<td className='file__size'>{file.size}</td>
-								<td className='file__starred'>
-									{file.starred ? <StarRoundedIcon /> : <StarBorderRoundedIcon />}
+								<td className="file__size">{file.size}</td>
+								<td className="file__starred">
+									{file.starred ? (
+										<StarRoundedIcon />
+									) : (
+										<StarBorderRoundedIcon />
+									)}
 								</td>
-								<td className='file__more'>
+								<td className="file__more">
 									<div>
 										<button
-											className='fileMoreButton'
-											onClick={(e) => getButtonPosition(e, file.id)}
+											className="fileMoreButton"
+											onClick={(e) =>
+												getButtonPosition(e, file.id)}
 										>
 											<MoreVertIcon />
 										</button>
@@ -99,8 +110,11 @@ export default function Content() {
 											<FileMore
 												buttonPosition={buttonPos}
 												fileDetails={file}
-												showMoreFunction={updateShowMore}
-												onClose={() => updateShowMore(false)}
+												showMoreFunction={
+													updateShowMore
+												}
+												onClose={() =>
+													updateShowMore(false)}
 											/>
 										)}
 									</div>
