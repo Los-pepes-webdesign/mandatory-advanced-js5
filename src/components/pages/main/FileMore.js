@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Rename from './Rename';
+import Move from './Move';
 
 import DeletionModal from './Content.DeletionModal';
 
@@ -9,18 +10,21 @@ export default function FileMore(props) {
 		modal: false
 	});
 	const [ popRename, updatePopRename ] = useState(false);
+	const [ popMove, updatePopMove ] = useState(false);
+	const [ isFolder, updateIsFolder ] = useState(false);
 
 	function alertBox() {
 		alert('Naj! Jesper jobbar på RENAME och MOVE');
 	}
 
-	function popup() {
+		function rename() {
 		let test = props.fileDetails.path_lower.split('');
 		let booly = false;
 		for (let i = 0; i < test.length; i++) {
 			if (test[i] === '.') {
-				updatePopRename(!popRename);
+
 				booly = true;
+				updatePopRename(!popRename);
 				break;
 			}
 			else {
@@ -34,6 +38,10 @@ export default function FileMore(props) {
 		}
 	}
 
+	function move(){
+		updatePopMove(!popMove);
+	}
+
 	return (
 		<React.Fragment>
 			<div
@@ -44,10 +52,10 @@ export default function FileMore(props) {
 					display: popRename ? 'none' : null
 				}}
 			>
-				<div className='fileMore__textContainer' onClick={popup}>
+				<div className='fileMore__textContainer' onClick={rename}>
 					<p className='fileMore__textContainer__text'>Rename</p>
 				</div>
-				<div className='fileMore__textContainer' onClick={alertBox}>
+				<div className='fileMore__textContainer' onClick={move}>
 					<p className='fileMore__textContainer__text'>Move</p>
 				</div>
 				<div className='fileMore__textContainer'>
@@ -78,6 +86,9 @@ export default function FileMore(props) {
 			</div>
 			{popRename && (
 				<Rename fileRename={props.fileDetails} popRenameFunc={updatePopRename} onDone={props.onClose} />
+			)}
+			{popMove && (
+				<Move fileMove={props.fileDetails} popMoveFunc={updatePopMove} onDone={props.onClose} />
 			)}
 			{localState.modal && (
 				<DeletionModal

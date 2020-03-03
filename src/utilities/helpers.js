@@ -52,3 +52,25 @@ export function formatMaxSpace(size) {
 		throw new Error('Invalid size.');
 	}
 }
+
+export function formatPaths(stones) {
+	const paths = stones.map((stone, i) =>
+		stones.reduce((acc, val, idx) => {
+			if (idx === i) {
+				return {
+					title: stone === '' ? '' : stone,
+					path: `${acc}/${val}`
+				};
+			}
+			if (typeof acc === 'object') {
+				return acc;
+			} else {
+				return `${acc}/${val}`;
+			}
+		})
+	);
+
+	paths.shift();
+
+	return paths;
+}
