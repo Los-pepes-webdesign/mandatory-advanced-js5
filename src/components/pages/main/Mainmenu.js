@@ -4,11 +4,12 @@ import FolderPopup from './FolderPopup';
 import { Link } from 'react-router-dom';
 import { formatPaths } from '../../../utilities/helpers';
 
-export default function Menu({ location }) {
+export default function Menu() {
 	const [ paths, setPaths ] = useState([]);
 	const fileInputRef = useRef(null);
 	const [ visible, toggleVisible ] = useState('hidden');
 	const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
+	let hash = window.location.pathname;
 
 	function fileUpload(e) {
 		e.preventDefault();
@@ -16,7 +17,7 @@ export default function Menu({ location }) {
 		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
 			dropbox
 				.filesUpload({ path: '/' + file.name, contents: file })
-				.then(function(response) {
+				.then(function() {
 					console.log('File uploaded!');
 				})
 				.catch(function(error) {
@@ -29,17 +30,19 @@ export default function Menu({ location }) {
 		visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
 	}
 
-	useEffect(() => {
-		let hash = window.location.pathname;
-		let string = hash
-			.replace(/\%20/g, ' ')
-			.replace(/\%C3%A5/g, 'å')
-			.replace(/\%C3%A4/g, 'ä')
-			.replace(/\%C3%B6/g, 'ö');
-		let paths = string.split('/');
+	useEffect(
+		() => {
+			let string = hash
+				.replace(/\%20/g, ' ')
+				.replace(/\%C3%A5/g, 'å')
+				.replace(/\%C3%A4/g, 'ä')
+				.replace(/\%C3%B6/g, 'ö');
+			let paths = string.split('/');
 
-		setPaths(formatPaths(paths));
-	}, []);
+			setPaths(formatPaths(paths));
+		},
+		[ hash ]
+	);
 
 	return (
 		<aside className='mainmenu'>

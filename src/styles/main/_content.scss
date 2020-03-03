@@ -7,13 +7,13 @@
     display: grid;
     grid-template: 
         "tableHeader" 64px
-        "tableContent"
+        "tableContent" 
         / 1fr;
-    overflow-y: auto;
-
-    .tableHeader{ grid-area: tableHeader; }
+    .tableHeader{ 
+        grid-area: tableHeader; 
+    }
     .tableContent { 
         grid-area: tableContent; 
-        // overflow-y: auto;
+        overflow-y: scroll;
     }
 }
