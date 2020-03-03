@@ -58,7 +58,7 @@ export function formatPaths(stones) {
 		stones.reduce((acc, val, idx) => {
 			if (idx === i) {
 				return {
-					title: stone === '' ? 'Home' : stone,
+					title: stone === '' ? '' : stone,
 					path: `${acc}/${val}`
 				};
 			}
