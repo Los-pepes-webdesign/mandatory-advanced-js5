@@ -13,23 +13,7 @@ export default function FileMore(props) {
 	const [ popMove, updatePopMove ] = useState(false);
 
 	function rename() {
-		let test = props.fileDetails.path_lower.split('');
-		let booly = false;
-		for (let i = 0; i < test.length; i++) {
-			if (test[i] === '.') {
-				booly = true;
-				updatePopRename(!popRename);
-				break;
-			}
-			else {
-				booly = false;
-			}
-		}
-
-		if (!booly) {
-			console.log('FUNKAR INTE PÅ MAPPAR');
-			alert('FUNKAR INTE PÅ MAPPAR!');
-		}
+		updatePopRename(!popRename);
 	}
 
 	function move() {
@@ -43,7 +27,7 @@ export default function FileMore(props) {
 				style={{
 					left: props.buttonPosition.x - 50,
 					top: props.buttonPosition.y + 40,
-					display: popRename ? 'none' : null
+					display: popRename || popMove ? 'none' : null
 				}}
 			>
 				<div className='fileMore__textContainer' onClick={rename}>

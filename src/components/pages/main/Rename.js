@@ -1,25 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { dropbox } from '../../../utilities/dropbox';
 import ReactDOM from 'react-dom';
 
 export default function Rename(props) {
+  const [ path, updatePath ] = useState("");
+  const [ isFolder, updateIsFolder ] = useState(false);
   const [ filename, updateFilename ] = useState("");
+  const [ extension, updateExtension ] = useState("");
   const oldName = props.fileRename.path_lower.substring(1);
-  let extension = "." + props.fileRename.path_lower.split('.').pop();
+  let pathFront = props.fileRename.path_lower;
+  //pathFront.split('/').pop();
+
+  let reg = /^(.*[\\\/])/g;
+  let newFilePath = pathFront.match(reg);
+  console.log(newFilePath);
+
+
+  //let currentFile = "/" + currentPath.split('/').pop();
+
+  useEffect(() => {
+    checkFile();
+  },[]);
 
   function onChange(e) {
     updateFilename(e.target.value);
   }
 
-  function executeChange() {
-    let newName = filename + extension;
+  function checkFile(){
+    if (props.fileRename[".tag"] === "folder") {
+      updateIsFolder(true);
+    } else {
+      const currentExt = "." + props.fileRename.path_lower.split('.').pop();
+      updateExtension(currentExt);
+      updateIsFolder(false);
+    }
+  }
 
-    let rename = {
+  function executeChange() {
+    const newName = filename + extension;
+    const rename = {
       "from_path": props.fileRename.path_lower,
       "to_path": "/" + newName,
     }
-    dropbox.filesMoveV2(rename);
-    props.onDone();
+    dropbox.filesMoveV2(rename)
+      .then((response) => {
+        props.onDone();
+      })
+      .catch((error) => {
+        console.error("Rename server ERROR: " + error);
+      });
   }
 
   function closeBox() {
