@@ -32,7 +32,7 @@ export function formatSize(size) {
 			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' TB';
 		return formatted;
 	} else {
-		throw new Error('Invalid size.');
+		return '';
 	}
 }
 

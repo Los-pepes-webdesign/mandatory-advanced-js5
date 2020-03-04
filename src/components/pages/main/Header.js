@@ -5,12 +5,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { setState$ } from '../../../utilities/store';
-import { dropbox } from '../../../utilities/dropbox';
+import { getQueriedContent } from '../../../utilities/dropbox';
 
 export default function Header() {
 	const [ filterSearch, updateFilterSearch ] = useState('');
 	const [ focus, updateFocus ] = useState(null);
-	let hash = window.location.pathname;
 
 	function filter(e) {
 		updateFilterSearch(e.target.value);
@@ -28,32 +27,20 @@ export default function Header() {
 
 	function search(e) {
 		e.preventDefault();
-		dropbox
-			.filesSearch({
-				path: '',
-				query: filterSearch.toLowerCase()
-			})
-			.then((response) => {
-				console.log(response);
-
-				const queries = response.matches.map(
-					({ metadata }) => metadata
-				);
-				setState$(queries, 'setQueriedFiles');
-			});
+		getQueriedContent(filterSearch.toLowerCase());
 	}
 
 	return (
 		<React.Fragment>
-			{focus === 'true' && <Redirect to="/search" />}
-			{focus === 'false' && <Redirect to="/" />}
-			<header className="header">
-				<div className="header__form__wrapper">
-					<form className="header__form">
+			{focus === 'true' && <Redirect to='/search' />}
+			{focus === 'false' && <Redirect to='/' />}
+			<header className='header'>
+				<div className='header__form__wrapper'>
+					<form className='header__form'>
 						<input
-							className="header__form__input"
-							type="text"
-							placeholder="search"
+							className='header__form__input'
+							type='text'
+							placeholder='search'
 							required
 							minLength={1}
 							maxLength={100}
@@ -62,11 +49,7 @@ export default function Header() {
 							onFocus={onFocus}
 						/>
 
-						<button
-							className="header__form__button"
-							name="button"
-							onClick={search}
-						>
+						<button className='header__form__button' name='button' onClick={search}>
 							<SearchIcon
 								style={{
 									color: '#900C3F'
@@ -76,7 +59,7 @@ export default function Header() {
 					</form>
 				</div>
 				<button
-					className="header__closeButton"
+					className='header__closeButton'
 					style={{
 						opacity: focus === 'true' ? 1 : 0,
 						pointerEvents: focus === 'true' ? 'all' : 'none',

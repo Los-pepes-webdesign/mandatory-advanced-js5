@@ -29,7 +29,6 @@ export default function FolderPopup({ onSubmit, close }) {
 	}
 
 	function updateInputFolder(e) {
-		console.log(e.target.value);
 		updateFolderInput(e.target.value);
 	}
 

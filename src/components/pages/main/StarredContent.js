@@ -68,7 +68,9 @@ export default function StarredContent() {
 									{file['.tag'] === 'folder' ? (
 										<Link to={file.path_lower}>{file.name}</Link>
 									) : (
-										file.name
+										<a href={file.link} download={file.name}>
+											{file.name}
+										</a>
 									)}
 								</span>
 							</td>

@@ -3,11 +3,10 @@ import { formatSize, formatMaxSpace } from './helpers';
 
 describe('formatSize', () => {
 	it('should return a number', () => {
-		function TESTformatSize() {
-			formatSize('YOBRO');
-		}
+		const acutal = formatSize('YEBOI');
+		const expected = '';
 
-		expect(TESTformatSize).toThrowError();
+		expect(acutal).toBe(expected);
 	});
 
 	it('should return the value formatted to 2 decimals and with a suffix (bytes, KB, MB, GB, TB)', () => {
