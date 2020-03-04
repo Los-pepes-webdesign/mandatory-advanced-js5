@@ -54,6 +54,7 @@ export default function Menu() {
 			</form>
 			<FolderPopup visibility={visible} toggle={toggleFolderView} />
 			<button onClick={toggleFolderView}>New Folder</button>
+			<Link to='/starred'>Favorites</Link>
 			<p>
 				<Link to='/'>Home</Link>
 			</p>
