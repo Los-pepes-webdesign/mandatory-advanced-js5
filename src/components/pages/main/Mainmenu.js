@@ -3,6 +3,8 @@ import { dropbox } from '../../../utilities/dropbox';
 import FolderPopup from './FolderPopup';
 import { Link } from 'react-router-dom';
 import { formatPaths } from '../../../utilities/helpers';
+import HomeIcon from '@material-ui/icons/Home';
+import StarIcon from '@material-ui/icons/Star';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import PublishIcon from '@material-ui/icons/Publish';
 
@@ -15,10 +17,15 @@ export default function Menu() {
 
 	function fileUpload(e) {
 		e.preventDefault();
+		console.log(hash.length);
+
+		if (hash.length === 1) {
+			hash = '';
+		}
 		let file = fileInputRef.current.files[0];
 		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
 			dropbox
-				.filesUpload({ path: '/' + file.name, contents: file })
+				.filesUpload({ path: hash + '/' + file.name, contents: file })
 				.then(function() {
 					console.log('File uploaded!');
 				})
@@ -28,58 +35,49 @@ export default function Menu() {
 		}
 	}
 
-	useEffect(
-		() => {
-			if (hash === '/starred' || hash === '/search') {
-				return;
-			}
-			let string = hash
-				.replace(/%20/g, ' ')
-				.replace(/%C3%A5/g, 'å')
-				.replace(/%C3%A4/g, 'ä')
-				.replace(/%C3%B6/g, 'ö');
-			let paths = string.split('/');
-
-			setPaths(formatPaths(paths));
-		},
-		[ hash ]
-	);
-
 	function showPopup() {
 		toggleVisible(true);
 	}
 
 	return (
-		<aside className="mainmenu">
-			<form onSubmit={fileUpload}>
-				<PublishIcon />
-				<label id="folder_label">
-					Upload File
-					<input
-						ref={fileInputRef}
-						onChange={fileUpload}
-						placeholder="Upload File"
-						type="file"
-						id="file-upload"
-						className="hidden"
-					/>
-				</label>
-			</form>
-
-			<button onClick={showPopup}>
-				<CreateNewFolderIcon />
-				<label>New Folder</label>
-			</button>
-			<Link to="/starred">Favorites</Link>
-			<p>
-				<Link to="/">Home</Link>
-			</p>
-			{paths.map((path) => (
-				<p key={path.path}>
-					<Link to={path.path}>{path.title}</Link>
-				</p>
-			))}
+		<React.Fragment>
 			{visible && <FolderPopup close={() => toggleVisible(false)} />}
-		</aside>
+			<aside className="mainmenu">
+				<div className="mainmenu__home">
+					<Link to="/">
+						<HomeIcon />
+						<label>Home</label>
+					</Link>
+				</div>
+				<div className="mainmenu__favorite">
+					<Link to="/starred">
+						<StarIcon />
+						<label>Favorites</label>
+					</Link>
+				</div>
+				<div className="mainmenu__upload">
+					<form onSubmit={fileUpload} id="file-upload-form">
+						<PublishIcon />
+						<label id="folder_label">
+							Upload File
+							<input
+								ref={fileInputRef}
+								onChange={fileUpload}
+								placeholder="Upload File"
+								type="file"
+								id="file-upload-input"
+								className="hidden"
+							/>
+						</label>
+					</form>
+				</div>
+				<div className="mainmenu__newfolder">
+					<button onClick={showPopup}>
+						<CreateNewFolderIcon />
+						<label>New Folder</label>
+					</button>
+				</div>
+			</aside>
+		</React.Fragment>
 	);
 }

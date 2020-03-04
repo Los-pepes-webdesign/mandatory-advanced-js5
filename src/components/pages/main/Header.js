@@ -10,6 +10,7 @@ import { dropbox } from '../../../utilities/dropbox';
 export default function Header() {
 	const [ filterSearch, updateFilterSearch ] = useState('');
 	const [ focus, updateFocus ] = useState(null);
+	let hash = window.location.pathname;
 
 	function filter(e) {
 		updateFilterSearch(e.target.value);

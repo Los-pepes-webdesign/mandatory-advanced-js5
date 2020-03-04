@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 // utilities
 import { useObservable, state$ } from '../../../utilities/store';
 import { toggleStar } from '../../../utilities/helpers';
+import { formatPaths } from '../../../utilities/helpers';
 
 // icons
 import FolderIcon from '@material-ui/icons/Folder';
@@ -22,10 +23,25 @@ export default function Content() {
 	const { files, hasMore } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
+	const [paths, setPaths] = useState([]);
+	let hash = window.location.pathname;
 
 	useEffect(
 		() => {
+			if (hash === '/starred' || hash === '/search') {
+				return;
+			}
+			let string = hash
+				.replace(/%20/g, ' ')
+				.replace(/%C3%A5/g, 'å')
+				.replace(/%C3%A4/g, 'ä')
+				.replace(/%C3%B6/g, 'ö');
+			let paths = string.split('/');
+
+			setPaths(formatPaths(paths));
+
 			if (files.length !== 0) setIsLoading(false);
+
 		},
 		[ files ]
 	);
@@ -48,6 +64,12 @@ export default function Content() {
 			{isLoading && <p>Loading...</p>}
 			<main className='content'>
 				<section className='tableHeader'>
+					<div className='path'><span>Pepebox<span>&nbsp;</span></span>{paths.map((path) => (
+						<span key={path.path}>
+							<Link to={path.path}>&gt;&nbsp;{path.title}&nbsp;</Link>
+						</span>
+
+						))}</div>
 					<table className='fileTable'>
 						<thead>
 							<tr>
@@ -90,7 +112,7 @@ export default function Content() {
 									<td className='file__name'>
 										<span>
 											{file['.tag'] === 'folder' ? (
-												<Link to={file.path_lower}>{file.name}</Link>
+												<Link to={file.path_lower}> {file.name}</Link>
 											) : (
 												file.name
 											)}

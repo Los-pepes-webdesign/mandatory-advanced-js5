@@ -92,5 +92,7 @@ export function toggleStar(file) {
 		starredFiles = [ ...state$.value.starredFiles, modifiedFile ];
 	}
 
+	console.log(starredFiles);
+
 	setState$({ files, starredFiles }, 'setStarredFiles');
 }

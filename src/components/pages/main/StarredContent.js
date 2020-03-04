@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 
 import { toggleStar } from '../../../utilities/helpers';
-import { useObservable, state$ } from '../../../utilities/store';
 
 // icons
 import FolderIcon from '@material-ui/icons/Folder';
@@ -13,11 +12,13 @@ import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 
 import FileMore from './FileMore';
+import { useObservable, state$ } from '../../../utilities/store';
 
 export default function StarredContent() {
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 	const { starredFiles } = useObservable(state$);
+	const [ starred, setStarred ] = useState(starredFiles);
 
 	function getButtonPosition(e, fileId) {
 		if (showMore === fileId) {
@@ -32,11 +33,26 @@ export default function StarredContent() {
 		updateButtonPos({ x: buttonPosX, y: buttonPosY });
 	}
 
+	useEffect(
+		() => {
+			if (
+				JSON.parse(localStorage.getItem('starredFiles')).length !== 0 &&
+				starredFiles.length === 0
+			) {
+				setStarred(JSON.parse(localStorage.getItem('starredFiles')));
+			}
+			else {
+				setStarred(starredFiles);
+			}
+		},
+		[ starredFiles ]
+	);
+
 	return (
 		<main className='content'>
 			<table className='fileTable'>
 				<tbody>
-					{starredFiles.map((file) => (
+					{starred.map((file) => (
 						<tr className='file' key={file.id}>
 							<td className='file__thumbnail'>
 								{file['.tag'] === 'folder' ? (
