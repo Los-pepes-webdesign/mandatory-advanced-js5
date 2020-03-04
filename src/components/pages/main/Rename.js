@@ -3,19 +3,16 @@ import { dropbox } from '../../../utilities/dropbox';
 import ReactDOM from 'react-dom';
 
 export default function Rename(props) {
+  // States
   const [ path, updatePath ] = useState("");
   const [ isFolder, updateIsFolder ] = useState(false);
   const [ filename, updateFilename ] = useState("");
   const [ extension, updateExtension ] = useState("");
-  const oldName = props.fileRename.path_lower.substring(1);
-  let pathFront = props.fileRename.path_lower;
-  //pathFront.split('/').pop();
 
-  let reg = /^(.*[\\\/])/g;
-  let newFilePath = pathFront.match(reg);
-  console.log(newFilePath);
-
-
+  const filePath = props.fileRename.path_lower;
+  const oldName = filePath.substring(1);
+  const regex = /^(.*[\\\/])/g;
+  const pathFront = filePath.match(regex);
   //let currentFile = "/" + currentPath.split('/').pop();
 
   useEffect(() => {
@@ -37,10 +34,11 @@ export default function Rename(props) {
   }
 
   function executeChange() {
-    const newName = filename + extension;
+    const newName = pathFront + filename + extension;
+    console.log(newName);
     const rename = {
-      "from_path": props.fileRename.path_lower,
-      "to_path": "/" + newName,
+      "from_path": filePath,
+      "to_path": newName,
     }
     dropbox.filesMoveV2(rename)
       .then((response) => {
