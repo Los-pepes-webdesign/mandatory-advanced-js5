@@ -2,4 +2,21 @@
 
 .mainmenu {
     background-color: $wine;
+    width: 200px;
+
+    .hidden {
+      display: none;
+    }
+
+    #folder_label {
+
+    }
+
+    #folder_label:hover {
+      cursor: pointer;
+    }
+
+    svg:hover {
+      cursor: pointer;
+    }
 }
