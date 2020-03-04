@@ -51,7 +51,7 @@ export default function Menu() {
 			<form onSubmit={fileUpload}>
 				<PublishIcon />
 				<label id='folder_label'>Upload File
-				<input ref={fileInputRef} onChange={fileUpload} placeholder='Upload File' type='file' id='file-upload' class="hidden" />
+				<input ref={fileInputRef} onChange={fileUpload} placeholder='Upload File' type='file' id='file-upload' className="hidden" />
 					</label>
 			</form>
 			<FolderPopup visibility={visible} toggle={toggleFolderView} />
