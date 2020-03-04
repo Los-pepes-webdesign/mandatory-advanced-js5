@@ -37,7 +37,6 @@ function sortLinksAndThumbs(response) {
 // available only if filesContinued.length is > 0
 export function getMoreFiles() {
 	let { files, filesContinued, hasMore } = state$.value;
-	console.log(files);
 
 	let currentFiles;
 
@@ -104,6 +103,41 @@ export function getFolderContent(path) {
 				.catch(console.error);
 		})
 		.catch(console.error);
+}
+
+// gets and formats queried files and folders
+export function getQueriedContent(query) {
+	dropbox.filesSearch({ path: '', query }).then(({ matches }) => {
+		const queries = matches.map(({ metadata }) => metadata);
+		const folders = queries.filter((query) => query['.tag'] === 'folder');
+		let files = queries.filter((query) => query['.tag'] === 'file');
+
+		Promise.all(
+			files.map(({ path_lower }) => dropbox.filesGetTemporaryLink({ path: path_lower }))
+		)
+			.then((response) => {
+				console.log(response);
+				files = [
+					...folders,
+					...response.map(({ metadata, link }) => ({
+						...metadata,
+						size: formatSize(metadata.size),
+						link
+					}))
+				];
+
+				if (localStorage.getItem('starredFiles')) {
+					const starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
+					files = files.map((file) => {
+						const starredFile = starredFiles.find((_file) => _file.id === file.id);
+						return starredFile ? starredFile : file;
+					});
+				}
+
+				setState$(files, 'setQueriedFiles');
+			})
+			.catch(console.error);
+	});
 }
 
 // initates global state (root content, profile information, space usage)

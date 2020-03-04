@@ -23,7 +23,7 @@ export default function Content() {
 	const { files, hasMore } = useObservable(state$);
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
-	const [paths, setPaths] = useState([]);
+	const [ paths, setPaths ] = useState([]);
 	let hash = window.location.pathname;
 
 	useEffect(
@@ -41,9 +41,8 @@ export default function Content() {
 			setPaths(formatPaths(paths));
 
 			if (files.length !== 0) setIsLoading(false);
-
 		},
-		[ files ]
+		[ files, hash ]
 	);
 
 	function getButtonPosition(e, fileId) {
@@ -64,12 +63,16 @@ export default function Content() {
 			{isLoading && <p>Loading...</p>}
 			<main className='content'>
 				<section className='tableHeader'>
-					<div className='path'><span>Pepebox<span>&nbsp;</span></span>{paths.map((path) => (
-						<span key={path.path}>
-							<Link to={path.path}>&gt;&nbsp;{path.title}&nbsp;</Link>
+					<div className='path'>
+						<span>
+							Pepebox<span>&nbsp;</span>
 						</span>
-
-						))}</div>
+						{paths.map((path) => (
+							<span key={path.path}>
+								<Link to={path.path}>&gt;&nbsp;{path.title}&nbsp;</Link>
+							</span>
+						))}
+					</div>
 					<table className='fileTable'>
 						<thead>
 							<tr>
@@ -114,7 +117,9 @@ export default function Content() {
 											{file['.tag'] === 'folder' ? (
 												<Link to={file.path_lower}> {file.name}</Link>
 											) : (
-												file.name
+												<a href={file.link} download={file.name}>
+													{file.name}
+												</a>
 											)}
 										</span>
 									</td>

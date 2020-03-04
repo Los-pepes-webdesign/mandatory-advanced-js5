@@ -11,29 +11,28 @@ export function formatSize(size) {
 
 	if (size < kb) {
 		return size + ' bytes';
-	}
-	else if (size < mb && size > kb) {
+	} else if (size < mb && size > kb) {
 		let decimalized = size / kb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' KB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' KB';
 		return formatted;
-	}
-	else if (size < gb && size > mb) {
+	} else if (size < gb && size > mb) {
 		let decimalized = size / mb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' MB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' MB';
 		return formatted;
-	}
-	else if (size < tb && size > gb) {
+	} else if (size < tb && size > gb) {
 		let decimalized = size / gb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' GB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' GB';
 		return formatted;
-	}
-	else if (size < pb && size > tb) {
+	} else if (size < pb && size > tb) {
 		let decimalized = size / gb;
-		let formatted = Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' TB';
+		let formatted =
+			Math.round((decimalized + Number.EPSILON) * 100) / 100 + ' TB';
 		return formatted;
-	}
-	else {
-		throw new Error('Invalid size.');
+	} else {
+		return '';
 	}
 }
 
@@ -43,17 +42,15 @@ export function formatMaxSpace(size) {
 	const gb = 1e9;
 	const tb = 1e12;
 	const pb = 1e15;
-	if (size > gb && size < tb) {
+	if (size >= gb && size < tb) {
 		const maxSpaceDecimalized = size / gb;
 		const maxSpaceFormatted = Math.round(maxSpaceDecimalized) + ' GB';
 		return maxSpaceFormatted;
-	}
-	else if (size > tb && size < pb) {
+	} else if (size >= tb && size < pb) {
 		const maxSpaceDecimalized = size / tb;
 		const maxSpaceFormatted = Math.round(maxSpaceDecimalized) + ' TB';
 		return maxSpaceFormatted;
-	}
-	else {
+	} else {
 		throw new Error('Invalid size.');
 	}
 }
@@ -69,8 +66,7 @@ export function formatPaths(stones) {
 			}
 			if (typeof acc === 'object') {
 				return acc;
-			}
-			else {
+			} else {
 				return `${acc}/${val}`;
 			}
 		})
@@ -89,9 +85,10 @@ export function toggleStar(file) {
 	let starredFiles;
 
 	if (file.starred) {
-		starredFiles = state$.value.starredFiles.filter((_file) => _file.id !== modifiedFile.id);
-	}
-	else {
+		starredFiles = state$.value.starredFiles.filter(
+			(_file) => _file.id !== modifiedFile.id
+		);
+	} else {
 		starredFiles = [ ...state$.value.starredFiles, modifiedFile ];
 	}
 
