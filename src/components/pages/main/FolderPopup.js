@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useObservable, state$ } from '../../../utilities/store';
 import { dropbox } from '../../../utilities/dropbox';
 import ReactDOM from 'react-dom';
+import FolderIcon from '@material-ui/icons/Close';
 import CloseIcon from '@material-ui/icons/Close';
 import { initFolderPopup } from '../../../utilities/animation';
 
@@ -36,7 +37,7 @@ export default function FolderPopup({ onSubmit, close }) {
 	return ReactDOM.createPortal(
 		<div className='folder-popup' ref={folderPopupRef}>
 			<h1>Create Folder</h1>
-			<CloseIcon onClick={close} />
+			<CloseIcon onClick={close} id="close_icon" />
 			<div className='popup-container'>
 				<form onSubmit={newFolder}>
 					<label>Name:</label>
@@ -55,7 +56,8 @@ export default function FolderPopup({ onSubmit, close }) {
 			<div className='popup-folders'>
 				{files.filter((file) => file['.tag'] === 'folder').map((file) => (
 					<div key={file.id} onClick={() => setPath(file.path_lower)}>
-						{file.name}
+          <FolderIcon />
+						 <p>{file.name}</p>
 					</div>
 				))}
 			</div>

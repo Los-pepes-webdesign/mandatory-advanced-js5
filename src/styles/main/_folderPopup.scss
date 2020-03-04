@@ -18,7 +18,8 @@
     padding-top: 20px;
     padding-bottom: 50px;
   }
-  svg {
+
+  #close_icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -26,7 +27,7 @@
     color: red;
   }
 
-  svg:hover {
+  #close_icon:hover {
     cursor: pointer;
   }
   label {
