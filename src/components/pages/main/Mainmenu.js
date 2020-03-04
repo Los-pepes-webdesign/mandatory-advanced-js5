@@ -36,11 +36,9 @@ export default function Menu() {
 
 	useEffect(
 		() => {
-			console.log(hash);
-
-			// if (hash === '/starred' || hash === '/search') {
-			// 	return;
-			// }
+			if (hash === '/starred' || hash === '/search') {
+				return;
+			}
 			let string = hash
 				.replace(/%20/g, ' ')
 				.replace(/%C3%A5/g, 'å')
