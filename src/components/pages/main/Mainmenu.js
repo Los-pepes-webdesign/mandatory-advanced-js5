@@ -27,11 +27,16 @@ export default function Menu() {
 	}
 
 	function toggleFolderView() {
-		visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
+		visible === 'visible'
+			? toggleVisible('hidden')
+			: toggleVisible('visible');
 	}
 
 	useEffect(
 		() => {
+			if (hash === 'starred' || hash === 'search') {
+				return;
+			}
 			let string = hash
 				.replace(/%20/g, ' ')
 				.replace(/%C3%A5/g, 'å')
@@ -45,17 +50,17 @@ export default function Menu() {
 	);
 
 	return (
-		<aside className='mainmenu'>
+		<aside className="mainmenu">
 			<p>Upload File</p>
 			<br />
 			<form onSubmit={fileUpload}>
-				<input ref={fileInputRef} type='file' id='file-upload' />
-				<button type='submit'>Submit</button>
+				<input ref={fileInputRef} type="file" id="file-upload" />
+				<button type="submit">Submit</button>
 			</form>
 			<FolderPopup visibility={visible} toggle={toggleFolderView} />
 			<button onClick={toggleFolderView}>New Folder</button>
 			<p>
-				<Link to='/'>Home</Link>
+				<Link to="/">Home</Link>
 			</p>
 			{paths.map((path) => (
 				<p key={path.path}>
