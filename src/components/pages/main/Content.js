@@ -64,7 +64,7 @@ export default function Content() {
 			{isLoading && <p>Loading...</p>}
 			<main className='content'>
 				<section className='tableHeader'>
-					<div><span>Pepebox<span>&nbsp;</span></span>{paths.map((path) => (
+					<div className='path'><span>Pepebox<span>&nbsp;</span></span>{paths.map((path) => (
 						<span key={path.path}>
 							<Link to={path.path}>&gt;&nbsp;{path.title}&nbsp;</Link>
 						</span>

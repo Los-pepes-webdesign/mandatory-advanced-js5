@@ -13,8 +13,12 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 
 	function newFolder(e) {
 		e.preventDefault();
+    let p = path;
+    if (path.length === 0) {
+      p =window.location.pathname;
+    }
 		dropbox
-			.filesCreateFolderV2({ path: path + '/' + folderInput })
+			.filesCreateFolderV2({ path: p + '/' + folderInput })
 			.then(function(response) {
 				console.log(response);
 			})
