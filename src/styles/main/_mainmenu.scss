@@ -3,20 +3,34 @@
 .mainmenu {
     background-color: $wine;
     width: 200px;
+    padding-top: 20px;
 
+    #file-upload-form {
+
+    }
     .hidden {
       display: none;
     }
 
-    #folder_label {
+    &__home, &__favorite, &__upload, &__newfolder {
+      display: flex;
+      align-content: center;
+      align-items: center;
+      vertical-align: middle;
+      text-align: center;
 
+      * {
+        padding: 3px;
+        color: white;
+        vertical-align: middle;
+      }
     }
 
     #folder_label:hover {
       cursor: pointer;
     }
 
-    svg:hover {
+    svg:hover  {
       cursor: pointer;
     }
 }
