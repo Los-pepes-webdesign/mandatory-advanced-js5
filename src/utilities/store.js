@@ -6,7 +6,6 @@ export const token$ = new BehaviorSubject(localStorage.getItem('token'));
 dropbox.setAccessToken(token$.value);
 
 export const setToken$ = (token) => {
-	console.log('SET TOKEN');
 	if (!token) localStorage.removeItem('token');
 	else localStorage.setItem('token', token);
 
@@ -41,13 +40,24 @@ export const state$ = new BehaviorSubject({
 
 export function setState$(value, action) {
 	switch (action) {
-		case 'init': // expects value to be an object
+		case 'init':
 			{
 				const { files, profile, userSpace } = value;
-				state$.next({ ...state$.value, files, profile, userSpace });
+				let starredFiles = [];
+
+				if (localStorage.getItem('starredFiles')) {
+					starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
+				}
+				else {
+					localStorage.setItem('starredFiles', JSON.stringify([]));
+				}
+
+				const state = { ...state$.value, files, profile, userSpace, starredFiles };
+
+				state$.next(state);
 			}
 			break;
-		case 'setFiles': // expects value to be an array of files
+		case 'setFiles':
 			{
 				const { files, filesContinued, hasMore } = value;
 				state$.next({
@@ -61,6 +71,7 @@ export function setState$(value, action) {
 		case 'setStarredFiles':
 			{
 				const { files, starredFiles } = value;
+				localStorage.setItem('starredFiles', JSON.stringify(starredFiles));
 				state$.next({ ...state$.value, files, starredFiles });
 			}
 			break;
@@ -68,6 +79,6 @@ export function setState$(value, action) {
 			state$.next({ ...state$.value, queriedFiles: value });
 			break;
 		default:
-			throw new Error('Invalid action.');
+			throw new Error('Invalid action provided to "setState$".');
 	}
 }
