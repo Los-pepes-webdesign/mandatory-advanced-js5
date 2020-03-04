@@ -17,7 +17,11 @@ export default function Menu() {
 
 	function fileUpload(e) {
 		e.preventDefault();
-		console.log(hash)
+		console.log(hash.length)
+
+		if (hash.length === 1) {
+			hash = '';
+		}
 		let file = fileInputRef.current.files[0];
 		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
 			dropbox
