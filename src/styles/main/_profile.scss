@@ -73,11 +73,20 @@
       margin: auto;
     }
     &__lineBreakFat {
+      position: relative;
       width: 150px;
       height: 2px;
       background-color: $purple;
       margin: auto;
-    }
+      &__progressbar {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 50px;
+        height: 2px;
+        background-color: $yellow;
+      }
+    }      
     &__logoutButton {
       width: 100px;
       height: 20px;

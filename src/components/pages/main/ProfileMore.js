@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
 import { setToken$, token$, useObservable, state$ } from '../../../utilities/store';
@@ -9,6 +9,20 @@ import { dropbox } from '../../../utilities/dropbox';
 export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
 	const refInput = useRef(null);
+	const refProgressbar = useRef(null);
+
+	useEffect(() => {
+		refProgressbar.current.style.width = progress(userSpace.used, userSpace.allocation.allocated) + "%";
+	});
+
+	function progress(used, max) {
+
+		let result = used / max;
+		if (result < 1) {
+			result = 1;
+		}
+		return result;	}
+
 
 	// Copies referral link to clipboard
 	// Input field needed for the execCommand
@@ -25,6 +39,7 @@ export default function ProfileMore() {
 		setToken$(null);
 	}
 
+
 	return (
 		<React.Fragment>
 			{!token$.value && <Redirect to='/login' />}
@@ -39,11 +54,12 @@ export default function ProfileMore() {
 						<p className='profile__more__profileInfo__email__text'>{profile.email}</p>
 					</div>
 				</div>
-				<div className='profile__more__lineBreakFat' />
+				<div className='profile__more__lineBreakFat'>
+					<div className='profile__more__lineBreakFat__progressbar' ref={refProgressbar} />
+				</div>
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{formatSize(userSpace.used)} /{' '}
-						{formatMaxSpace(userSpace.allocation.allocated)}
+						{formatSize(userSpace.used)} / {formatMaxSpace(userSpace.allocation.allocated)}
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />
