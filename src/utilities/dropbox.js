@@ -37,6 +37,7 @@ function sortLinksAndThumbs(response) {
 // available only if filesContinued.length is > 0
 export function getMoreFiles() {
 	let { files, filesContinued, hasMore } = state$.value;
+	console.log(files);
 
 	let currentFiles;
 
@@ -51,7 +52,9 @@ export function getMoreFiles() {
 	}
 
 	Promise.all([
-		...currentFiles.map(({ path_lower }) => dropbox.filesGetTemporaryLink({ path: path_lower })),
+		...currentFiles.map(({ path_lower }) =>
+			dropbox.filesGetTemporaryLink({ path: path_lower })
+		),
 		dropbox.filesGetThumbnailBatch({
 			entries: currentFiles.map(({ path_lower }) => ({
 				path: path_lower,
@@ -74,7 +77,9 @@ export function getFolderContent(path) {
 			const { sortedFiles, filesContinued, hasMore, folders } = sortFiles(entries);
 
 			Promise.all([
-				...sortedFiles.map(({ path_lower }) => dropbox.filesGetTemporaryLink({ path: path_lower })),
+				...sortedFiles.map(({ path_lower }) =>
+					dropbox.filesGetTemporaryLink({ path: path_lower })
+				),
 				dropbox.filesGetThumbnailBatch({
 					entries: sortedFiles.map(({ path_lower }) => ({
 						path: path_lower,
@@ -84,7 +89,15 @@ export function getFolderContent(path) {
 			])
 				.then((response) => {
 					const { links, thumbnails } = sortLinksAndThumbs(response);
-					const files = [ ...folders, ...formatFiles(sortedFiles, links, thumbnails) ];
+					let files = [ ...folders, ...formatFiles(sortedFiles, links, thumbnails) ];
+
+					if (localStorage.getItem('starredFiles')) {
+						const starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
+						files = files.map((file) => {
+							const starredFile = starredFiles.find((_file) => _file.id === file.id);
+							return starredFile ? starredFile : file;
+						});
+					}
 
 					setState$({ files, filesContinued, hasMore }, 'setFiles');
 				})
@@ -105,7 +118,9 @@ export function init() {
 			const folders = entries.filter((path) => path['.tag'] === 'folder');
 
 			Promise.all([
-				...files.map(({ path_lower }) => dropbox.filesGetTemporaryLink({ path: path_lower })),
+				...files.map(({ path_lower }) =>
+					dropbox.filesGetTemporaryLink({ path: path_lower })
+				),
 				dropbox.filesGetThumbnailBatch({
 					entries: files.map(({ path_lower }) => ({
 						path: path_lower,
@@ -115,7 +130,16 @@ export function init() {
 			])
 				.then((response) => {
 					const { links, thumbnails } = sortLinksAndThumbs(response);
+
 					files = [ ...folders, ...formatFiles(files, links, thumbnails) ];
+
+					if (localStorage.getItem('starredFiles')) {
+						const starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
+						files = files.map((file) => {
+							const starredFile = starredFiles.find((_file) => _file.id === file.id);
+							return starredFile ? starredFile : file;
+						});
+					}
 
 					setState$({ files, profile, userSpace }, 'init');
 				})
