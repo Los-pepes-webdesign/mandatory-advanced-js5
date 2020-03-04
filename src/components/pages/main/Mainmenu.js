@@ -37,23 +37,6 @@ export default function Menu() {
 			: toggleVisible('visible');
 	}
 
-	useEffect(
-		() => {
-			if (hash === '/starred' || hash === '/search') {
-				return;
-			}
-			let string = hash
-				.replace(/%20/g, ' ')
-				.replace(/%C3%A5/g, 'å')
-				.replace(/%C3%A4/g, 'ä')
-				.replace(/%C3%B6/g, 'ö');
-			let paths = string.split('/');
-
-			setPaths(formatPaths(paths));
-		},
-		[ hash ]
-	);
-
 	return (
 		<aside className='mainmenu'>
 		 <div className="mainmenu__home">
@@ -74,12 +57,6 @@ export default function Menu() {
 			<button onClick={toggleFolderView}><CreateNewFolderIcon /><label>New Folder</label></button>
 		</div>
 			<FolderPopup visibility={visible} toggle={toggleFolderView} />
-
-			{paths.map((path) => (
-				<p key={path.path}>
-					<Link to={path.path}>{path.title}</Link>
-				</p>
-			))}
 		</aside>
 	);
 }
