@@ -26,7 +26,6 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
-
 			&:hover {
 				& > form >input {
 					width: 55vw;
@@ -34,9 +33,7 @@
 					outline: none;
 				}
 			}
-
 		}
-
 		&__input {
 			height: 40px;
 			padding: 0 40px 0 0px;
@@ -46,23 +43,16 @@
 			width: 0;
 			box-sizing: border-box;
 			transition: 0.4s ease;
-
-
-			&::placeholder {
-				font-size: 14px;
-			}
-
+			&::placeholder {font-size: 14px;}
 			&:focus, &:valid {
 				width: 55vw;
 				padding-left: 20px;
 			}
-
 			&:required {
 				outline: none;
 				border: none;
 			}
 		}
-
 		&__button {
 			position: absolute;
 			background-color: $yellow;
@@ -74,10 +64,7 @@
 			width: 40px;
 			border: none;
 		}
-
-
 	}
-
 	&__closeButton{
 		width: 40px;
 		height: 40px;
@@ -86,8 +73,5 @@
 		border: none;
 		outline: none;
 		transition: 0.5s ease;
-
-
 	}
-
 }
