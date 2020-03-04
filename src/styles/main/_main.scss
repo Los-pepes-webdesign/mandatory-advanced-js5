@@ -1,8 +1,8 @@
 @import './header';
 @import './profile';
+@import './mainmenu';
 
 .main {
-
     height: 100vh;
     background-color: $body;
     display: grid;
@@ -24,7 +24,6 @@
 
     & .content {
         grid-area: content;
-        overflow-y: scroll;
     }
 
 }

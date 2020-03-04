@@ -21,44 +21,64 @@ export function useObservable(observable) {
 			const subscription = observable.subscribe((newValue) => {
 				setValue(newValue);
 			});
-
 			return () => subscription.unsubscribe();
 		},
 		[ observable ]
 	);
-
 	return value;
 }
 
 export const state$ = new BehaviorSubject({
 	files: [],
-	currentPath: '',
-	profile: {},
+	filesContinued: [],
+	hasMore: false,
 	queriedFiles: [],
+	starredFiles: [],
+	profile: {},
 	userSpace: {}
 });
 
 export function setState$(value, action) {
 	switch (action) {
 		case 'init':
-			const { files, profile, userSpace } = value;
-			state$.next({ ...state$.value, files, profile, userSpace });
+			{
+				const { files, profile, userSpace } = value;
+				let starredFiles = [];
+
+				if (localStorage.getItem('starredFiles')) {
+					starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
+				}
+				else {
+					localStorage.setItem('starredFiles', JSON.stringify([]));
+				}
+
+				const state = { ...state$.value, files, profile, userSpace, starredFiles };
+
+				state$.next(state);
+			}
 			break;
-		case 'setFiles': // expects value to be an array of files
-			state$.next({ ...state$.value, files: value });
+		case 'setFiles':
+			{
+				const { files, filesContinued, hasMore } = value;
+				state$.next({
+					...state$.value,
+					files,
+					filesContinued,
+					hasMore
+				});
+			}
 			break;
-		case 'setProfile':
-			state$.next({ ...state$.value, profile: value });
+		case 'setStarredFiles':
+			{
+				const { files, starredFiles } = value;
+				localStorage.setItem('starredFiles', JSON.stringify(starredFiles));
+				state$.next({ ...state$.value, files, starredFiles });
+			}
 			break;
 		case 'setQueriedFiles':
 			state$.next({ ...state$.value, queriedFiles: value });
 			break;
-		case 'setUserSpace':
-			state$.next({ ...state$.value, userSpace: value });
-			break;
 		default:
-			throw new Error('Invalid action.');
+			throw new Error('Invalid action provided to "setState$".');
 	}
 }
-
-export const imageExtensions = [ 'jpg', 'jpeg', 'png', 'bmp', 'gif', 'webp' ];

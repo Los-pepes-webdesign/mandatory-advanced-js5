@@ -1,0 +1,47 @@
+.move {
+  width: 700px;
+  height: 200px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $body;
+  border-radius: 5px;
+
+  -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+  -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
+  box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+}
+
+.move__container {
+  padding: 10px, 10px, 10px, 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.move__text {
+  padding-bottom: 10px;
+}
+
+.move__input {
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+
+.move__buttonContainer {
+  display: flex;
+  width: 100px;
+  justify-content: space-between;
+}
+
+.move__inputContainer {
+  display: flex;
+}

@@ -3,6 +3,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import { Redirect } from 'react-router';
 import { setToken$, token$, useObservable, state$ } from '../../../utilities/store';
 import { formatSize } from '../../../utilities/helpers';
+import { formatMaxSpace } from '../../../utilities/helpers';
 import { dropbox } from '../../../utilities/dropbox';
 
 export default function ProfileMore() {
@@ -17,8 +18,9 @@ export default function ProfileMore() {
 		document.execCommand('copy');
 	}
 
-	// Logs out user by setting local token to <null> and revokes token from Dropbox API
+	// Logs out user by revoking token from Dropbox API and setting local token to <null>
 	function logoutUser() {
+		localStorage.setItem('starredFiles', []);
 		dropbox.authTokenRevoke();
 		setToken$(null);
 	}
@@ -29,7 +31,9 @@ export default function ProfileMore() {
 			<div className='profile__more'>
 				<div className='profile__more__profileInfo'>
 					<div className='profile__more__profileInfo__name'>
-						<p className='profile__more__profileInfo__name__text'>{profile.name.display_name}</p>
+						<p className='profile__more__profileInfo__name__text'>
+							{profile.name.display_name}
+						</p>
 					</div>
 					<div className='profile__more__profileInfo__email'>
 						<p className='profile__more__profileInfo__email__text'>{profile.email}</p>
@@ -38,7 +42,8 @@ export default function ProfileMore() {
 				<div className='profile__more__lineBreakFat' />
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{formatSize(userSpace.used)} / {formatSize(userSpace.allocation.allocated)}
+						{formatSize(userSpace.used)} /{' '}
+						{formatMaxSpace(userSpace.allocation.allocated)}
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />
@@ -51,7 +56,9 @@ export default function ProfileMore() {
 				/>
 				<button className='profile__more__refLinkButton' onClick={copyToClipboard}>
 					<div className='profile__more__refLinkButton__textContainer'>
-						<p className='profile__more__refLinkButton__textContainer__text'>Referral</p>
+						<p className='profile__more__refLinkButton__textContainer__text'>
+							Referral
+						</p>
 					</div>
 					<LinkIcon className='profile__more__refLinkButton__linkIcon' />
 					<div className='profile__more__refLinkButton__textContainer'>

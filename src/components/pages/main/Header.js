@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { setState$ } from '../../../utilities/store';
-import { dropbox } from '../../../utilities/dropbox';
+import { getQueriedContent } from '../../../utilities/dropbox';
 
 export default function Header() {
 	const [ filterSearch, updateFilterSearch ] = useState('');
@@ -27,15 +27,7 @@ export default function Header() {
 
 	function search(e) {
 		e.preventDefault();
-		dropbox
-			.filesSearch({
-				path: '',
-				query: filterSearch.toLowerCase()
-			})
-			.then((response) => {
-				const queries = response.matches.map(({ metadata }) => metadata);
-				setState$(queries, 'setQueriedFiles');
-			});
+		getQueriedContent(filterSearch.toLowerCase());
 	}
 
 	return (
@@ -43,27 +35,29 @@ export default function Header() {
 			{focus === 'true' && <Redirect to='/search' />}
 			{focus === 'false' && <Redirect to='/' />}
 			<header className='header'>
-				<form className='header__form'>
-					<input
-						className='header__form__input'
-						type='text'
-						placeholder='search'
-						required
-						minLength={1}
-						maxLength={100}
-						value={filterSearch}
-						onChange={filter}
-						onFocus={onFocus}
-					/>
-
-					<button className='header__form__button' name='button' onClick={search}>
-						<SearchIcon
-							style={{
-								color: '#900C3F'
-							}}
+				<div className='header__form__wrapper'>
+					<form className='header__form'>
+						<input
+							className='header__form__input'
+							type='text'
+							placeholder='search'
+							required
+							minLength={1}
+							maxLength={100}
+							value={filterSearch}
+							onChange={filter}
+							onFocus={onFocus}
 						/>
-					</button>
-				</form>
+
+						<button className='header__form__button' name='button' onClick={search}>
+							<SearchIcon
+								style={{
+									color: '#900C3F'
+								}}
+							/>
+						</button>
+					</form>
+				</div>
 				<button
 					className='header__closeButton'
 					style={{

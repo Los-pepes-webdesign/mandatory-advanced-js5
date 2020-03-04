@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { useObservable, state$ } from '../../../utilities/store';
 import ProfileMore from './ProfileMore';
@@ -10,7 +9,7 @@ export default function Profile() {
 	const [ showMore, updateShowMore ] = useState(false);
 
 	if (!profile.name) return null;
-	console.log(profile);
+
 	return (
 		<div className='profile'>
 			<div className='profile__info'>

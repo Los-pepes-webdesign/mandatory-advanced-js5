@@ -1,0 +1,20 @@
+@import './content/deletionModal';
+@import './content/fileMore';
+@import './content/rename';
+@import './content/file';
+@import './content/move';
+
+.content {
+    display: grid;
+    grid-template:
+        "tableHeader" 64px
+        "tableContent"
+        / 1fr;
+    .tableHeader{
+        grid-area: tableHeader;
+    }
+    .tableContent {
+        grid-area: tableContent;
+        overflow-y: scroll;
+    }
+}

@@ -2,19 +2,35 @@
   width: 220px;
   height: 50px;
   display: flex;
-  margin-top: 38px;
+  align-items: center;
+  transform: translateY(34px);
   &__info {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &__greeting {
-        width: 115px;
-        margin-left: 10px;
-        margin-top: 10px;
+      margin-left: 10px;
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+      &__text {
+        font-size: 14px;
+      }
     &__moreButton {
       position: relative;
       height: 22px;
       width: 16px;
       margin-top: 11px;
+      border: none;
+      background: none;
+      text-decoration: none;
+      cursor: pointer;
       color: $purple;
+      outline: none;
       transition: all 0.2s;
       &:hover { color: $yellow; }
       &:active { color: $red; }
@@ -37,11 +53,12 @@
     position: absolute;
     width: 180px;
     height: 220px;
+    align-items: center;
     margin-top: 50px;
-    margin-right: 20px;
     background-color: $body;
     border: 1px solid lightgrey;
     border-radius: 5px;
+    transform: translate(14px, 94px);
     -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
     -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
     box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
@@ -64,8 +81,8 @@
     &__logoutButton {
       width: 100px;
       height: 20px;
-      &:hover { color: $yellow; }
-      &:active { color: $wine; }
+      &:hover { color: $wine; background-color: $hover; border-radius: 10px;}
+      &:active { color: $yellow; background-color: $wine; border-radius: 10px; }
     }
     &__profileInfo__email__text {
       padding-top: 5px;
@@ -86,7 +103,7 @@
       }
       &__linkIcon { transform: rotate(45deg); }
     }
-    &__spaceUsageText { font-size: 14px; }
+    &__spaceUsageText { font-size: 12px; }
   }
   .moreVertIcon {
     position: absolute;
@@ -94,5 +111,8 @@
     top: 10px;
     margin-left: -16px;
     margin-top: -13px;
+  }
+  .arrowDropDownIcon {
+      transform: translateY(-7px);
   }
 }

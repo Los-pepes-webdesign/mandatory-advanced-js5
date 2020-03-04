@@ -1,21 +1,20 @@
 @import './reset';
 @import './variables';
-@import './utilities_';
+@import './utilities';
 @import url(https://fonts.googleapis.com/css?family=Inknut+Antiqua:400|Domine|Coromant&display=swap);
 
 @import './login/login';
 @import './main/main';
-@import './main/mainmenu';
+@import './main/content/';
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
 	font-family: $fontHeader;
 }
 
-button,
-p,
-span {
+button, p, span, a {
 	font-family: $fontBody;
+}
+
+body {
+	overflow: hidden;
 }
