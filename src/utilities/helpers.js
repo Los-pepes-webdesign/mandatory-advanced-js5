@@ -33,7 +33,7 @@ export function formatSize(size) {
 		return formatted;
 	}
 	else {
-		throw new Error('Invalid size.');
+		return '';
 	}
 }
 
