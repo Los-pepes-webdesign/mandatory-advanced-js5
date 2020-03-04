@@ -17,10 +17,11 @@ export default function Menu() {
 
 	function fileUpload(e) {
 		e.preventDefault();
+		console.log(hash)
 		let file = fileInputRef.current.files[0];
 		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
 			dropbox
-				.filesUpload({ path: '/' + file.name, contents: file })
+				.filesUpload({ path: hash + '/' + file.name, contents: file })
 				.then(function() {
 					console.log('File uploaded!');
 				})
