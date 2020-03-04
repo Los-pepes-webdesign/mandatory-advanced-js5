@@ -32,7 +32,8 @@ export default function Main({ location }) {
 					setHashStatus('valid');
 				}
 
-				if (location.pathname === '/') init();
+				if (location.pathname === '/starred' || location.pathname === '/search') return;
+				else if (location.pathname === '/') init();
 				else getFolderContent(location.pathname);
 			}
 		},
