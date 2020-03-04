@@ -13,7 +13,6 @@ export default function Rename(props) {
   const oldName = filePath.substring(1);
   const regex = /^(.*[\\\/])/g;
   const pathFront = filePath.match(regex);
-  //let currentFile = "/" + currentPath.split('/').pop();
 
   useEffect(() => {
     checkFile();
@@ -45,7 +44,7 @@ export default function Rename(props) {
         props.onDone();
       })
       .catch((error) => {
-        console.error("Rename server ERROR: " + error);
+        console.error("Rename File server ERROR: " + error);
       });
   }
 

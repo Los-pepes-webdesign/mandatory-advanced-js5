@@ -25,8 +25,13 @@ export default function Move(props) {
       "from_path": currentPath,
       "to_path": newPath,
     }
-    dropbox.filesMoveV2(move);
-    props.onDone();
+    dropbox.filesMoveV2(move)
+      .then((response) => {
+        props.onDone();
+      })
+      .catch((error) => {
+        console.error("Move File server ERROR: " + error);
+      });
   }
 
   function closeBox() {
