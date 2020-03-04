@@ -21,8 +21,6 @@ export default function Main({ location }) {
 
 	useEffect(
 		() => {
-			console.log('hejhej');
-
 			if (
 				!window.location.hash.includes('access_token') &&
 				!accessToken

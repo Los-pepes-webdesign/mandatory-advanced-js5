@@ -65,7 +65,7 @@ export default function Menu() {
 						placeholder="Upload File"
 						type="file"
 						id="file-upload"
-						class="hidden"
+						className="hidden"
 					/>
 				</label>
 			</form>
