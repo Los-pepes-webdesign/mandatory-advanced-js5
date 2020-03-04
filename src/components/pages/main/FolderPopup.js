@@ -13,10 +13,10 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 
 	function newFolder(e) {
 		e.preventDefault();
-    let p = path;
-    if (path.length === 0) {
-      p =window.location.pathname;
-    }
+		let p = path;
+		if (path.length === 0) {
+			p = window.location.pathname;
+		}
 		dropbox
 			.filesCreateFolderV2({ path: p + '/' + folderInput })
 			.then(function(response) {
@@ -28,7 +28,6 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 	}
 
 	function updateInputFolder(e) {
-		console.log(e.target.value);
 		updateFolderInput(e.target.value);
 	}
 
@@ -37,39 +36,30 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 	}, []);
 
 	return ReactDOM.createPortal(
-		<div
-			className="folder-popup"
-			ref={folderPopupRef}
-			style={{ visibility: visibility }}
-		>
+		<div className='folder-popup' ref={folderPopupRef} style={{ visibility: visibility }}>
 			<h1>Create Folder</h1>
 			<CloseIcon onClick={toggle} />
-			<div className="popup-container">
+			<div className='popup-container'>
 				<form onSubmit={newFolder}>
 					<label>Name:</label>
 					<input
-						type="text"
+						type='text'
 						onChange={updateInputFolder}
 						value={folderInput}
-						id="create-folder"
-						placeholder="Folder name"
+						id='create-folder'
+						placeholder='Folder name'
 					/>
-					<button onClick={toggle} type="submit">
+					<button onClick={toggle} type='submit'>
 						Submit
 					</button>
 				</form>
 			</div>
-			<div className="popup-folders">
-				{files
-					.filter((file) => file['.tag'] === 'folder')
-					.map((file) => (
-						<div
-							key={file.id}
-							onClick={() => setPath(file.path_lower)}
-						>
-							{file.name}
-						</div>
-					))}
+			<div className='popup-folders'>
+				{files.filter((file) => file['.tag'] === 'folder').map((file) => (
+					<div key={file.id} onClick={() => setPath(file.path_lower)}>
+						{file.name}
+					</div>
+				))}
 			</div>
 		</div>,
 		document.querySelector('body')
