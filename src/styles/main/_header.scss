@@ -1,3 +1,5 @@
+@import './header/path';
+
 .header {
 	background-color: transparent;
 	display: flex;
@@ -12,10 +14,10 @@
 		position: relative;
 		border: none;
 		margin-right: 12px;
-		
-		
-		
-		
+
+
+
+
 
 		&__wrapper{
 			width: 100%;

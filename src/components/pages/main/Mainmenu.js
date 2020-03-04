@@ -17,7 +17,11 @@ export default function Menu() {
 
 	function fileUpload(e) {
 		e.preventDefault();
-		console.log(hash)
+		console.log(hash.length)
+
+		if (hash.length === 1) {
+			hash = '';
+		}
 		let file = fileInputRef.current.files[0];
 		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
 			dropbox
@@ -36,23 +40,6 @@ export default function Menu() {
 			? toggleVisible('hidden')
 			: toggleVisible('visible');
 	}
-
-	useEffect(
-		() => {
-			if (hash === '/starred' || hash === '/search') {
-				return;
-			}
-			let string = hash
-				.replace(/%20/g, ' ')
-				.replace(/%C3%A5/g, 'å')
-				.replace(/%C3%A4/g, 'ä')
-				.replace(/%C3%B6/g, 'ö');
-			let paths = string.split('/');
-
-			setPaths(formatPaths(paths));
-		},
-		[ hash ]
-	);
 
 	return (
 		<aside className='mainmenu'>
@@ -74,12 +61,6 @@ export default function Menu() {
 			<button onClick={toggleFolderView}><CreateNewFolderIcon /><label>New Folder</label></button>
 		</div>
 			<FolderPopup visibility={visible} toggle={toggleFolderView} />
-
-			{paths.map((path) => (
-				<p key={path.path}>
-					<Link to={path.path}>{path.title}</Link>
-				</p>
-			))}
 		</aside>
 	);
 }

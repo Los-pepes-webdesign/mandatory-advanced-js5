@@ -63,7 +63,7 @@ export default function Content() {
 			{isLoading && <p>Loading...</p>}
 			<main className='content'>
 				<section className='tableHeader'>
-					<div>
+					<div className='path'>
 						<span>
 							Pepebox<span>&nbsp;</span>
 						</span>
