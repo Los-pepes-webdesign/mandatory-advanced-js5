@@ -10,18 +10,20 @@ export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
 	const refInput = useRef(null);
 	const refProgressbar = useRef(null);
+	const elWidth = progress(userSpace.used, userSpace.allocation.allocated) + "%";
 
 	useEffect(() => {
-		refProgressbar.current.style.width = progress(userSpace.used, userSpace.allocation.allocated) + "%";
+		refProgressbar.current.style.width = elWidth;
 	});
 
+	// Progressbar on used / max space in profile
 	function progress(used, max) {
-
 		let result = used / max;
-		if (result < 1) {
-			result = 1;
+		if (result < 0.01) {
+			result = 0.01;
 		}
-		return result;	}
+		return result * 100;
+	}
 
 
 	// Copies referral link to clipboard
