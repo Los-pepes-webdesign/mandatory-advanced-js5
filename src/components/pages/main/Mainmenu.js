@@ -31,11 +31,16 @@ export default function Menu() {
 	}
 
 	function toggleFolderView() {
-		visible === 'visible' ? toggleVisible('hidden') : toggleVisible('visible');
+		visible === 'visible'
+			? toggleVisible('hidden')
+			: toggleVisible('visible');
 	}
 
 	useEffect(
 		() => {
+			if (hash === '/starred' || hash === '/search') {
+				return;
+			}
 			let string = hash
 				.replace(/%20/g, ' ')
 				.replace(/%C3%A5/g, 'å')
