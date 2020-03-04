@@ -14,6 +14,7 @@ import Profile from './Profile';
 import StarredContent from './StarredContent';
 import QueriedContent from './QueriedContent';
 
+
 // component
 export default function Main({ location }) {
 	const [ hashStatus, setHashStatus ] = useState(null); // controls redirect to '/login' or '/'
