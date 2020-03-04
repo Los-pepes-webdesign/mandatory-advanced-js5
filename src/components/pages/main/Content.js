@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 
-// store
+// utilities
 import { useObservable, state$ } from '../../../utilities/store';
+import { toggleStar } from '../../../utilities/helpers';
 
 // icons
 import FolderIcon from '@material-ui/icons/Folder';
@@ -105,7 +106,7 @@ export default function Content() {
 									<td className='file__size'>
 										<span>{file.size}</span>
 									</td>
-									<td className='file__starred'>
+									<td className='file__starred' onClick={() => toggleStar(file)}>
 										{file.starred ? (
 											<StarRoundedIcon />
 										) : (

@@ -3,6 +3,8 @@ import { dropbox } from '../../../utilities/dropbox';
 import FolderPopup from './FolderPopup';
 import { Link } from 'react-router-dom';
 import { formatPaths } from '../../../utilities/helpers';
+import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
+import PublishIcon from '@material-ui/icons/Publish';
 
 export default function Menu() {
 	const [ paths, setPaths ] = useState([]);
@@ -34,9 +36,11 @@ export default function Menu() {
 
 	useEffect(
 		() => {
-			if (hash === 'starred' || hash === 'search') {
-				return;
-			}
+			console.log(hash);
+
+			// if (hash === '/starred' || hash === '/search') {
+			// 	return;
+			// }
 			let string = hash
 				.replace(/%20/g, ' ')
 				.replace(/%C3%A5/g, 'å')
@@ -51,14 +55,26 @@ export default function Menu() {
 
 	return (
 		<aside className="mainmenu">
-			<p>Upload File</p>
-			<br />
 			<form onSubmit={fileUpload}>
-				<input ref={fileInputRef} type="file" id="file-upload" />
-				<button type="submit">Submit</button>
+				<PublishIcon />
+				<label id="folder_label">
+					Upload File
+					<input
+						ref={fileInputRef}
+						onChange={fileUpload}
+						placeholder="Upload File"
+						type="file"
+						id="file-upload"
+						class="hidden"
+					/>
+				</label>
 			</form>
 			<FolderPopup visibility={visible} toggle={toggleFolderView} />
-			<button onClick={toggleFolderView}>New Folder</button>
+			<button onClick={toggleFolderView}>
+				<CreateNewFolderIcon />
+				<label>New Folder</label>
+			</button>
+			<Link to="/starred">Favorites</Link>
 			<p>
 				<Link to="/">Home</Link>
 			</p>

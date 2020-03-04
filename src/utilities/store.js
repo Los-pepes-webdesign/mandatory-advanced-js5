@@ -5,8 +5,6 @@ import { dropbox } from './dropbox';
 export const token$ = new BehaviorSubject(localStorage.getItem('token'));
 dropbox.setAccessToken(token$.value);
 
-dropbox.setAccessToken(token$.value);
-
 export const setToken$ = (token) => {
 	console.log('SET TOKEN');
 	if (!token) localStorage.removeItem('token');
@@ -58,6 +56,12 @@ export function setState$(value, action) {
 					filesContinued,
 					hasMore
 				});
+			}
+			break;
+		case 'setStarredFiles':
+			{
+				const { files, starredFiles } = value;
+				state$.next({ ...state$.value, files, starredFiles });
 			}
 			break;
 		case 'setQueriedFiles':

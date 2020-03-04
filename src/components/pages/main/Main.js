@@ -11,6 +11,7 @@ import Mainmenu from './Mainmenu';
 import Header from './Header';
 import Content from './Content';
 import Profile from './Profile';
+import StarredContent from './StarredContent';
 import QueriedContent from './QueriedContent';
 
 // component
@@ -20,6 +21,8 @@ export default function Main({ location }) {
 
 	useEffect(
 		() => {
+			console.log('hejhej');
+
 			if (
 				!window.location.hash.includes('access_token') &&
 				!accessToken
@@ -51,6 +54,7 @@ export default function Main({ location }) {
 				<Profile />
 				<Switch>
 					<Route path="/search" component={QueriedContent} />
+					<Route path="/starred" component={StarredContent} />
 					<Route path="/" component={Content} />
 				</Switch>
 			</div>
