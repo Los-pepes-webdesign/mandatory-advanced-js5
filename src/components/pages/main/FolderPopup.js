@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import CloseIcon from '@material-ui/icons/Close';
 import { initFolderPopup } from '../../../utilities/animation';
 
-export default function FolderPopup({ onSubmit, toggle, visibility }) {
+export default function FolderPopup({ onSubmit, close }) {
 	const [ folderInput, updateFolderInput ] = useState('');
 	const [ path, setPath ] = useState('');
 	const { files } = useObservable(state$);
@@ -13,10 +13,15 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 
 	function newFolder(e) {
 		e.preventDefault();
+		let hash = window.location.pathname;
+		if (hash.length === 1) {
+			hash = '';
+		}
 		dropbox
-			.filesCreateFolderV2({ path: path + '/' + folderInput })
+			.filesCreateFolderV2({ path: hash + '/' + folderInput })
 			.then(function(response) {
 				console.log(response);
+				close();
 			})
 			.catch(function(error) {
 				console.error(error);
@@ -33,13 +38,9 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 	}, []);
 
 	return ReactDOM.createPortal(
-		<div
-			className="folder-popup"
-			ref={folderPopupRef}
-			style={{ visibility: visibility }}
-		>
+		<div className="folder-popup" ref={folderPopupRef}>
 			<h1>Create Folder</h1>
-			<CloseIcon onClick={toggle} />
+			<CloseIcon onClick={close} />
 			<div className="popup-container">
 				<form onSubmit={newFolder}>
 					<label>Name:</label>
@@ -50,7 +51,7 @@ export default function FolderPopup({ onSubmit, toggle, visibility }) {
 						id="create-folder"
 						placeholder="Folder name"
 					/>
-					<button onClick={toggle} type="submit">
+					<button onClick={newFolder} type="submit">
 						Submit
 					</button>
 				</form>

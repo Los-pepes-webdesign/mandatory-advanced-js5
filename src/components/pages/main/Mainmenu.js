@@ -9,7 +9,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 export default function Menu() {
 	const [ paths, setPaths ] = useState([]);
 	const fileInputRef = useRef(null);
-	const [ visible, toggleVisible ] = useState('hidden');
+	const [ visible, toggleVisible ] = useState(false);
 	const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
 	let hash = window.location.pathname;
 
@@ -26,12 +26,6 @@ export default function Menu() {
 					console.error(error);
 				});
 		}
-	}
-
-	function toggleFolderView() {
-		visible === 'visible'
-			? toggleVisible('hidden')
-			: toggleVisible('visible');
 	}
 
 	useEffect(
@@ -51,6 +45,10 @@ export default function Menu() {
 		[ hash ]
 	);
 
+	function showPopup() {
+		toggleVisible(true);
+	}
+
 	return (
 		<aside className="mainmenu">
 			<form onSubmit={fileUpload}>
@@ -67,8 +65,8 @@ export default function Menu() {
 					/>
 				</label>
 			</form>
-			<FolderPopup visibility={visible} toggle={toggleFolderView} />
-			<button onClick={toggleFolderView}>
+
+			<button onClick={showPopup}>
 				<CreateNewFolderIcon />
 				<label>New Folder</label>
 			</button>
@@ -81,6 +79,7 @@ export default function Menu() {
 					<Link to={path.path}>{path.title}</Link>
 				</p>
 			))}
+			{visible && <FolderPopup close={() => toggleVisible(false)} />}
 		</aside>
 	);
 }
