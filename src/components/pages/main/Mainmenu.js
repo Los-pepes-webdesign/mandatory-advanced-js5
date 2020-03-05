@@ -39,9 +39,13 @@ export default function Menu() {
 		toggleVisible(true);
 	}
 
+	function closePopup() {
+		toggleVisible(false);
+	}
+
 	return (
 		<React.Fragment>
-			{visible && <FolderPopup close={() => toggleVisible(false)} />}
+			{visible && <FolderPopup closePopup={closePopup} />}
 			<aside className="mainmenu">
 				<div className="mainmenu__home">
 					<Link to="/">
