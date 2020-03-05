@@ -17,6 +17,7 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 // components
 import FileMore from './FileMore';
 import MoreFiles from './Content.MoreFiles';
+import Spinner from './Spinner';
 
 export default function Content() {
 	const [ isLoading, setIsLoading ] = useState(true);
@@ -58,9 +59,16 @@ export default function Content() {
 		updateButtonPos({ x: buttonPosX, y: buttonPosY });
 	}
 
+	const spinnerStyle = {
+		width: "100%",
+		display: "flex",
+		marginLeft: "50%",
+		transform: "translateX(-100px)",
+
+	};
+
 	return (
 		<React.Fragment>
-			{isLoading && <p>Loading...</p>}
 			<main className='content'>
 				<section className='tableHeader'>
 					<div className='path'>
@@ -95,7 +103,8 @@ export default function Content() {
 						</thead>
 					</table>
 				</section>
-				<section className='tableContent'>
+				<section className='tableContent' style={isLoading ? spinnerStyle : null}>
+				{isLoading && <Spinner />}
 					<table className='fileTable'>
 						<tbody>
 							{files.map((file) => (
