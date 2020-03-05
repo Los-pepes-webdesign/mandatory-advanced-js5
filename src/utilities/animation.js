@@ -6,8 +6,4 @@ export const initFolderPopup = (node) => {
 		opacity: 0,
 		y: 100
 	});
-	gsap.to(node, {
-		duration: 0.5,
-		opacity: 1
-	});
 };

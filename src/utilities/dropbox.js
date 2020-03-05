@@ -161,7 +161,13 @@ export function init() {
 		dropbox.usersGetSpaceUsage(),
 		dropbox.usersGetCurrentAccount()
 	])
-		.then(([ { entries }, userSpace, profile ]) => {
+		.then(([ { entries, cursor }, userSpace, profile ]) => {
+			dropbox
+				.filesListFolderLongpoll({ cursor, timeout: 30 })
+				.then((response) => {
+					console.log(response);
+				});
+
 			let files = entries.filter((path) => path['.tag'] === 'file');
 			const folders = entries.filter((path) => path['.tag'] === 'folder');
 
