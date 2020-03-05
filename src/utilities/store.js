@@ -3,7 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 import { dropbox } from './dropbox';
 
 export const token$ = new BehaviorSubject(localStorage.getItem('token'));
-dropbox.setAccessToken(token$.value);
+
+if (process.env.NODE_ENV !== 'test') {
+	dropbox.setAccessToken(token$.value);
+}
 
 export const setToken$ = (token) => {
 	if (!token) localStorage.removeItem('token');
@@ -46,13 +49,20 @@ export function setState$(value, action) {
 				let starredFiles = [];
 
 				if (localStorage.getItem('starredFiles')) {
-					starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
-				}
-				else {
+					starredFiles = JSON.parse(
+						localStorage.getItem('starredFiles')
+					);
+				} else {
 					localStorage.setItem('starredFiles', JSON.stringify([]));
 				}
 
-				const state = { ...state$.value, files, profile, userSpace, starredFiles };
+				const state = {
+					...state$.value,
+					files,
+					profile,
+					userSpace,
+					starredFiles
+				};
 
 				state$.next(state);
 			}
@@ -71,7 +81,10 @@ export function setState$(value, action) {
 		case 'setStarredFiles':
 			{
 				const { files, starredFiles } = value;
-				localStorage.setItem('starredFiles', JSON.stringify(starredFiles));
+				localStorage.setItem(
+					'starredFiles',
+					JSON.stringify(starredFiles)
+				);
 				state$.next({ ...state$.value, files, starredFiles });
 			}
 			break;
