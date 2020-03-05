@@ -1,7 +1,8 @@
 @import './header/path';
 
+
 .header {
-	background-color: transparent;
+	background-color: $purple;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
