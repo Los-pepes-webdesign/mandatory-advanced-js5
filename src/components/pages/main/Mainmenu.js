@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { dropbox } from '../../../utilities/dropbox';
 import FolderPopup from './FolderPopup';
 import { Link } from 'react-router-dom';
-import { formatPaths } from '../../../utilities/helpers';
 import HomeIcon from '@material-ui/icons/Home';
 import StarIcon from '@material-ui/icons/Star';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
@@ -10,7 +9,6 @@ import PublishIcon from '@material-ui/icons/Publish';
 import ProgressBarPopup from './ProgressBarPopup';
 
 export default function Menu() {
-	const [ paths, setPaths ] = useState([]);
 	const fileInputRef = useRef(null);
 	const [ visible, toggleVisible ] = useState(false);
 	const [ progress, updateProgress ] = useState(0);
@@ -96,40 +94,44 @@ export default function Menu() {
 		toggleVisible(true);
 	}
 
+	function closePopup() {
+		toggleVisible(false);
+	}
+
 	return (
 		<React.Fragment>
 			{uploadInProgress && <ProgressBarPopup uploadProgress={progress} uploadPopup={updateUploadInProgress} fileUploading={currentFile}/>}
 			{visible && <FolderPopup close={() => toggleVisible(false)} />}
-			<aside className="mainmenu">
-				<div className="mainmenu__home">
-					<Link to="/">
+			<aside className='mainmenu'>
+				<div className='mainmenu__home'>
+					<Link to='/'>
 						<HomeIcon />
 						<label>Home</label>
 					</Link>
 				</div>
-				<div className="mainmenu__favorite">
-					<Link to="/starred">
+				<div className='mainmenu__favorite'>
+					<Link to='/starred'>
 						<StarIcon />
 						<label>Favorites</label>
 					</Link>
 				</div>
-				<div className="mainmenu__upload">
-					<form onSubmit={fileUpload} id="file-upload-form">
+				<div className='mainmenu__upload'>
+					<form onSubmit={fileUpload} id='file-upload-form'>
 						<PublishIcon />
-						<label id="folder_label">
+						<label id='folder_label'>
 							Upload File
 							<input
 								ref={fileInputRef}
 								onChange={fileUpload}
-								placeholder="Upload File"
-								type="file"
-								id="file-upload-input"
-								className="hidden"
+								placeholder='Upload File'
+								type='file'
+								id='file-upload-input'
+								className='hidden'
 							/>
 						</label>
 					</form>
 				</div>
-				<div className="mainmenu__newfolder">
+				<div className='mainmenu__newfolder'>
 					<button onClick={showPopup}>
 						<CreateNewFolderIcon />
 						<label>New Folder</label>

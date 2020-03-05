@@ -2,7 +2,12 @@ import gsap from 'gsap';
 
 export const initFolderPopup = (node) => {
 	gsap.from(node, {
-		duration: 1,
-		opacity: 0
+		duration: 0.5,
+		opacity: 0,
+		y: 100
+	});
+	gsap.to(node, {
+		duration: 0.5,
+		opacity: 1
 	});
 };
