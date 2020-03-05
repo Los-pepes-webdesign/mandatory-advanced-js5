@@ -59,21 +59,14 @@ export default function Content() {
 		updateButtonPos({ x: buttonPosX, y: buttonPosY });
 	}
 
-	const spinnerStyle = {
-		width: "100%",
-		display: "flex",
-		marginLeft: "50%",
-		transform: "translateX(-100px)",
-
-	};
-
 	return (
 		<React.Fragment>
 			<main className='content'>
 				<section className='tableHeader'>
 					<div className='path'>
 						<span>
-							Pepebox<span>&nbsp;</span>
+							<Link to='/'>Pepebox</Link>
+							<span>&nbsp;</span>
 						</span>
 						{paths.map((path) => (
 							<span key={path.path}>
@@ -103,8 +96,8 @@ export default function Content() {
 						</thead>
 					</table>
 				</section>
-				<section className='tableContent' style={isLoading ? spinnerStyle : null}>
-				{isLoading && <Spinner />}
+				<section className='tableContent'>
+					{isLoading && <Spinner />}
 					<table className='fileTable'>
 						<tbody>
 							{files.map((file) => (
@@ -172,6 +165,7 @@ export default function Content() {
 						</tbody>
 					</table>
 					{hasMore && <MoreFiles />}
+					<div className='spacer' />
 				</section>
 			</main>
 		</React.Fragment>

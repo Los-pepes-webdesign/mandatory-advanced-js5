@@ -49,10 +49,9 @@ export function setState$(value, action) {
 				let starredFiles = [];
 
 				if (localStorage.getItem('starredFiles')) {
-					starredFiles = JSON.parse(
-						localStorage.getItem('starredFiles')
-					);
-				} else {
+					starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
+				}
+				else {
 					localStorage.setItem('starredFiles', JSON.stringify([]));
 				}
 
@@ -81,10 +80,7 @@ export function setState$(value, action) {
 		case 'setStarredFiles':
 			{
 				const { files, starredFiles } = value;
-				localStorage.setItem(
-					'starredFiles',
-					JSON.stringify(starredFiles)
-				);
+				localStorage.setItem('starredFiles', JSON.stringify(starredFiles));
 				state$.next({ ...state$.value, files, starredFiles });
 			}
 			break;

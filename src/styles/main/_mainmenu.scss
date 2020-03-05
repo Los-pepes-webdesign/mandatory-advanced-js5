@@ -5,9 +5,8 @@
     width: 200px;
     padding-top: 20px;
 
-    #file-upload-form {
+    label {cursor: pointer;}
 
-    }
     .hidden {
       display: none;
     }
@@ -18,19 +17,12 @@
       align-items: center;
       vertical-align: middle;
       text-align: center;
+      cursor: pointer;
 
       * {
         padding: 3px;
         color: black;
         vertical-align: middle;
       }
-    }
-
-    #folder_label:hover {
-      cursor: pointer;
-    }
-
-    svg:hover  {
-      cursor: pointer;
     }
 }
