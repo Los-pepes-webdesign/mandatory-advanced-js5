@@ -48,7 +48,7 @@ export default function Main({ location }) {
 			{hashStatus === 'valid' && <Redirect to='/' />}
 
 			<div className='main'>
-				<Mainmenu />
+				<Mainmenu path={location.pathname} />
 				<Header />
 				<Profile />
 				<Switch>

@@ -7,6 +7,9 @@ export const dropbox = new Dropbox({
 	fetch
 });
 
+	let hash = window.location.pathname;
+	console.log(hash)
+
 // adds thumbnail and link properties to every file object
 function formatFiles(files, links, thumbnails) {
 	return [
@@ -73,7 +76,7 @@ export function getFolderContent(path) {
 	dropbox
 		.filesListFolder({ path })
 		.then(({ entries, cursor }) => {
-			// poll(cursor, path);
+			poll(cursor, path);
 
 			const { sortedFiles, filesContinued, hasMore, folders } = sortFiles(entries);
 
@@ -142,25 +145,25 @@ export function getQueriedContent(query) {
 	});
 }
 
-// function poll(cursor, path) {
-// 	console.log(cursor);
+function poll(cursor, path) {
+	console.log(cursor);
 
-// 	dropbox
-// 		.filesListFolderLongpoll({
-// 			cursor,
-// 			timeout: 30
-// 		})
-// 		.then(({ changes }) => {
-// 			console.log(changes);
+	dropbox
+		.filesListFolderLongpoll({
+			cursor,
+			timeout: 30
+		})
+		.then(({ changes }) => {
+			console.log(changes);
 
-// 			if (!changes) {
-// 				poll(cursor);
-// 			}
-// 			else {
-// 				getFolderContent('');
-// 			}
-// 		});
-// }
+			if (!changes) {
+				poll(cursor);
+			}
+			else {
+				getFolderContent('');
+			}
+		});
+}
 
 // initates global state (root content, profile information, space usage)
 export function init() {
@@ -170,7 +173,14 @@ export function init() {
 		dropbox.usersGetCurrentAccount()
 	])
 		.then(([ { entries, cursor }, userSpace, profile ]) => {
-			// poll(cursor, '');
+			// if (hash.length === 1) {
+			// 	poll(cursor, '');
+			// }
+			//
+			// else {
+			// 	poll(cursor, hash);
+			// }
+
 
 			let files = entries.filter((path) => path['.tag'] === 'file');
 			const folders = entries.filter((path) => path['.tag'] === 'folder');
