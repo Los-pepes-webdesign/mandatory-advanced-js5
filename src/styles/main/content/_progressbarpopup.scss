@@ -1,16 +1,17 @@
 .progressBarPopup {
   width: 300px;
-  height: 200px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  top: 35%;
-  left: 35%;
+  @extend %absoluteCenter;
+  transform: translate(-40%, 40%);
   background-color: $body;
-  border: 1px solid lightgrey;
+  border: 1px solid black;
   border-radius: 5px;
+  z-index: 2;
+  background-color: #6B1111;
 
   -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
@@ -18,23 +19,30 @@
 }
 
 .progressBarPopup__text {
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: white;
 }
 
 .progressBarPopup__graphicsContainer {
-width: 200px;
-height: 25px;
+width: 170px;
+height: 20px;
 position: relative;
-border: 1px solid black;
+border: 1px solid $yellow;
+border-radius: 10px;
 background-color: $body;
 
 }
+//#328746
 
 .progressBarPopup__graphicsContainer__progress {
  position: absolute;
  width: 0%;
- height: 23px;
- background-color: $wine;
+ height: 18px;
+ background-color: $yellow;
+ 
+ border-radius: 10px;
  transition: all 0.5s;
 }
 
@@ -44,17 +52,19 @@ background-color: $body;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 
 }
 
 .progressbarPopup__finished__text{
-  margin-top: 10px;
+  margin-top: 20px;
+  font-size: 10px;
 }
 
 .progressBarPopup__finished__button {
-  margin-top: 20px;
-  width: 75px;
-  height: 25px;
+  margin-top: 10px;
+  width: 55px;
+  height: 15px;
   color: $wine;
   background-color: $yellow;
     border-radius: 2px;
@@ -62,13 +72,26 @@ background-color: $body;
 }
 
 .progressBarPopup__finished__button:hover {
-  margin-top: 20px;
+  margin-top: 10px;
   color: $yellow;
-  background-color: $wine;
+  background-color: #328746;
   border-radius: 2px;
 }
 
 
 .progressBarPopup__dummy {
   height: 75px;
+}
+
+.hotMexicanGuys{
+  @extend %absoluteCenter;
+  width: 885px;
+  height: 600px;
+  
+  z-index: 1;
+  opacity: 0;
+  background-image: url("../../../Images/hotMexicanGuys.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }

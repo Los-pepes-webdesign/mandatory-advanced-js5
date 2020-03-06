@@ -1,6 +1,6 @@
 // library imports
 import React, { useEffect, useState } from 'react';
-import { Redirect, Switch, Route } from 'react-router';
+import { Redirect, Switch, Route, useLocation } from 'react-router';
 
 // store imports
 import { token$, setToken$, useObservable, setState$ } from '../../../utilities/store';
@@ -15,9 +15,10 @@ import StarredContent from './StarredContent';
 import QueriedContent from './QueriedContent';
 
 // component
-export default function Main({ location }) {
+export default function Main() {
 	const [ hashStatus, setHashStatus ] = useState(null); // controls redirect to '/login' or '/'
 	const accessToken = useObservable(token$); // token subscription
+	const { pathname } = useLocation();
 
 	useEffect(
 		() => {
@@ -32,14 +33,14 @@ export default function Main({ location }) {
 					setHashStatus('valid');
 				}
 
-				// setState$(location.pathname, 'setCurrentPath');
+				setState$(pathname === '/' ? '' : pathname, 'setCurrentPath');
 
-				if (location.pathname === '/starred' || location.pathname === '/search') return;
-				else if (location.pathname === '/') init();
-				else getFolderContent(location.pathname);
+				if (pathname === '/starred' || pathname === '/search') return;
+				else if (pathname === '/') init('');
+				else getFolderContent(pathname);
 			}
 		},
-		[ accessToken, location.pathname ]
+		[ accessToken, pathname ]
 	);
 
 	return (
@@ -48,7 +49,7 @@ export default function Main({ location }) {
 			{hashStatus === 'valid' && <Redirect to='/' />}
 
 			<div className='main'>
-				<Mainmenu path={location.pathname} />
+				<Mainmenu path={pathname} />
 				<Header />
 				<Profile />
 				<Switch>

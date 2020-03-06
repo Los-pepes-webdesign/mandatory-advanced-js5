@@ -9,11 +9,13 @@
 .content {
     display: grid;
     grid-template:
-        "tableHeader" 100px
+        "tableHeader" 110px
         "tableContent"
         / 1fr;
-    .tableHeader{ grid-area: tableHeader; }
+    .tableHeader{ grid-area: tableHeader; padding: 0 30px }
     .tableContent {
+        padding-left: 30px;
+        padding-right: 30px;
         grid-area: tableContent;
         height: calc(100vh - 220px);
         overflow-y: auto;

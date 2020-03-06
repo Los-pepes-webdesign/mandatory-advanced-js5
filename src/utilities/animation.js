@@ -7,3 +7,10 @@ export const initFolderPopup = (node) => {
 		y: 100
 	});
 };
+
+export const hotMexicanGuysPopup = (node) => {
+	gsap.to(node, {
+		duration: 0.5,
+		opacity: 1
+	});
+};
