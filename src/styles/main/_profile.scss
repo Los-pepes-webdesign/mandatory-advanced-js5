@@ -6,7 +6,7 @@
     width: 200px;
     height: 50px;
     display: flex;
-    justify-content: center;
+   
     align-items: center;
     &__greeting {
       margin-left: 10px;
@@ -56,7 +56,7 @@
     background-color: $body;
     border: 1px solid lightgrey;
     border-radius: 5px;
-    transform: translate(14px, 94px);
+    transform: translate(-15px, 94px);
     -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
     -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
     box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
