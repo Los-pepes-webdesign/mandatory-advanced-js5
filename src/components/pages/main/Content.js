@@ -75,7 +75,7 @@ export default function Content() {
 							</span>
 						))}
 					</div>
-					<table className="fileTable">
+					<table className="fileTable ">
 						<thead>
 							<tr>
 								{/* thumbnail */}

@@ -9,7 +9,7 @@
 .content {
     display: grid;
     grid-template:
-        "tableHeader" 100px
+        "tableHeader" 110px
         "tableContent"
         / 1fr;
     .tableHeader{ grid-area: tableHeader; }
