@@ -32,15 +32,15 @@ export default function Header() {
 
 	return (
 		<React.Fragment>
-			{focus === 'true' && <Redirect to='/search' />}
-			{focus === 'false' && <Redirect to='/' />}
-			<header className='header'>
-				<div className='header__form__wrapper'>
-					<form className='header__form'>
+			{focus === 'true' && <Redirect to="/search" />}
+			{focus === 'false' && <Redirect to="/" />}
+			<header className="header">
+				<div className="header__form__wrapper">
+					<form className="header__form">
 						<input
-							className='header__form__input'
-							type='text'
-							placeholder='search'
+							className="header__form__input"
+							type="text"
+							placeholder="search"
 							required
 							minLength={1}
 							maxLength={100}
@@ -49,7 +49,11 @@ export default function Header() {
 							onFocus={onFocus}
 						/>
 
-						<button className='header__form__button' name='button' onClick={search}>
+						<button
+							className="header__form__button"
+							name="button"
+							onClick={search}
+						>
 							<SearchIcon
 								style={{
 									color: '#900C3F'
@@ -59,11 +63,11 @@ export default function Header() {
 					</form>
 				</div>
 				<button
-					className='header__closeButton'
+					className="header__closeButton"
 					style={{
 						opacity: focus === 'true' ? 1 : 0,
 						pointerEvents: focus === 'true' ? 'all' : 'none',
-						color: '#900C3F'
+						color: '#FFC30F'
 					}}
 					onClick={onBlur}
 				>

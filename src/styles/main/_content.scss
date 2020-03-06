@@ -3,18 +3,39 @@
 @import './content/rename';
 @import './content/file';
 @import './content/move';
+@import './content/spinner';
+@import './content/progressbarpopup';
 
 .content {
     display: grid;
     grid-template:
-        "tableHeader" 64px
+        "tableHeader" 110px
         "tableContent"
         / 1fr;
-    .tableHeader{
-        grid-area: tableHeader;
-    }
+    .tableHeader{ grid-area: tableHeader; padding: 0 30px }
     .tableContent {
+        padding-left: 30px;
+        padding-right: 30px;
         grid-area: tableContent;
-        overflow-y: scroll;
+        height: calc(100vh - 220px);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 30px;
+        .getMoreFiles {
+            @extend %flexCC;
+            margin-top: 16px;
+            padding: 16px 42px;
+            background-color: $wine;
+            color: $yellow;
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover { background-color: $red; }
+        }
+        .spacer {
+            min-height: 30px;
+            width: 100%;
+        }
     }
 }

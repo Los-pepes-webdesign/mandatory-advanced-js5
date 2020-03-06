@@ -1,14 +1,28 @@
 .profile {
-  width: 220px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  transform: translateY(34px);
+  background-color: $purple;
+  color: $yellow;
+  @extend %flexCC;
+
+  &__sombrero{
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+    right: 166px;
+    top: 10px;
+    width: 60px;
+    height: 60px;
+    transform: rotate(-0.04turn);
+    background-image: url("../../Images/Sombrero.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
   &__info {
     width: 200px;
     height: 50px;
     display: flex;
-    justify-content: center;
+   
     align-items: center;
     &__greeting {
       margin-left: 10px;
@@ -29,25 +43,31 @@
       background: none;
       text-decoration: none;
       cursor: pointer;
-      color: $purple;
+      color: $yellow;
       outline: none;
       transition: all 0.2s;
-      &:hover { color: $yellow; }
+      &:hover { color: $orange; }
       &:active { color: $red; }
     }
   }
+
   &__userIconContainer {
     @extend %flexCC;
     position: relative;
     width: 34px;
     height: 34px;
     margin-top: 3px;
-    background-color: $wine;
+    background-color: $yellow;
     border-radius: 10px;
-    &__userIcon { color: $yellow; }
+   background-image: url("../../Images/MexicanSkull.png");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 21px;
   }
+
   &__more {
     @extend %flexColumnCC;
+    color: $red;
     justify-content: space-around;
     padding: 10px 0 10px 0;
     position: absolute;
@@ -58,7 +78,7 @@
     background-color: $body;
     border: 1px solid lightgrey;
     border-radius: 5px;
-    transform: translate(14px, 94px);
+    transform: translate(-15px, 94px);
     -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
     -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
     box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
@@ -73,11 +93,22 @@
       margin: auto;
     }
     &__lineBreakFat {
+      position: relative;
       width: 150px;
       height: 2px;
       background-color: $purple;
       margin: auto;
+      &__progressbar {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 50px;
+        height: 2px;
+        background-color: $yellow;
+      }
+      
     }
+    
     &__logoutButton {
       width: 100px;
       height: 20px;

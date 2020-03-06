@@ -26,11 +26,11 @@ describe('formatSize', () => {
 
 describe('formatMaxSpace', () => {
 	it('should return a integer', () => {
-		const actual1 = formatMaxSpace(1024000000);
+		const actual1 = formatMaxSpace(1024080300);
 		const expected1 = '1 GB';
 		expect(actual1).toBe(expected1);
 
-		const actual2 = formatMaxSpace(2048000000000);
+		const actual2 = formatMaxSpace(2048002009900);
 		const expected2 = '2 TB';
 		expect(actual2).toBe(expected2);
 	});

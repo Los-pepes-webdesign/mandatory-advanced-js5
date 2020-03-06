@@ -1,28 +1,28 @@
-.file {
-    height: 64px;
-    &:hover { background-color: #e7e7e7; }
-    &__starred {
-        svg { fill: $orange; }
-        &:hover {
-            svg { 
-                fill: $yellow; 
-                cursor: pointer;
-            }
-        }
-    }
-}
-
 .fileTable {
     width: 100%;
     &:first-of-type{ height: 64px; }
-    tr {width: 100%;}
-    td {font-size: 14px;}
+    .file { 
+        width: 100%;
+        height: 64px;
+        &:hover { background-color: #e7e7e7; }
+     }
+    td { 
+        font-size: 14px;
+        vertical-align: middle;
+    }
+    a:hover { 
+        text-decoration: underline; 
+        color: $orange;
+    }
     th, td {
         text-align: left;
         &:nth-child(1) {
+            text-align: center;
             width: 64px;
+            color: $red;
         }
         &:nth-child(2) {
+            text-indent: 22px;
             min-width: 300px;
         }
         &:nth-child(3) {
@@ -32,7 +32,13 @@
             width: 122px;
         }
         &:nth-child(5) {
+            text-align: center;
             width: 64px;
+            cursor: pointer;
+            svg {
+                fill: $orange;
+            }
+            &:hover { svg { fill: $yellow; }}
         }
         &:nth-child(6) {
             width: 64px;

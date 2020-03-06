@@ -8,12 +8,15 @@ export default function Rename(props) {
 
 	const filePath = props.fileRename.path_lower;
 	const oldName = filePath.substring(1);
+
+	// Regex to match the path upto and including the last slash, needed to change filename inside a folder depth
 	const regex = /^(.*[\\/])/g;
 	const pathFront = filePath.match(regex);
 
 	useEffect(
 		() => {
-			if (props.fileRename['.tag'] === 'folder') {
+			// Check if type is FILE (has an extension) and if so extracts the file extension
+			if (props.fileRename['.tag'] === 'file') {
 				const currentExt = '.' + props.fileRename.path_lower.split('.').pop();
 				updateExtension(currentExt);
 			}
@@ -27,7 +30,6 @@ export default function Rename(props) {
 
 	function executeChange() {
 		const newName = pathFront + filename + extension;
-		console.log(newName);
 		const rename = {
 			from_path: filePath,
 			to_path: newName

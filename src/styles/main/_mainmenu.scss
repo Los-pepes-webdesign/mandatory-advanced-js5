@@ -1,13 +1,27 @@
 @import './mainmenu/folderPopup';
 
 .mainmenu {
-    background-color: $wine;
-    width: 200px;
+    background-color: $yellow;
     padding-top: 20px;
-
-    #file-upload-form {
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../../Images/MexicanCactusandSun.png");
+    background-position: -30px 98.7%;
+    
+    &__hotMexicanGuy{
+      width:100%;
+      height: 30%;
+      background-image: url("../../Images/hotMexicanGuy.png");
+      background-size: 140%;
+      background-position: center;
+      background-repeat: no-repeat;
     }
+
+    label {cursor: pointer;}
+
     .hidden {
       display: none;
     }
@@ -18,19 +32,18 @@
       align-items: center;
       vertical-align: middle;
       text-align: center;
+      cursor: pointer;
+      
 
       * {
         padding: 3px;
-        color: white;
+        color: black;
         vertical-align: middle;
       }
     }
 
-    #folder_label:hover {
-      cursor: pointer;
+    &__newfolder label{
+      font-size: 14px;
     }
 
-    svg:hover  {
-      cursor: pointer;
-    }
 }
