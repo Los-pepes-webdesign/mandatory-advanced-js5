@@ -2,6 +2,22 @@
   background-color: $purple;
   color: $yellow;
   @extend %flexCC;
+
+  &__sombrero{
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+    right: 160px;
+    top: 10px;
+    width: 60px;
+    height: 60px;
+    transform: rotate(-0.04turn);
+    background-image: url("../../Images/Sombrero.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
   &__info {
     width: 200px;
     height: 50px;
@@ -84,7 +100,9 @@
         height: 2px;
         background-color: $yellow;
       }
+      
     }
+    
     &__logoutButton {
       width: 100px;
       height: 20px;
