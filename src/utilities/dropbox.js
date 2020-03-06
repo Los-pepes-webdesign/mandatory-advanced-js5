@@ -1,5 +1,5 @@
 import { Dropbox } from 'dropbox';
-import { setState$, state$, useObservable } from './store';
+import { setState$, state$ } from './store';
 import { formatSize } from './helpers';
 
 export const dropbox = new Dropbox({

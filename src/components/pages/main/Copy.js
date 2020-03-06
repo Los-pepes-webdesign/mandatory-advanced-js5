@@ -4,15 +4,16 @@ import ReactDOM from 'react-dom';
 
 export default function Move(props) {
 	const [ path, updatePath ] = useState('');
-	const currentPath = props.fileMove.path_lower;
+	const currentPath = props.fileCopy.path_lower;
 	let currentFile = '/' + currentPath.split('/').pop();
 
 	function onChange(e) {
 		const value = e.target.value;
 		updatePath(value);
 	}
+	console.log('hejhej');
 
-	function executeChange() {
+	function copy() {
 		let newPath;
 		if (path.length === 0) {
 			newPath = currentFile;
@@ -20,17 +21,16 @@ export default function Move(props) {
 			newPath = '/' + path + currentFile;
 		}
 
-		let move = {
-			from_path: currentPath,
-			to_path: newPath
-		};
 		dropbox
-			.filesMoveV2(move)
+			.filesCopyV2({
+				from_path: currentPath,
+				to_path: newPath
+			})
 			.then((response) => {
 				props.onDone();
 			})
 			.catch((error) => {
-				console.error('Move File server ERROR: ' + error);
+				console.error('Copy File server ERROR: ' + error);
 			});
 	}
 
@@ -52,12 +52,12 @@ export default function Move(props) {
 						type="text"
 						onChange={onChange}
 						value={path}
-						placeholder="Leave blank to move to ROOT..."
+						placeholder="Leave blank to copy to ROOT..."
 					/>
 					<p className="move__input__ext">{currentFile}</p>
 				</div>
 				<div className="move__buttonContainer">
-					<button className="move__buttonOk" onClick={executeChange}>
+					<button className="move__buttonOk" onClick={copy}>
 						Ok
 					</button>
 					<button className="move__buttonCancel" onClick={closeBox}>
