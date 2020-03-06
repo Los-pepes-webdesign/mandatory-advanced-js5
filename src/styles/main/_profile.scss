@@ -1,9 +1,7 @@
 .profile {
-  width: 220px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  transform: translateY(34px);
+  background-color: $purple;
+  color: $yellow;
+  @extend %flexCC;
   &__info {
     width: 200px;
     height: 50px;
@@ -42,9 +40,9 @@
     width: 34px;
     height: 34px;
     margin-top: 3px;
-    background-color: $purple;
+    background-color: $yellow;
     border-radius: 10px;
-    &__userIcon { color: $yellow; }
+    &__userIcon { color: $wine; }
   }
   &__more {
     @extend %flexColumnCC;
@@ -86,7 +84,7 @@
         height: 2px;
         background-color: $yellow;
       }
-    }      
+    }
     &__logoutButton {
       width: 100px;
       height: 20px;

@@ -10,7 +10,7 @@ export default function ProfileMore() {
 	const { profile, userSpace } = useObservable(state$);
 	const refInput = useRef(null);
 	const refProgressbar = useRef(null);
-	const elWidth = progress(userSpace.used, userSpace.allocation.allocated) + "%";
+	const elWidth = progress(userSpace.used, userSpace.allocation.allocated) + '%';
 
 	useEffect(() => {
 		refProgressbar.current.style.width = elWidth;
@@ -25,7 +25,6 @@ export default function ProfileMore() {
 		return result * 100;
 	}
 
-
 	// Copies referral link to clipboard
 	// Input field needed for the execCommand
 	// Dummy input field is positioned 1000 pixels above page top
@@ -36,11 +35,10 @@ export default function ProfileMore() {
 
 	// Logs out user by revoking token from Dropbox API and setting local token to <null>
 	function logoutUser() {
-		localStorage.setItem('starredFiles', []);
+		localStorage.setItem('starredFiles', JSON.stringify([]));
 		dropbox.authTokenRevoke();
 		setToken$(null);
 	}
-
 
 	return (
 		<React.Fragment>
@@ -57,11 +55,15 @@ export default function ProfileMore() {
 					</div>
 				</div>
 				<div className='profile__more__lineBreakFat'>
-					<div className='profile__more__lineBreakFat__progressbar' ref={refProgressbar} />
+					<div
+						className='profile__more__lineBreakFat__progressbar'
+						ref={refProgressbar}
+					/>
 				</div>
 				<div className='profile__more__spaceUsage'>
 					<p className='profile__more__spaceUsageText'>
-						{formatSize(userSpace.used)} / {formatMaxSpace(userSpace.allocation.allocated)}
+						{formatSize(userSpace.used)} /{' '}
+						{formatMaxSpace(userSpace.allocation.allocated)}
 					</p>
 				</div>
 				<div className='profile__more__lineBreak' />

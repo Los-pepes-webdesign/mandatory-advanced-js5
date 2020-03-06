@@ -6,18 +6,17 @@ import FolderIcon from '@material-ui/icons/Folder';
 import CloseIcon from '@material-ui/icons/Close';
 import { initFolderPopup } from '../../../utilities/animation';
 
-export default function FolderPopup({ onSubmit, closePopup }) {
+export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const [ folderInput, updateFolderInput ] = useState('');
-	const [ path, setPath ] = useState('');
+	const [ folderPath, setPath ] = useState(path);
 	const { files } = useObservable(state$);
 	const folderPopupRef = useRef(null);
 
 	function newFolder(e) {
 		e.preventDefault();
-
 		dropbox
 			.filesCreateFolderV2({
-				path: (path.length > 1 ? path : '') + '/' + folderInput
+				path: (folderPath.length > 1 ? folderPath : '') + '/' + folderInput
 			})
 			.then(function(response) {
 				console.log(response);
@@ -31,6 +30,8 @@ export default function FolderPopup({ onSubmit, closePopup }) {
 		closePopup();
 	}
 	function updateInputFolder(e) {
+		console.log(path)
+		console.log(path.length);
 		updateFolderInput(e.target.value);
 	}
 

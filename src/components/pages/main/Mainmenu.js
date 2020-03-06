@@ -8,7 +8,7 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import PublishIcon from '@material-ui/icons/Publish';
 import ProgressBarPopup from './ProgressBarPopup';
 
-export default function Menu() {
+export default function Mainmenu({ path }) {
 	const fileInputRef = useRef(null);
 	const [ visible, toggleVisible ] = useState(false);
 	const [ progress, updateProgress ] = useState(0);
@@ -29,10 +29,28 @@ export default function Menu() {
 		updateCurrentFile(file);
 		let maxChunk;
 
-		if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
+		if (file.size < 1024 * 1024) {
+			// If filesize is less than 1 MB, upload with single upload
+			dropbox
+				.filesUpload({ path: hash + '/' + file.name, contents: file })
+				.then(function() {
+					updateProgress(100);
+					console.log('File uploaded!');
+				})
+				.catch(function(error) {
+					console.error(error);
+				});
+			return;
+		} else if (file.size < 10 * 1024 * 1024 && file.size >= 1024 * 1024) {
+			// Max chunk size is set to 10 % of total file size rounded to the nearest integer, needed in order to create a upload progressbar
+			maxChunk = Math.round(file.size / 4);
+		} else if (
+			file.size < UPLOAD_FILE_SIZE_LIMIT &&
+			file.size >= 10 * 1024 * 1024
+		) {
 			// Max chunk size is set to 10 % of total file size rounded to the nearest integer, needed in order to create a upload progressbar
 			maxChunk = Math.round(file.size / 10);
-		} else if (file.size > UPLOAD_FILE_SIZE_LIMIT) {
+		} else if (file.size >= UPLOAD_FILE_SIZE_LIMIT) {
 			// Max chunk size is set to 8 MB (recommended chunk size for Dropbox API)
 			maxChunk = 8 * 1024 * 1024;
 		}
@@ -97,8 +115,8 @@ export default function Menu() {
 
 		task
 			.then(function(result) {
-				console.log('File Uploaded!');
 				updateProgress(100);
+				console.log('File Uploaded!');
 			})
 			.catch(function(error) {
 				console.error(error);
@@ -134,7 +152,12 @@ export default function Menu() {
 					fileUploading={currentFile}
 				/>
 			)}
-			{visible && <FolderPopup closePopup={() => toggleVisible(false)} />}
+			{visible && (
+				<FolderPopup
+					path={path}
+					closePopup={() => toggleVisible(false)}
+				/>
+			)}
 			<aside className="mainmenu">
 				<div className="mainmenu__home">
 					<Link to="/">

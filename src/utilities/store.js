@@ -38,7 +38,8 @@ export const state$ = new BehaviorSubject({
 	queriedFiles: [],
 	starredFiles: [],
 	profile: {},
-	userSpace: {}
+	userSpace: {},
+	currentPath: ''
 });
 
 export function setState$(value, action) {
@@ -65,6 +66,9 @@ export function setState$(value, action) {
 
 				state$.next(state);
 			}
+			break;
+		case 'setCurrentPath':
+			state$.next({ ...state$.value, currentPath: value });
 			break;
 		case 'setFiles':
 			{
