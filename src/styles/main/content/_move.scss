@@ -1,3 +1,14 @@
+.backdropBlur{
+width: 100vw;
+height: 100vh;
+top: 0;
+left: 0;
+position: absolute;
+background-color: rgba(0,0,0,0.2);
+z-index: 1;
+backdrop-filter: blur(4px);
+}
+
 .move {
   width: 700px;
   height: 500px;
@@ -11,11 +22,13 @@
   flex-direction: column;
   background-color: $body;
   border-radius: 5px;
+  z-index: 2;
   
 
   -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+  backdrop-filter: blur(3px);
 }
 
 .move__container {
@@ -54,6 +67,15 @@
   background-color: white;
   overflow-y: scroll;
   padding-left: 20px;
+}
+
+.move__galleryContainer__folder{
+  display: flex;
+  align-items: center;
+
+  & p{
+    text-indent: 10px;
+  }
 }
 
 .move__galleryContainer__folder:hover {

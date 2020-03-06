@@ -14,8 +14,8 @@ export default function Move(props) {
 
 	let currentFile = '/' + currentPath.split('/').pop();
 
-	useEffect (() => {
-		folderDepth("")
+	useEffect(() => {
+		folderDepth('');
 	}, []);
 
 	function onChange(e) {
@@ -49,27 +49,24 @@ export default function Move(props) {
 		props.onDone();
 	}
 
-	function folderDepth(filePathLower){
+	function folderDepth(filePathLower) {
 		if (parent.length < 0) {
 			setParent(filePathLower);
-		}
-		else {
+		} else {
 			if (parent[parent.length - 1] !== filePathLower) {
-				setParent([...parent, filePathLower]);
+				setParent([ ...parent, filePathLower ]);
 			}
 		}
 
-		dropbox
-			.filesListFolder({ path: filePathLower })
-			.then(({ entries }) => {
-				const { folders } = sortFiles(entries);
-				setFolderList(folders);
-			});
+		dropbox.filesListFolder({ path: filePathLower }).then(({ entries }) => {
+			const { folders } = sortFiles(entries);
+			setFolderList(folders);
+		});
 
-			updatePath(filePathLower);
+		updatePath(filePathLower);
 	}
 
-	function goToParent(){
+	function goToParent() {
 		if (parent.length > 1) {
 			parent.pop();
 			const parentFolder = parent[parent.length - 1];
@@ -78,48 +75,65 @@ export default function Move(props) {
 	}
 
 	return ReactDOM.createPortal(
-		<div className="move" style={{ marginLeft: '30px' }}>
-			<div className="move__container">
-				<h1>Move file</h1>
-				<p className="move__text">
-					Current location:PepesBox{currentPath}
-				</p>
-				<div className="move__inputContainer">
-					<p className="move__inputPrefix">New location: PepesBox/</p>
-					<input
-						className="move__input"
-						type="text"
-						onChange={onChange}
-						value={path}
-						placeholder="Leave blank to move to ROOT..."
-					/>
-					<p className="move__input__ext">{currentFile}</p>
-				</div>
-				<div className="move__buttonContainer">
-					<button className="move__buttonOk" onClick={executeChange}>
-						Ok
-					</button>
-					<button className="move__buttonCancel" onClick={closeBox}>
-						Cancel
-					</button>
-				</div>
-			</div>
-			<div className="move__galleryContainer">
-			<button className="move__galleryContainer__parentButton" onClick={goToParent}>Parent Folder</button>
-			{ folderList
-					.filter((file) => file['.tag'] === 'folder')
-					.map((file) => (
-						<div
-							className="move__galleryContainer__folder"
-							key={file.id}
-							onClick={() => folderDepth(file.path_lower)}
-						>
-							<FolderIcon />
-							<p>{file.name}</p>
+		<React.Fragment>
+			<div className="backdropBlur">
+				<div className="move" style={{ marginLeft: '30px' }}>
+					<div className="move__container">
+						<h1>Move file</h1>
+						<p className="move__text">
+							Current location:PepesBox{currentPath}
+						</p>
+						<div className="move__inputContainer">
+							<p className="move__inputPrefix">
+								New location: PepesBox/
+							</p>
+							<input
+								className="move__input"
+								type="text"
+								onChange={onChange}
+								value={path}
+								placeholder="Leave blank to move to ROOT..."
+							/>
+							<p className="move__input__ext">{currentFile}</p>
 						</div>
-					))}
+						<div className="move__buttonContainer">
+							<button
+								className="move__buttonOk"
+								onClick={executeChange}
+							>
+								Ok
+							</button>
+							<button
+								className="move__buttonCancel"
+								onClick={closeBox}
+							>
+								Cancel
+							</button>
+						</div>
+					</div>
+					<div className="move__galleryContainer">
+						<button
+							className="move__galleryContainer__parentButton"
+							onClick={goToParent}
+						>
+							Parent Folder
+						</button>
+						{folderList
+							.filter((file) => file['.tag'] === 'folder')
+							.map((file) => (
+								<div
+									className="move__galleryContainer__folder"
+									key={file.id}
+									onClick={() => folderDepth(file.path_lower)}
+								>
+									<FolderIcon />
+									<p>{file.name}</p>
+								</div>
+							))}
+					</div>
+				</div>
 			</div>
-		</div>,
+		</React.Fragment>,
 		document.querySelector('body')
 	);
 }
