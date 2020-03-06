@@ -7,7 +7,7 @@ export const dropbox = new Dropbox({
 	fetch
 });
 
-// adds thumbnail and link properties to every file object
+// adds thumbnail and link properties to every file object;
 function formatFiles(files, links, thumbnails) {
 	return [
 		...files.map((file, index) => ({
@@ -20,60 +20,12 @@ function formatFiles(files, links, thumbnails) {
 	];
 }
 
-// sorts links and thumbnails into two arrays containing only relevant data
-function sortLinksAndThumbs(response) {
-	let links = response.slice(0, response.length - 1);
-	links = links.map((link) => link.link);
-
-	let thumbnails = response.splice(-1);
-	thumbnails = thumbnails[0].entries.map(({ thumbnail }) => {
-		if (thumbnail) return thumbnail;
-		else return '';
-	});
-
-	return { links, thumbnails };
-}
-
-// available only if filesContinued.length is > 0
-export function getMoreFiles() {
-	let { files, filesContinued, hasMore } = state$.value;
-
-	let currentFiles;
-
-	if (filesContinued.length > 25) {
-		currentFiles = filesContinued.slice(0, 25);
-		filesContinued = filesContinued.slice(25, -1);
-	}
-	else {
-		currentFiles = filesContinued;
-		filesContinued = [];
-		hasMore = false;
-	}
-
-	Promise.all([
-		...currentFiles.map(({ path_lower }) =>
-			dropbox.filesGetTemporaryLink({ path: path_lower })
-		),
-		dropbox.filesGetThumbnailBatch({
-			entries: currentFiles.map(({ path_lower }) => ({
-				path: path_lower,
-				size: 'w64h64'
-			}))
-		})
-	]).then((response) => {
-		const { links, thumbnails } = sortLinksAndThumbs(response);
-		files = [ ...files, ...formatFiles(currentFiles, links, thumbnails) ];
-
-		setState$({ files, filesContinued, hasMore }, 'setFiles');
-	});
-}
-
-// gets and formats folder content and its props (links, thumbnails)
+// gets and formats folder content and its props (links, thumbnails);
 export function getFolderContent(path) {
 	dropbox
 		.filesListFolder({ path })
 		.then(({ entries, cursor }) => {
-			// poll(cursor, path);
+			poll(cursor, path);
 
 			const { sortedFiles, filesContinued, hasMore, folders } = sortFiles(entries);
 
@@ -107,7 +59,41 @@ export function getFolderContent(path) {
 		.catch(console.error);
 }
 
-// gets and formats queried files and folders
+// available only if filesContinued.length is > 0;
+export function getMoreFiles() {
+	let { files, filesContinued, hasMore } = state$.value;
+
+	let currentFiles;
+
+	if (filesContinued.length > 25) {
+		currentFiles = filesContinued.slice(0, 25);
+		filesContinued = filesContinued.slice(25, -1);
+	}
+	else {
+		currentFiles = filesContinued;
+		filesContinued = [];
+		hasMore = false;
+	}
+
+	Promise.all([
+		...currentFiles.map(({ path_lower }) =>
+			dropbox.filesGetTemporaryLink({ path: path_lower })
+		),
+		dropbox.filesGetThumbnailBatch({
+			entries: currentFiles.map(({ path_lower }) => ({
+				path: path_lower,
+				size: 'w64h64'
+			}))
+		})
+	]).then((response) => {
+		const { links, thumbnails } = sortLinksAndThumbs(response);
+		files = [ ...files, ...formatFiles(currentFiles, links, thumbnails) ];
+
+		setState$({ files, filesContinued, hasMore }, 'setFiles');
+	});
+}
+
+// gets and formats queried files and folders;
 export function getQueriedContent(query) {
 	dropbox.filesSearch({ path: '', query }).then(({ matches }) => {
 		const queries = matches.map(({ metadata }) => metadata);
@@ -142,38 +128,18 @@ export function getQueriedContent(query) {
 	});
 }
 
-// function poll(cursor, path) {
-// 	console.log(cursor);
-
-// 	dropbox
-// 		.filesListFolderLongpoll({
-// 			cursor,
-// 			timeout: 30
-// 		})
-// 		.then(({ changes }) => {
-// 			console.log(changes);
-
-// 			if (!changes) {
-// 				poll(cursor);
-// 			}
-// 			else {
-// 				getFolderContent('');
-// 			}
-// 		});
-// }
-
-// initates global state (root content, profile information, space usage)
-export function init() {
+// initates global state (root content, profile information, space usage);
+export function init(path) {
 	Promise.all([
-		dropbox.filesListFolder({ path: '' }),
+		dropbox.filesListFolder({ path }),
 		dropbox.usersGetSpaceUsage(),
 		dropbox.usersGetCurrentAccount()
 	])
 		.then(([ { entries, cursor }, userSpace, profile ]) => {
-			// poll(cursor, '');
+			poll(cursor, state$.value.currentPath);
 
-			let files = entries.filter((path) => path['.tag'] === 'file');
-			const folders = entries.filter((path) => path['.tag'] === 'folder');
+			let files = entries.filter((file) => file['.tag'] === 'file');
+			const folders = entries.filter((file) => file['.tag'] === 'folder');
 
 			Promise.all([
 				...files.map(({ path_lower }) =>
@@ -206,7 +172,19 @@ export function init() {
 		.catch(console.error);
 }
 
-// sorts entries into files, folders, filesContinued
+// handles poll connection
+function poll(cursor, previousPath) {
+	dropbox.filesListFolderLongpoll({ cursor }).then(({ changes }) => {
+		const { currentPath } = state$.value;
+
+		if (previousPath !== currentPath) return;
+
+		if (changes) getFolderContent(currentPath);
+		else poll(cursor, currentPath);
+	});
+}
+
+// sorts entries into files, folders, filesContinued;
 function sortFiles(entries) {
 	const folders = entries.filter((path) => path['.tag'] === 'folder');
 	let sortedFiles = entries.filter((path) => path['.tag'] === 'file');
@@ -225,4 +203,18 @@ function sortFiles(entries) {
 		filesContinued,
 		hasMore
 	};
+}
+
+// sorts links and thumbnails into two arrays containing only relevant data;
+function sortLinksAndThumbs(response) {
+	let links = response.slice(0, response.length - 1);
+	links = links.map((link) => link.link);
+
+	let thumbnails = response.splice(-1);
+	thumbnails = thumbnails[0].entries.map(({ thumbnail }) => {
+		if (thumbnail) return thumbnail;
+		else return '';
+	});
+
+	return { links, thumbnails };
 }

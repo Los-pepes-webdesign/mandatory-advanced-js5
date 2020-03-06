@@ -65,7 +65,7 @@ export default function Menu() {
 		}
 
 		const task = workItems.reduce((acc, chunk, fileId, items) => {
-			if (fileId == 0) {
+			if (fileId === 0) {
 				// Starting multipart upload of file
 				return acc.then(function() {
 					return dropbox
@@ -130,10 +130,6 @@ export default function Menu() {
 
 	function showPopup() {
 		toggleVisible(true);
-	}
-
-	function closePopup() {
-		toggleVisible(false);
 	}
 
 	return (
