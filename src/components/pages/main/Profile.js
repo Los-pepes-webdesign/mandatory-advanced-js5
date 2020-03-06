@@ -14,9 +14,7 @@ export default function Profile() {
 		<div className="profile">
 			<div className="profile__sombrero" />
 			<div className="profile__info">
-				<div className="profile__userIconContainer">
-					<AccountBoxIcon className="profile__userIconContainer__userIcon" />
-				</div>
+				<div className="profile__userIconContainer" />
 				<div className="profile__info__greeting">
 					<p className="profile__info__greeting__text">
 						Hola,{' '}

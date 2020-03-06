@@ -7,7 +7,7 @@
     z-index: 1;
     pointer-events: none;
     position: absolute;
-    right: 160px;
+    right: 158px;
     top: 10px;
     width: 60px;
     height: 60px;
@@ -50,6 +50,7 @@
       &:active { color: $red; }
     }
   }
+
   &__userIconContainer {
     @extend %flexCC;
     position: relative;
@@ -58,8 +59,12 @@
     margin-top: 3px;
     background-color: $yellow;
     border-radius: 10px;
-    &__userIcon { color: $wine; }
+   background-image: url("../../Images/MexicanSkull.png");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 21px;
   }
+
   &__more {
     @extend %flexColumnCC;
     justify-content: space-around;
