@@ -22,6 +22,7 @@ function formatFiles(files, links, thumbnails) {
 
 // gets and formats folder content and its props (links, thumbnails);
 export function getFolderContent(path) {
+	console.log(path);
 	dropbox
 		.filesListFolder({ path })
 		.then(({ entries, cursor }) => {
@@ -172,7 +173,6 @@ export function init(path) {
 		.catch(console.error);
 }
 
-// handles poll connection
 function poll(cursor, previousPath) {
 	dropbox.filesListFolderLongpoll({ cursor }).then(({ changes }) => {
 		const { currentPath } = state$.value;
@@ -185,7 +185,7 @@ function poll(cursor, previousPath) {
 }
 
 // sorts entries into files, folders, filesContinued;
-function sortFiles(entries) {
+export function sortFiles(entries) {
 	const folders = entries.filter((path) => path['.tag'] === 'folder');
 	let sortedFiles = entries.filter((path) => path['.tag'] === 'file');
 	let filesContinued = [];

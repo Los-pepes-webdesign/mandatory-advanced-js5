@@ -1,6 +1,6 @@
 .move {
   width: 700px;
-  height: 200px;
+  height: 500px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -44,4 +44,16 @@
 
 .move__inputContainer {
   display: flex;
+}
+
+.move__galleryContainer {
+  width: 400px;
+  height: 300px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.move__galleryContainer__folder:hover {
+  color: $yellow;
+  cursor: pointer;
 }

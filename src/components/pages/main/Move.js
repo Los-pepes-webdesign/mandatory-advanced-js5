@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useObservable, state$ } from '../../../utilities/store';
 import { dropbox } from '../../../utilities/dropbox';
 import ReactDOM from 'react-dom';
+import FolderIcon from '@material-ui/icons/Folder';
+import { sortFiles } from '../../../utilities/dropbox';
 
 export default function Move(props) {
 	const [ path, updatePath ] = useState('');
 	const currentPath = props.fileMove.path_lower;
+	const { files } = useObservable(state$);
+	const [ parent, setParent ] = useState([]);
+	const [ folderList, setFolderList ] = useState(files);
+
 	let currentFile = '/' + currentPath.split('/').pop();
+
+	useEffect (() => {
+		folderDepth("")
+	}, []);
 
 	function onChange(e) {
 		const value = e.target.value;
@@ -17,7 +28,7 @@ export default function Move(props) {
 		if (path.length === 0) {
 			newPath = currentFile;
 		} else {
-			newPath = '/' + path + currentFile;
+			newPath = path + currentFile;
 		}
 
 		let move = {
@@ -36,6 +47,34 @@ export default function Move(props) {
 
 	function closeBox() {
 		props.onDone();
+	}
+
+	function folderDepth(filePathLower){
+		if (parent.length < 0) {
+			setParent(filePathLower);
+		}
+		else {
+			if (parent[parent.length - 1] !== filePathLower) {
+				setParent([...parent, filePathLower]);
+			}
+		}
+
+		dropbox
+			.filesListFolder({ path: filePathLower })
+			.then(({ entries }) => {
+				const { folders } = sortFiles(entries);
+				setFolderList(folders);
+			});
+
+			updatePath(filePathLower);
+	}
+
+	function goToParent(){
+		if (parent.length > 1) {
+			parent.pop();
+			const parentFolder = parent[parent.length - 1];
+			folderDepth(parentFolder);
+		}
 	}
 
 	return ReactDOM.createPortal(
@@ -64,6 +103,21 @@ export default function Move(props) {
 						Cancel
 					</button>
 				</div>
+			</div>
+			<div className="move__galleryContainer">
+			<button className="move__galleryContainer__parentButton" onClick={goToParent}>Parent Folder</button>
+			{ folderList
+					.filter((file) => file['.tag'] === 'folder')
+					.map((file) => (
+						<div
+							className="move__galleryContainer__folder"
+							key={file.id}
+							onClick={() => folderDepth(file.path_lower)}
+						>
+							<FolderIcon />
+							<p>{file.name}</p>
+						</div>
+					))}
 			</div>
 		</div>,
 		document.querySelector('body')
