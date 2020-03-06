@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useObservable, state$ } from '../../../utilities/store';
 import { dropbox } from '../../../utilities/dropbox';
 import ReactDOM from 'react-dom';
 
 export default function Move(props) {
 	const [ path, updatePath ] = useState('');
 	const currentPath = props.fileMove.path_lower;
+	const { files } = useObservable(state$);
+console.log(files);
+
 	let currentFile = '/' + currentPath.split('/').pop();
 
 	function onChange(e) {
