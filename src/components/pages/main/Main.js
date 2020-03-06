@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, Switch, Route } from 'react-router';
 
 // store imports
-import { token$, setToken$, useObservable } from '../../../utilities/store';
+import { token$, setToken$, useObservable, setState$ } from '../../../utilities/store';
 import { init, getFolderContent } from '../../../utilities/dropbox';
 
 // component imports
@@ -14,7 +14,6 @@ import Profile from './Profile';
 import StarredContent from './StarredContent';
 import QueriedContent from './QueriedContent';
 
-
 // component
 export default function Main({ location }) {
 	const [ hashStatus, setHashStatus ] = useState(null); // controls redirect to '/login' or '/'
@@ -22,18 +21,18 @@ export default function Main({ location }) {
 
 	useEffect(
 		() => {
-			if (
-				!window.location.hash.includes('access_token') &&
-				!accessToken
-			) {
+			if (!window.location.hash.includes('access_token') && !accessToken) {
 				setHashStatus('invalid');
-			} else {
+			}
+			else {
 				if (!accessToken) {
 					const regex = new RegExp(/=(.*)(?=&token_type)/, 'i');
 					const token = window.location.hash.match(regex)[1];
 					setToken$(token);
 					setHashStatus('valid');
 				}
+
+				// setState$(location.pathname, 'setCurrentPath');
 
 				if (location.pathname === '/starred' || location.pathname === '/search') return;
 				else if (location.pathname === '/') init();
@@ -45,17 +44,17 @@ export default function Main({ location }) {
 
 	return (
 		<React.Fragment>
-			{hashStatus === 'invalid' && <Redirect to="/login" />}
-			{hashStatus === 'valid' && <Redirect to="/" />}
+			{hashStatus === 'invalid' && <Redirect to='/login' />}
+			{hashStatus === 'valid' && <Redirect to='/' />}
 
-			<div className="main">
+			<div className='main'>
 				<Mainmenu />
 				<Header />
 				<Profile />
 				<Switch>
-					<Route path="/search" component={QueriedContent} />
-					<Route path="/starred" component={StarredContent} />
-					<Route path="/" component={Content} />
+					<Route path='/search' component={QueriedContent} />
+					<Route path='/starred' component={StarredContent} />
+					<Route path='/' component={Content} />
 				</Switch>
 			</div>
 		</React.Fragment>

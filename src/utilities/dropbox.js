@@ -43,7 +43,8 @@ export function getMoreFiles() {
 	if (filesContinued.length > 25) {
 		currentFiles = filesContinued.slice(0, 25);
 		filesContinued = filesContinued.slice(25, -1);
-	} else {
+	}
+	else {
 		currentFiles = filesContinued;
 		filesContinued = [];
 		hasMore = false;
@@ -71,10 +72,10 @@ export function getMoreFiles() {
 export function getFolderContent(path) {
 	dropbox
 		.filesListFolder({ path })
-		.then(({ entries }) => {
-			const { sortedFiles, filesContinued, hasMore, folders } = sortFiles(
-				entries
-			);
+		.then(({ entries, cursor }) => {
+			// poll(cursor, path);
+
+			const { sortedFiles, filesContinued, hasMore, folders } = sortFiles(entries);
 
 			Promise.all([
 				...sortedFiles.map(({ path_lower }) =>
@@ -89,19 +90,12 @@ export function getFolderContent(path) {
 			])
 				.then((response) => {
 					const { links, thumbnails } = sortLinksAndThumbs(response);
-					let files = [
-						...folders,
-						...formatFiles(sortedFiles, links, thumbnails)
-					];
+					let files = [ ...folders, ...formatFiles(sortedFiles, links, thumbnails) ];
 
 					if (localStorage.getItem('starredFiles')) {
-						const starredFiles = JSON.parse(
-							localStorage.getItem('starredFiles')
-						);
+						const starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
 						files = files.map((file) => {
-							const starredFile = starredFiles.find(
-								(_file) => _file.id === file.id
-							);
+							const starredFile = starredFiles.find((_file) => _file.id === file.id);
 							return starredFile ? starredFile : file;
 						});
 					}
@@ -121,9 +115,7 @@ export function getQueriedContent(query) {
 		let files = queries.filter((query) => query['.tag'] === 'file');
 
 		Promise.all(
-			files.map(({ path_lower }) =>
-				dropbox.filesGetTemporaryLink({ path: path_lower })
-			)
+			files.map(({ path_lower }) => dropbox.filesGetTemporaryLink({ path: path_lower }))
 		)
 			.then((response) => {
 				console.log(response);
@@ -137,13 +129,9 @@ export function getQueriedContent(query) {
 				];
 
 				if (localStorage.getItem('starredFiles')) {
-					const starredFiles = JSON.parse(
-						localStorage.getItem('starredFiles')
-					);
+					const starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
 					files = files.map((file) => {
-						const starredFile = starredFiles.find(
-							(_file) => _file.id === file.id
-						);
+						const starredFile = starredFiles.find((_file) => _file.id === file.id);
 						return starredFile ? starredFile : file;
 					});
 				}
@@ -154,6 +142,26 @@ export function getQueriedContent(query) {
 	});
 }
 
+// function poll(cursor, path) {
+// 	console.log(cursor);
+
+// 	dropbox
+// 		.filesListFolderLongpoll({
+// 			cursor,
+// 			timeout: 30
+// 		})
+// 		.then(({ changes }) => {
+// 			console.log(changes);
+
+// 			if (!changes) {
+// 				poll(cursor);
+// 			}
+// 			else {
+// 				getFolderContent('');
+// 			}
+// 		});
+// }
+
 // initates global state (root content, profile information, space usage)
 export function init() {
 	Promise.all([
@@ -162,11 +170,7 @@ export function init() {
 		dropbox.usersGetCurrentAccount()
 	])
 		.then(([ { entries, cursor }, userSpace, profile ]) => {
-			dropbox
-				.filesListFolderLongpoll({ cursor, timeout: 30 })
-				.then((response) => {
-					console.log(response);
-				});
+			// poll(cursor, '');
 
 			let files = entries.filter((path) => path['.tag'] === 'file');
 			const folders = entries.filter((path) => path['.tag'] === 'folder');
@@ -185,19 +189,12 @@ export function init() {
 				.then((response) => {
 					const { links, thumbnails } = sortLinksAndThumbs(response);
 
-					files = [
-						...folders,
-						...formatFiles(files, links, thumbnails)
-					];
+					files = [ ...folders, ...formatFiles(files, links, thumbnails) ];
 
 					if (localStorage.getItem('starredFiles')) {
-						const starredFiles = JSON.parse(
-							localStorage.getItem('starredFiles')
-						);
+						const starredFiles = JSON.parse(localStorage.getItem('starredFiles'));
 						files = files.map((file) => {
-							const starredFile = starredFiles.find(
-								(_file) => _file.id === file.id
-							);
+							const starredFile = starredFiles.find((_file) => _file.id === file.id);
 							return starredFile ? starredFile : file;
 						});
 					}
