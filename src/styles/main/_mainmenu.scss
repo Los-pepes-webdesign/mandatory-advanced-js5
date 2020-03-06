@@ -9,12 +9,12 @@
     align-items: center;
     
     &__hotMexicanGuy{
-      
       width:120%;
       height: 30%;
       background-image: url("../../Images/hotMexicanGuy.png");
       background-size: 100%;
       background-position: center;
+      background-repeat: no-repeat;
     }
 
     label {cursor: pointer;}
@@ -45,7 +45,7 @@
 
     &__mexicanCactus{
       width:100%;
-      height: 45%;
+      height: 52%;
       background-size: contain;
       background-repeat: no-repeat;
       background-image: url("../../Images/MexicanCactusandSun.png");

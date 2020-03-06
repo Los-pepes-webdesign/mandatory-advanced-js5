@@ -14,6 +14,7 @@
         / 1fr;
     .tableHeader{ grid-area: tableHeader; }
     .tableContent {
+        padding-left: 30px;
         grid-area: tableContent;
         height: calc(100vh - 220px);
         overflow-y: auto;
