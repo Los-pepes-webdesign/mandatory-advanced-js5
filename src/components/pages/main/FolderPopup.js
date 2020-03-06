@@ -14,7 +14,6 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 
 	function newFolder(e) {
 		e.preventDefault();
-
 		dropbox
 			.filesCreateFolderV2({
 				path: (folderPath.length > 1 ? folderPath : '') + '/' + folderInput
