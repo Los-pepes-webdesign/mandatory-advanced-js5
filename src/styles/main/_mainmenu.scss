@@ -18,11 +18,16 @@
       vertical-align: middle;
       text-align: center;
       cursor: pointer;
+      
 
       * {
         padding: 3px;
         color: black;
         vertical-align: middle;
       }
+    }
+
+    &__newfolder label{
+      font-size: 14px;
     }
 }

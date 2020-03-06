@@ -29,10 +29,10 @@
       background: none;
       text-decoration: none;
       cursor: pointer;
-      color: $purple;
+      color: $yellow;
       outline: none;
       transition: all 0.2s;
-      &:hover { color: $yellow; }
+      &:hover { color: $orange; }
       &:active { color: $red; }
     }
   }
