@@ -192,7 +192,6 @@ export default function Mainmenu({ path }) {
 						</button>
 					</div>
 				</div>
-				<div className="mainmenu__mexicanCactus" />
 			</aside>
 		</React.Fragment>
 	);
