@@ -4,6 +4,18 @@
     background-color: $yellow;
     width: 200px;
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    &__hotMexicanGuy{
+      
+      width:120%;
+      height: 30%;
+      background-image: url("../../Images/hotMexicanGuy.png");
+      background-size: 100%;
+      background-position: center;
+    }
 
     label {cursor: pointer;}
 
@@ -29,5 +41,15 @@
 
     &__newfolder label{
       font-size: 14px;
+    }
+
+    &__mexicanCactus{
+      width:100%;
+      height: 45%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url("../../Images/MexicanCactusandSun.png");
+      background-position: -30px bottom;
+      
     }
 }

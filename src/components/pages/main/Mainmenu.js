@@ -159,40 +159,44 @@ export default function Mainmenu({ path }) {
 				/>
 			)}
 			<aside className="mainmenu">
-				<div className="mainmenu__home">
-					<Link to="/">
-						<HomeIcon />
-						<label>Home</label>
-					</Link>
+				<div className="mainmenu__hotMexicanGuy" />
+				<div className="mainmenu__links">
+					<div className="mainmenu__home">
+						<Link to="/">
+							<HomeIcon />
+							<label>Home</label>
+						</Link>
+					</div>
+					<div className="mainmenu__favorite">
+						<Link to="/starred">
+							<StarIcon />
+							<label>Favorites</label>
+						</Link>
+					</div>
+					<div className="mainmenu__upload">
+						<form onSubmit={fileUpload} id="file-upload-form">
+							<PublishIcon />
+							<label id="folder_label">
+								Upload File
+								<input
+									ref={fileInputRef}
+									onChange={fileUpload}
+									placeholder="Upload File"
+									type="file"
+									id="file-upload-input"
+									className="hidden"
+								/>
+							</label>
+						</form>
+					</div>
+					<div className="mainmenu__newfolder">
+						<button onClick={showPopup}>
+							<CreateNewFolderIcon />
+							<label>New Folder</label>
+						</button>
+					</div>
 				</div>
-				<div className="mainmenu__favorite">
-					<Link to="/starred">
-						<StarIcon />
-						<label>Favorites</label>
-					</Link>
-				</div>
-				<div className="mainmenu__upload">
-					<form onSubmit={fileUpload} id="file-upload-form">
-						<PublishIcon />
-						<label id="folder_label">
-							Upload File
-							<input
-								ref={fileInputRef}
-								onChange={fileUpload}
-								placeholder="Upload File"
-								type="file"
-								id="file-upload-input"
-								className="hidden"
-							/>
-						</label>
-					</form>
-				</div>
-				<div className="mainmenu__newfolder">
-					<button onClick={showPopup}>
-						<CreateNewFolderIcon />
-						<label>New Folder</label>
-					</button>
-				</div>
+				<div className="mainmenu__mexicanCactus" />
 			</aside>
 		</React.Fragment>
 	);
