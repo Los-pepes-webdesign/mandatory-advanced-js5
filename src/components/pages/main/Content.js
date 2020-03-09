@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 
@@ -25,6 +25,8 @@ export default function Content() {
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 	const [ paths, setPaths ] = useState([]);
+	const refTableContent = useRef(null);
+
 	let hash = window.location.pathname;
 
 	useEffect(
@@ -42,20 +44,27 @@ export default function Content() {
 			setPaths(formatPaths(paths));
 
 			if (files.length !== 0) setIsLoading(false);
+
 		},
 		[ files, hash ]
 	);
 
 	function getButtonPosition(e, fileId) {
+		console.log("SET BUTTON POS");
 		if (showMore === fileId) {
 			updateShowMore(false);
 		} else {
 			updateShowMore(fileId);
 		}
 
-		const buttonPosX = e.target.getBoundingClientRect().x;
 		const buttonPosY = e.target.getBoundingClientRect().y;
-		updateButtonPos({ x: buttonPosX, y: buttonPosY });
+		const clickPos = {x: e.clientX, y: e.clientY};
+
+		if (buttonPosY > refTableContent.current.offsetHeight) {
+			updateButtonPos({ x: clickPos.x - 100, y: clickPos.y - 150 });
+		} else {
+			updateButtonPos({ x: clickPos.x - 100, y: clickPos.y });
+		}
 	}
 
 	return (
@@ -97,7 +106,7 @@ export default function Content() {
 						</thead>
 					</table>
 				</section>
-				<section className="tableContent">
+				<section className="tableContent" ref={refTableContent}>
 					{isLoading && <Spinner />}
 					<table className="fileTable">
 						<tbody>
