@@ -8,9 +8,11 @@ import { initFolderPopup } from '../../../utilities/animation';
 
 export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const [ folderInput, updateFolderInput ] = useState('');
-	const [ folderPath, setPath ] = useState(path);
+	const [ folderPath, setFolderPath ] = useState(path);
 	const { files } = useObservable(state$);
 	const folderPopupRef = useRef(null);
+	const [chosen, setChosen] = useState(false);
+
 
 	function newFolder(e) {
 		e.preventDefault();
@@ -30,8 +32,8 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		closePopup();
 	}
 	function updateInputFolder(e) {
-		console.log(path)
-		console.log(path.length);
+		console.log(chosen)
+		console.log(folderPath)
 		updateFolderInput(e.target.value);
 	}
 
@@ -66,8 +68,11 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 					.filter((file) => file['.tag'] === 'folder')
 					.map((file) => (
 						<div
+							style={{backgroundColor: chosen === file.id ? '#FFC30F' : '' }}
 							key={file.id}
-							onClick={() => setPath(file.path_lower)}
+							count={file.id}
+							active={file.id === chosen}
+							onClick={() => { setFolderPath(folderPath === file.path_lower ? path : file.path_lower); setChosen(chosen === file.id ? '' : file.id);}}
 						>
 							<FolderIcon />
 							<p>{file.name}</p>
