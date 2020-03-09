@@ -46,19 +46,14 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 
 
 	useEffect(() => {
-		nextLevel();
-	}, [folderPath])
 
-	function nextLevel () {
-		let testing = folderPath;
-		console.log(testing);
-		dropbox.filesListFolder({ path: testing === '/' ? '' : testing }).then(({ entries }) => {
+		dropbox.filesListFolder({ path: folderPath === '/' ? '' : folderPath }).then(({ entries }) => {
 			const { folders } = sortFiles(entries);
 			setFolderList(folders);
-			console.log(folderList);
-			console.log(files);
 		});
-	}
+	}, [folderPath])
+
+
 
 	return ReactDOM.createPortal(
 		<div className="folder-popup" ref={folderPopupRef}>
