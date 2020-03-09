@@ -14,17 +14,18 @@ import StarRoundedIcon from '@material-ui/icons/StarRounded';
 
 // components
 import FileMore from './FileMore';
+import MoreFiles from './Content.MoreFiles';
 
 export default function QueriedContent() {
 	const { queriedFiles } = useObservable(state$);
+
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 
 	function getButtonPosition(e, fileId) {
 		if (showMore === fileId) {
 			updateShowMore(false);
-		}
-		else {
+		} else {
 			updateShowMore(fileId);
 		}
 
@@ -35,74 +36,111 @@ export default function QueriedContent() {
 
 	return (
 		<React.Fragment>
-			<main className='content'>
-				<table>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Modified</th>
-							<th />
-						</tr>
-					</thead>
-					<tbody>
-						{queriedFiles.map((file) => (
-							<tr className='file' key={file.id}>
-								<td className='file__thumbnail'>
-									{file['.tag'] === 'folder' ? (
-										<FolderIcon />
-									) : file.thumbnail ? (
-										<img
-											src={`data:image/png;base64, ${file.thumbnail}`}
-											alt=''
-										/>
-									) : (
-										<InsertDriveFileIcon />
-									)}
-								</td>
-								<td className='file__name'>
-									<span>
+			<main className="queried-content">
+				<section className="tableHeader-queried">
+					<table className="fileTable ">
+						<thead>
+							<tr>
+								{/* thumbnail */}
+								<th />
+								<th>
+									<h4>Name</h4>
+								</th>
+								<th>
+									<h4>Modified</h4>
+								</th>
+								<th>
+									<h4>Size</h4>
+								</th>
+								{/* starred */}
+								<th />
+								{/* more */}
+								<th />
+							</tr>
+						</thead>
+					</table>
+				</section>
+				<section className="tableContent">
+					<table className="fileTable">
+						<tbody>
+							{queriedFiles.map((file) => (
+								<tr className="file" key={file.id}>
+									<td className="file__thumbnail">
 										{file['.tag'] === 'folder' ? (
-											<Link to={file.path_lower}> {file.name}</Link>
+											<FolderIcon
+												style={{ fontSize: 45 }}
+											/>
+										) : file.thumbnail ? (
+											<img
+												src={`data:image/png;base64, ${file.thumbnail}`}
+												alt=""
+											/>
 										) : (
-											<a href={file.link} download={file.name}>
-												{file.name}
-											</a>
-										)}
-									</span>
-								</td>
-								<td className='file__modified'>
-									<span>
-										<Moment format='YYYY/MM/DD'>{file.server_modified}</Moment>
-									</span>
-								</td>
-								<td className='file__size'>
-									<span>{file.size}</span>
-								</td>
-								<td className='file__starred' onClick={() => toggleStar(file)}>
-									{file.starred ? <StarRoundedIcon /> : <StarBorderRoundedIcon />}
-								</td>
-								<td className='file__more'>
-									<div>
-										<button
-											className='fileMoreButton'
-											onClick={(e) => getButtonPosition(e, file.id)}
-										>
-											<MoreVertIcon />
-										</button>
-										{showMore === file.id && (
-											<FileMore
-												buttonPosition={buttonPos}
-												fileDetails={file}
-												showMoreFunction={updateShowMore}
-												onClose={() => updateShowMore(false)}
+											<InsertDriveFileIcon
+												style={{ fontSize: 45 }}
 											/>
 										)}
-									</div>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+									</td>
+									<td className="file__name">
+										<span>
+											{file['.tag'] === 'folder' ? (
+												<Link to={file.path_lower}>
+													{' '}
+													{file.name}
+												</Link>
+											) : (
+												<a
+													href={file.link}
+													download={file.name}
+												>
+													{file.name}
+												</a>
+											)}
+										</span>
+									</td>
+									<td className="file__modified">
+										<span>
+											<Moment format="YYYY/MM/DD">
+												{file.server_modified}
+											</Moment>
+										</span>
+									</td>
+									<td className="file__size">
+										<span>{file.size}</span>
+									</td>
+									<td />
+									<td className="file__more">
+										<div>
+											<button
+												className="fileMoreButton"
+												onClick={(e) =>
+													getButtonPosition(
+														e,
+														file.id
+													)}
+											>
+												<MoreVertIcon />
+											</button>
+											{showMore === file.id && (
+												<FileMore
+													buttonPosition={buttonPos}
+													fileDetails={file}
+													showMoreFunction={
+														updateShowMore
+													}
+													onClose={() =>
+														updateShowMore(false)}
+												/>
+											)}
+										</div>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+
+					<div className="spacer" />
+				</section>
 			</main>
 		</React.Fragment>
 	);

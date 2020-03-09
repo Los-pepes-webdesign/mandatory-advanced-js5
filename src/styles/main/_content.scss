@@ -12,7 +12,47 @@
         "tableHeader" 110px
         "tableContent"
         / 1fr;
-    .tableHeader{ grid-area: tableHeader; padding: 0 30px }
+    .tableHeader{ 
+        grid-area: tableHeader; 
+        padding: 0 30px 
+    }
+    .tableContent {
+        padding-left: 30px;
+        padding-right: 30px;
+        grid-area: tableContent;
+        height: calc(100vh - 220px);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 30px;
+        .getMoreFiles {
+            @extend %flexCC;
+            margin-top: 16px;
+            padding: 16px 42px;
+            background-color: $wine;
+            color: $yellow;
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover { background-color: $red; }
+        }
+        .spacer {
+            min-height: 30px;
+            width: 100%;
+        }
+    }
+}
+.queried-content {
+    grid-area: content;
+    display: grid;
+    grid-template:
+        "tableHeader" 50px
+        "tableContent"
+        / 1fr;
+    .tableHeader{ 
+        grid-area: tableHeader; 
+        padding: 0 30px 
+    }
     .tableContent {
         padding-left: 30px;
         padding-right: 30px;
