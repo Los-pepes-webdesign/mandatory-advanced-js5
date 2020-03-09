@@ -5,11 +5,13 @@ import ReactDOM from 'react-dom';
 import FolderIcon from '@material-ui/icons/Folder';
 import CloseIcon from '@material-ui/icons/Close';
 import { initFolderPopup } from '../../../utilities/animation';
+import { sortFiles } from '../../../utilities/dropbox';
 
 export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const [ folderInput, updateFolderInput ] = useState('');
 	const [ folderPath, setFolderPath ] = useState(path);
 	const { files } = useObservable(state$);
+	const [ folderList, setFolderList ] = useState(files);
 	const folderPopupRef = useRef(null);
 	const [chosen, setChosen] = useState(false);
 
@@ -41,6 +43,19 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		initFolderPopup(folderPopupRef.current);
 	}, []);
 
+	function nextLevel () {
+		console.log(folderPath);
+
+		dropbox.filesListFolder({ path: folderPath === '/' ? '' : folderPath }).then(({ entries }) => {
+			const { folders } = sortFiles(entries);
+			setFolderList(folders);
+			console.log(folderList);
+			console.log(files);
+		});
+
+
+	}
+
 	return ReactDOM.createPortal(
 		<div className="folder-popup" ref={folderPopupRef}>
 			<h1>Create Folder</h1>
@@ -64,7 +79,7 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 				</form>
 			</div>
 			<div className="popup-folders">
-				{files
+				{folderList
 					.filter((file) => file['.tag'] === 'folder')
 					.map((file) => (
 						<div
@@ -72,7 +87,11 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 							key={file.id}
 							count={file.id}
 							active={file.id === chosen}
-							onClick={() => { setFolderPath(folderPath === file.path_lower ? path : file.path_lower); setChosen(chosen === file.id ? '' : file.id);}}
+							onClick={() => {
+								setFolderPath(folderPath === file.path_lower ? path : file.path_lower);
+								setChosen(chosen === file.id ? '' : file.id);
+								nextLevel();
+							}}
 						>
 							<FolderIcon />
 							<p>{file.name}</p>
