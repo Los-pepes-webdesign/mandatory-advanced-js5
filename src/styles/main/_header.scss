@@ -2,7 +2,7 @@
 
 
 .header {
-	background-color: $purple;
+	background: left no-repeat url(../../assets/header_background.png), $purple;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
