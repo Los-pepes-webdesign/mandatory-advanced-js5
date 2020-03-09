@@ -39,21 +39,25 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		updateFolderInput(e.target.value);
 	}
 
+	// Animation
 	useEffect(() => {
 		initFolderPopup(folderPopupRef.current);
 	}, []);
 
-	function nextLevel () {
-		console.log(folderPath);
 
-		dropbox.filesListFolder({ path: folderPath === '/' ? '' : folderPath }).then(({ entries }) => {
+	useEffect(() => {
+		nextLevel();
+	}, [folderPath])
+
+	function nextLevel () {
+		let testing = folderPath;
+		console.log(testing);
+		dropbox.filesListFolder({ path: testing === '/' ? '' : testing }).then(({ entries }) => {
 			const { folders } = sortFiles(entries);
 			setFolderList(folders);
 			console.log(folderList);
 			console.log(files);
 		});
-
-
 	}
 
 	return ReactDOM.createPortal(
@@ -73,6 +77,7 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 						id="create-folder"
 						placeholder="Folder name"
 					/>
+				<p> PepesBox{folderPath} </p>
 					<button onClick={newFolder} type="submit">
 						Submit
 					</button>
@@ -90,7 +95,6 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 							onClick={() => {
 								setFolderPath(folderPath === file.path_lower ? path : file.path_lower);
 								setChosen(chosen === file.id ? '' : file.id);
-								nextLevel();
 							}}
 						>
 							<FolderIcon />
