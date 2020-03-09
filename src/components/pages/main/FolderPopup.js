@@ -14,7 +14,8 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const [ folderList, setFolderList ] = useState(files);
 	const folderPopupRef = useRef(null);
 	const [chosen, setChosen] = useState(false);
-
+	const [ parent, setParent ] = useState('');
+	const prevPathRef = useRef();
 
 	function newFolder(e) {
 		e.preventDefault();
@@ -44,16 +45,18 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		initFolderPopup(folderPopupRef.current);
 	}, []);
 
-
 	useEffect(() => {
-
 		dropbox.filesListFolder({ path: folderPath === '/' ? '' : folderPath }).then(({ entries }) => {
 			const { folders } = sortFiles(entries);
 			setFolderList(folders);
+		})
+		.then(() => {
+			prevPathRef.current = folderPath;
+
 		});
 	}, [folderPath])
 
-
+	const prevPath = prevPathRef.current;
 
 	return ReactDOM.createPortal(
 		<div className="folder-popup" ref={folderPopupRef}>
@@ -79,6 +82,11 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 				</form>
 			</div>
 			<div className="popup-folders">
+				<div
+					onClick={() => {
+						setFolderPath(prevPath);
+					}}>
+					Go to parent</div>
 				{folderList
 					.filter((file) => file['.tag'] === 'folder')
 					.map((file) => (
@@ -86,7 +94,7 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 							style={{backgroundColor: chosen === file.id ? '#FFC30F' : '' }}
 							key={file.id}
 							count={file.id}
-							active={file.id === chosen}
+							active={file.id === chosen ? chosen : undefined}
 							onClick={() => {
 								setFolderPath(folderPath === file.path_lower ? path : file.path_lower);
 								setChosen(chosen === file.id ? '' : file.id);
