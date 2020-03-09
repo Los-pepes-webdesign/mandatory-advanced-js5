@@ -5,12 +5,17 @@ import ReactDOM from 'react-dom';
 import FolderIcon from '@material-ui/icons/Folder';
 import CloseIcon from '@material-ui/icons/Close';
 import { initFolderPopup } from '../../../utilities/animation';
+import { sortFiles } from '../../../utilities/dropbox';
 
 export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const [ folderInput, updateFolderInput ] = useState('');
-	const [ folderPath, setPath ] = useState(path);
+	const [ folderPath, setFolderPath ] = useState(path);
 	const { files } = useObservable(state$);
+	const [ folderList, setFolderList ] = useState(files);
 	const folderPopupRef = useRef(null);
+	const [chosen, setChosen] = useState(false);
+	const [ parent, setParent ] = useState('');
+	const prevPathRef = useRef();
 
 	function newFolder(e) {
 		e.preventDefault();
@@ -30,14 +35,28 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		closePopup();
 	}
 	function updateInputFolder(e) {
-		console.log(path)
-		console.log(path.length);
+		console.log(chosen)
+		console.log(folderPath)
 		updateFolderInput(e.target.value);
 	}
 
+	// Animation
 	useEffect(() => {
 		initFolderPopup(folderPopupRef.current);
 	}, []);
+
+	useEffect(() => {
+		dropbox.filesListFolder({ path: folderPath === '/' ? '' : folderPath }).then(({ entries }) => {
+			const { folders } = sortFiles(entries);
+			setFolderList(folders);
+		})
+		.then(() => {
+			prevPathRef.current = folderPath;
+
+		});
+	}, [folderPath])
+
+	const prevPath = prevPathRef.current;
 
 	return ReactDOM.createPortal(
 		<div className="folder-popup" ref={folderPopupRef}>
@@ -56,18 +75,30 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 						id="create-folder"
 						placeholder="Folder name"
 					/>
+				<p> PepesBox{folderPath} </p>
 					<button onClick={newFolder} type="submit">
 						Submit
 					</button>
 				</form>
 			</div>
 			<div className="popup-folders">
-				{files
+				<div
+					onClick={() => {
+						setFolderPath(prevPath);
+					}}>
+					Go to parent</div>
+				{folderList
 					.filter((file) => file['.tag'] === 'folder')
 					.map((file) => (
 						<div
+							style={{backgroundColor: chosen === file.id ? '#FFC30F' : '' }}
 							key={file.id}
-							onClick={() => setPath(file.path_lower)}
+							count={file.id}
+							active={file.id === chosen ? chosen : undefined}
+							onClick={() => {
+								setFolderPath(folderPath === file.path_lower ? path : file.path_lower);
+								setChosen(chosen === file.id ? '' : file.id);
+							}}
 						>
 							<FolderIcon />
 							<p>{file.name}</p>

@@ -9,10 +9,10 @@
     td { 
         font-size: 14px;
         vertical-align: middle;
-    }
-    a:hover { 
-        text-decoration: underline; 
-        color: $orange;
+        span a:hover { 
+            text-decoration: underline; 
+            color: $orange;
+        }
     }
     th, td {
         text-align: left;

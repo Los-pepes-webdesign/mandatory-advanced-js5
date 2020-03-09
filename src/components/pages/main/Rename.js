@@ -17,7 +17,8 @@ export default function Rename(props) {
 		() => {
 			// Check if type is FILE (has an extension) and if so extracts the file extension
 			if (props.fileRename['.tag'] === 'file') {
-				const currentExt = '.' + props.fileRename.path_lower.split('.').pop();
+				const currentExt =
+					'.' + props.fileRename.path_lower.split('.').pop();
 				updateExtension(currentExt);
 			}
 		},
@@ -49,20 +50,30 @@ export default function Rename(props) {
 	}
 
 	return ReactDOM.createPortal(
-		<div className='rename' style={{ marginLeft: '30px' }}>
-			<h1>Rename file</h1>
-			<p className='rename__text'>Change name of: {oldName}</p>
-			<div className='rename__inputContainer'>
-				<input className='rename__input' type='text' onChange={onChange} value={filename} />
-				<p className='rename__input__ext'>{extension}</p>
-			</div>
-			<div className='rename__buttonContainer'>
-				<button className='rename__buttonOk' onClick={executeChange}>
-					Ok
-				</button>
-				<button className='rename__buttonCancel' onClick={closeBox}>
-					Cancel
-				</button>
+		<div className="backdropBlur">
+			<div className="rename" style={{ marginLeft: '30px' }}>
+				<h1>Rename file</h1>
+				<p className="rename__text">Change name of: {oldName}</p>
+				<div className="rename__inputContainer">
+					<input
+						className="rename__input"
+						type="text"
+						onChange={onChange}
+						value={filename}
+					/>
+					<p className="rename__input__ext">{extension}</p>
+				</div>
+				<div className="rename__buttonContainer">
+					<button
+						className="rename__buttonOk"
+						onClick={executeChange}
+					>
+						Ok
+					</button>
+					<button className="rename__buttonCancel" onClick={closeBox}>
+						Cancel
+					</button>
+				</div>
 			</div>
 		</div>,
 		document.querySelector('body')
