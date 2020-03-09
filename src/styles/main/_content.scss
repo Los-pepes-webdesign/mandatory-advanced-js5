@@ -43,17 +43,18 @@
     }
 }
 .queried-content {
-    grid-area: content;
     display: grid;
     grid-template:
         "tableHeader" 50px
         "tableContent"
         / 1fr;
+    
     .tableHeader{ 
         grid-area: tableHeader; 
         padding: 0 30px 
     }
     .tableContent {
+        z-index: 1;
         padding-left: 30px;
         padding-right: 30px;
         grid-area: tableContent;

@@ -22,8 +22,27 @@
 		grid-area: profile;
 	}
 
-    & .content {
+    & .content, .queried-content {
         grid-area: content;
+        position: relative;
+        &::after, &::before {
+            content: '';
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            left: 0;
+        }
+        &::before {
+            height: 40px;
+            width: 40px;
+            background-color: $yellow;
+        }
+        &::after {
+            height: 80px;
+            width: 80px;
+            background-color: $body;
+            border-radius: 50%;
+        }
     }
 
 }
