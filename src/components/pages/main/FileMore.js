@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Rename from './Rename';
 import Move from './Move';
 import Copy from './Copy';
@@ -13,6 +13,15 @@ export default function FileMore(props) {
 	const [ popRename, updatePopRename ] = useState(false);
 	const [ popMove, updatePopMove ] = useState(false);
 	const [ popCopy, updatePopCopy ] = useState(false);
+	const [ clickPos, setClickPos ] = useState({});
+
+	useEffect(
+		() => {
+			window.addEventListener('click', close);
+			return () => window.removeEventListener('click', close);
+		},
+		[close]
+	);
 
 	function rename() {
 		updatePopRename(!popRename);
@@ -26,15 +35,24 @@ export default function FileMore(props) {
 		updatePopCopy(!popCopy);
 	}
 
+	function close(){
+		props.showMoreFunction(false);
+	}
+
+	function stopPropagation(e) {
+		e.stopPropagation();
+	}
+
 	return (
 		<React.Fragment>
 			<div
 				className="fileMore"
 				style={{
-					left: props.buttonPosition.x - 50,
-					top: props.buttonPosition.y + 40,
+					left: props.buttonPosition.x,
+					top: props.buttonPosition.y,
 					display: popRename || popMove || popCopy ? 'none' : null
 				}}
+				onClick={stopPropagation}
 			>
 				<div className="fileMore__textContainer" onClick={rename}>
 					<p className="fileMore__textContainer__text">Rename</p>
