@@ -3,6 +3,7 @@ import { useObservable, state$ } from '../../../utilities/store';
 import { dropbox } from '../../../utilities/dropbox';
 import ReactDOM from 'react-dom';
 import FolderIcon from '@material-ui/icons/Folder';
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import { sortFiles } from '../../../utilities/dropbox';
 
 export default function Move(props) {
@@ -117,6 +118,7 @@ export default function Move(props) {
 							onClick={goToParent}
 						>
 							Parent Folder
+							<SubdirectoryArrowRightIcon className="hello" />
 						</button>
 						{folderList
 							.filter((file) => file['.tag'] === 'folder')
