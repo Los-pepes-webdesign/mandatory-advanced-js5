@@ -7,7 +7,7 @@ import { sortFiles } from '../../../utilities/dropbox';
 
 export default function Move(props) {
 	const [ path, updatePath ] = useState('');
-	const currentPath = props.fileCopy.path_lower;
+	const currentPath = props.fileMove.path_lower;
 	const { files } = useObservable(state$);
 	const [ parent, setParent ] = useState([]);
 	const [ folderList, setFolderList ] = useState(files);
@@ -31,12 +31,12 @@ export default function Move(props) {
 			newPath = path + currentFile;
 		}
 
-		let copy = {
+		let move = {
 			from_path: currentPath,
 			to_path: newPath
 		};
 		dropbox
-			.filesCopyV2(copy)
+			.filesCopyV2(move)
 			.then((response) => {
 				props.onDone();
 			})
@@ -79,7 +79,7 @@ export default function Move(props) {
 			<div className="backdropBlur">
 				<div className="move" style={{ marginLeft: '30px' }}>
 					<div className="move__container">
-						<h1>Copy file</h1>
+						<h1>Move file</h1>
 						<p className="move__text">
 							Current location:PepesBox{currentPath}
 						</p>
