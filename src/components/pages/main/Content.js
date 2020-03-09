@@ -61,9 +61,9 @@ export default function Content() {
 		const clickPos = {x: e.clientX, y: e.clientY};
 
 		if (buttonPosY > refTableContent.current.offsetHeight) {
-			updateButtonPos({ x: clickPos.x - 100, y: clickPos.y - 150 });
+			updateButtonPos({ x: clickPos.x - 276, y: clickPos.y - 270 });
 		} else {
-			updateButtonPos({ x: clickPos.x - 100, y: clickPos.y });
+			updateButtonPos({ x: clickPos.x - 276, y: clickPos.y - 118 });
 		}
 	}
 
