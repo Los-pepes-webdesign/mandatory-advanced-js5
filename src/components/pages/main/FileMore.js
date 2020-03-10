@@ -13,14 +13,17 @@ export default function FileMore(props) {
 	const [ popRename, updatePopRename ] = useState(false);
 	const [ popMove, updatePopMove ] = useState(false);
 	const [ popCopy, updatePopCopy ] = useState(false);
-	const [ clickPos, setClickPos ] = useState({});
 
 	useEffect(
 		() => {
+			function close() {
+				props.showMoreFunction(false);
+			}
+
 			window.addEventListener('click', close);
 			return () => window.removeEventListener('click', close);
 		},
-		[close]
+		[ props ]
 	);
 
 	function rename() {
@@ -35,10 +38,6 @@ export default function FileMore(props) {
 		updatePopCopy(!popCopy);
 	}
 
-	function close(){
-		props.showMoreFunction(false);
-	}
-
 	function stopPropagation(e) {
 		e.stopPropagation();
 	}
@@ -46,7 +45,7 @@ export default function FileMore(props) {
 	return (
 		<React.Fragment>
 			<div
-				className="fileMore"
+				className='fileMore'
 				style={{
 					left: props.buttonPosition.x,
 					top: props.buttonPosition.y,
@@ -54,36 +53,36 @@ export default function FileMore(props) {
 				}}
 				onClick={stopPropagation}
 			>
-				<div className="fileMore__textContainer" onClick={rename}>
-					<p className="fileMore__textContainer__text">Rename</p>
+				<div className='fileMore__textContainer' onClick={rename}>
+					<p className='fileMore__textContainer__text'>Rename</p>
 				</div>
-				<div className="fileMore__textContainer" onClick={move}>
-					<p className="fileMore__textContainer__text">Move</p>
+				<div className='fileMore__textContainer' onClick={move}>
+					<p className='fileMore__textContainer__text'>Move</p>
 				</div>
-				<div className="fileMore__textContainer">
+				<div className='fileMore__textContainer'>
 					<a
 						href={props.fileDetails.link}
 						download={props.fileDetails.name}
-						className="fileMore__textContainer__text"
+						className='fileMore__textContainer__text'
 					>
 						Download
 					</a>
 				</div>
-				<div className="fileMore__textContainer" onClick={copy}>
-					<p className="fileMore__textContainer__text">Copy</p>
+				<div className='fileMore__textContainer' onClick={copy}>
+					<p className='fileMore__textContainer__text'>Copy</p>
 				</div>
-				<div className="fileMore__textContainer">
-					<p className="fileMore__textContainer__text">Favorite</p>
+				<div className='fileMore__textContainer'>
+					<p className='fileMore__textContainer__text'>Favorite</p>
 				</div>
 				<div
-					className="fileMore__textContainer"
+					className='fileMore__textContainer'
 					onClick={() =>
 						setLocalState({
 							path: props.fileDetails.path_lower,
 							modal: true
 						})}
 				>
-					<p className="fileMore__textContainer__text">Delete</p>
+					<p className='fileMore__textContainer__text'>Delete</p>
 				</div>
 			</div>
 			{popRename && (
@@ -113,8 +112,7 @@ export default function FileMore(props) {
 			{localState.modal && (
 				<DeletionModal
 					path={localState.path}
-					closeModal={() =>
-						setLocalState({ ...localState, modal: false })}
+					closeModal={() => setLocalState({ ...localState, modal: false })}
 				/>
 			)}
 		</React.Fragment>

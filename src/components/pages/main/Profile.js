@@ -11,9 +11,20 @@ export default function Profile() {
 		<div className='profile'>
 			{profile.name ? (
 				<React.Fragment>
-					<div className='profile__sombrero' />
+					<div
+						className='profile__sombrero'
+						style={{
+							backgroundImage: `url(${process.env.PUBLIC_URL}/assets/Sombrero.png)`
+						}}
+					/>
 					<div className='profile__info'>
-						<div className='profile__userIconContainer' />
+						<div
+							className='profile__userIconContainer'
+							style={{
+								backgroundImage: `url(${process.env
+									.PUBLIC_URL}/assets/MexicanSkull.png)`
+							}}
+						/>
 						<div className='profile__info__greeting'>
 							<p className='profile__info__greeting__text'>
 								Hola,{' '}
