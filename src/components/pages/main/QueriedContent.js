@@ -2,30 +2,26 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 
-import { toggleStar } from '../../../utilities/helpers';
 import { state$, useObservable } from '../../../utilities/store';
 
 // icons
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-import StarRoundedIcon from '@material-ui/icons/StarRounded';
 
 // components
 import FileMore from './FileMore';
-import MoreFiles from './Content.MoreFiles';
 
 export default function QueriedContent() {
 	const { queriedFiles } = useObservable(state$);
-
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 
 	function getButtonPosition(e, fileId) {
 		if (showMore === fileId) {
 			updateShowMore(false);
-		} else {
+		}
+		else {
 			updateShowMore(fileId);
 		}
 
@@ -36,9 +32,9 @@ export default function QueriedContent() {
 
 	return (
 		<React.Fragment>
-			<main className="queried-content">
-				<section className="tableHeader-queried">
-					<table className="fileTable ">
+			<main className='queried-content'>
+				<section className='tableHeader-queried'>
+					<table className='fileTable '>
 						<thead>
 							<tr>
 								{/* thumbnail */}
@@ -60,64 +56,50 @@ export default function QueriedContent() {
 						</thead>
 					</table>
 				</section>
-				<section className="tableContent">
-					<table className="fileTable">
+				<section className='tableContent'>
+					<table className='fileTable'>
 						<tbody>
 							{queriedFiles.map((file) => (
-								<tr className="file" key={file.id}>
-									<td className="file__thumbnail">
+								<tr className='file' key={file.id}>
+									<td className='file__thumbnail'>
 										{file['.tag'] === 'folder' ? (
-											<FolderIcon
-												style={{ fontSize: 45 }}
-											/>
+											<FolderIcon style={{ fontSize: 45 }} />
 										) : file.thumbnail ? (
 											<img
 												src={`data:image/png;base64, ${file.thumbnail}`}
-												alt=""
+												alt=''
 											/>
 										) : (
-											<InsertDriveFileIcon
-												style={{ fontSize: 45 }}
-											/>
+											<InsertDriveFileIcon style={{ fontSize: 45 }} />
 										)}
 									</td>
-									<td className="file__name">
+									<td className='file__name'>
 										<span>
 											{file['.tag'] === 'folder' ? (
-												<Link to={file.path_lower}>
-													{' '}
-													{file.name}
-												</Link>
+												<Link to={file.path_lower}> {file.name}</Link>
 											) : (
-												<a
-													href={file.link}
-													download={file.name}
-												>
+												<a href={file.link} download={file.name}>
 													{file.name}
 												</a>
 											)}
 										</span>
 									</td>
-									<td className="file__modified">
+									<td className='file__modified'>
 										<span>
-											<Moment format="YYYY/MM/DD">
+											<Moment format='YYYY/MM/DD'>
 												{file.server_modified}
 											</Moment>
 										</span>
 									</td>
-									<td className="file__size">
+									<td className='file__size'>
 										<span>{file.size}</span>
 									</td>
 									<td />
-									<td className="file__more">
+									<td className='file__more'>
 										<div>
 											<button
-												className="fileMoreButton"
-												onClick={(e) =>
-													getButtonPosition(
-														e,
-														file.id
-													)}
+												className='fileMoreButton'
+												onClick={(e) => getButtonPosition(e, file.id)}
 											>
 												<MoreVertIcon />
 											</button>
@@ -125,11 +107,8 @@ export default function QueriedContent() {
 												<FileMore
 													buttonPosition={buttonPos}
 													fileDetails={file}
-													showMoreFunction={
-														updateShowMore
-													}
-													onClose={() =>
-														updateShowMore(false)}
+													showMoreFunction={updateShowMore}
+													onClose={() => updateShowMore(false)}
 												/>
 											)}
 										</div>
@@ -139,7 +118,7 @@ export default function QueriedContent() {
 						</tbody>
 					</table>
 
-					<div className="spacer" />
+					<div className='spacer' />
 				</section>
 			</main>
 		</React.Fragment>

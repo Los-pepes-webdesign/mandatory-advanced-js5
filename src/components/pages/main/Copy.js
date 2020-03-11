@@ -14,33 +14,37 @@ export default function Move(props) {
 	const [ folderList, setFolderList ] = useState(files);
 	let currentFile = '/' + currentPath.split('/').pop();
 
-	const folderDepth = useCallback((filePathLower) => {
-		if (parent.length < 0) {
-			setParent(filePathLower);
-		} else {
+	const folderDepth = useCallback(
+		(filePathLower) => {
 			if (parent[parent.length - 1] !== filePathLower) {
 				setParent([ ...parent, filePathLower ]);
 			}
-		}
 
-		dropbox.filesListFolder({ path: filePathLower }).then(({ entries }) => {
+			dropbox
+				.filesListFolder({ path: filePathLower })
+				.then(({ entries }) => {
+					const { folders } = sortFiles(entries);
+					setFolderList(folders);
+				});
+
+			updatePath(filePathLower);
+		},
+		[ parent ]
+	);
+
+	useEffect(() => {
+		dropbox.filesListFolder({ path: '' }).then(({ entries }) => {
 			const { folders } = sortFiles(entries);
 			setFolderList(folders);
 		});
-
-		updatePath(filePathLower);
-	}, [parent]);
-
-	useEffect(() => {
-		folderDepth('');
-	}, [folderDepth]);
+	}, []);
 
 	function onChange(e) {
 		const value = e.target.value;
 		updatePath(value);
 	}
 
-	function executeChange() {
+	function copyFile() {
 		let newPath;
 		if (path.length === 0) {
 			newPath = currentFile;
@@ -54,7 +58,7 @@ export default function Move(props) {
 		};
 		dropbox
 			.filesCopyV2(copy)
-			.then((response) => {
+			.then(() => {
 				props.onDone();
 			})
 			.catch((error) => {
@@ -66,20 +70,22 @@ export default function Move(props) {
 		props.onDone();
 	}
 
-
-
 	function goToParent() {
 		if (parent.length > 1) {
 			parent.pop();
 			const parentFolder = parent[parent.length - 1];
 			folderDepth(parentFolder);
-		}
+		} else folderDepth('');
 	}
 
 	return ReactDOM.createPortal(
 		<React.Fragment>
 			<div className="backdropBlur">
-				<div className="move" style={{ marginLeft: '30px' }}>
+				<div
+					className="move"
+					style={{ marginLeft: '30px' }}
+					onClick={(e) => e.stopPropagation()}
+				>
 					<div className="move__container">
 						<h1>Copy file</h1>
 						<p className="move__text">
@@ -102,7 +108,7 @@ export default function Move(props) {
 						<div className="move__buttonContainer">
 							<button
 								className="move__buttonOk"
-								onClick={executeChange}
+								onClick={copyFile}
 							>
 								Ok
 							</button>

@@ -10,30 +10,35 @@ export default function Move(props) {
 	const [ path, updatePath ] = useState('');
 	const currentPath = props.fileMove.path_lower;
 	const { files } = useObservable(state$);
-	const [ parent, setParent ] = useState([]);
+	const [ parent, setParent ] = useState([ '' ]);
 	const [ folderList, setFolderList ] = useState(files);
 	let currentFile = '/' + currentPath.split('/').pop();
 
-	const folderDepth = useCallback((filePathLower) => {
-		if (parent.length < 0) {
-			setParent(filePathLower);
-		} else {
+	const folderDepth = useCallback(
+		(filePathLower) => {
 			if (parent[parent.length - 1] !== filePathLower) {
+				console.log(filePathLower);
+
 				setParent([ ...parent, filePathLower ]);
 			}
-		}
 
-		dropbox.filesListFolder({ path: filePathLower }).then(({ entries }) => {
+			dropbox
+				.filesListFolder({ path: filePathLower })
+				.then(({ entries }) => {
+					const { folders } = sortFiles(entries);
+					setFolderList(folders);
+					updatePath(filePathLower);
+				});
+		},
+		[ parent ]
+	);
+
+	useEffect(() => {
+		dropbox.filesListFolder({ path: '' }).then(({ entries }) => {
 			const { folders } = sortFiles(entries);
 			setFolderList(folders);
 		});
-
-		updatePath(filePathLower);
-	}, [parent]);
-	
-	useEffect(() => {
-		folderDepth('');
-	}, [folderDepth]);
+	}, []);
 
 	function onChange(e) {
 		const value = e.target.value;
@@ -54,7 +59,7 @@ export default function Move(props) {
 		};
 		dropbox
 			.filesMoveV2(move)
-			.then((response) => {
+			.then(() => {
 				props.onDone();
 			})
 			.catch((error) => {
@@ -65,7 +70,6 @@ export default function Move(props) {
 	function closeBox() {
 		props.onDone();
 	}
-
 
 	function goToParent() {
 		if (parent.length > 1) {
@@ -78,7 +82,11 @@ export default function Move(props) {
 	return ReactDOM.createPortal(
 		<React.Fragment>
 			<div className="backdropBlur">
-				<div className="move" style={{ marginLeft: '30px' }}>
+				<div
+					className="move"
+					style={{ marginLeft: '30px' }}
+					onClick={(e) => e.stopPropagation()}
+				>
 					<div className="move__container">
 						<h1>Move file</h1>
 						<p className="move__text">

@@ -35,8 +35,6 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		closePopup();
 	}
 	function updateInputFolder(e) {
-		console.log(chosen)
-		console.log(folderPath)
 		updateFolderInput(e.target.value);
 	}
 
@@ -66,29 +64,29 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 	}
 
 	return ReactDOM.createPortal(
-		<div className="folder-popup" ref={folderPopupRef}>
+		<div className='folder-popup' ref={folderPopupRef}>
 			<h1>Create Folder</h1>
-			<button onClick={hampus} className="poopbutton">
-				<CloseIcon id="close_icon" />
+			<button onClick={hampus} className='poopbutton'>
+				<CloseIcon id='close_icon' />
 			</button>
 
-			<div className="popup-container">
+			<div className='popup-container'>
 				<form onSubmit={newFolder}>
 					<label>Name:</label>
 					<input
-						type="text"
+						type='text'
 						onChange={updateInputFolder}
 						value={folderInput}
-						id="create-folder"
-						placeholder="Folder name"
+						id='create-folder'
+						placeholder='Folder name'
 					/>
-				<p> PepesBox{folderPath} </p>
-					<button onClick={newFolder} type="submit">
+					<p> PepesBox{folderPath} </p>
+					<button onClick={newFolder} type='submit'>
 						Submit
 					</button>
 				</form>
 			</div>
-			<div className="popup-folders">
+			<div className='popup-folders'>
 				<div
 					onClick={() => {
 						setFolderPath(pathcopy);
