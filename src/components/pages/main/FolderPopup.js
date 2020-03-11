@@ -14,7 +14,6 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const [ folderList, setFolderList ] = useState(files);
 	const folderPopupRef = useRef(null);
 	const [chosen, setChosen] = useState(false);
-	const [ parent, setParent ] = useState('');
 
 	function newFolder(e) {
 		e.preventDefault();
@@ -23,7 +22,6 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 				path: (folderPath.length > 1 ? folderPath : '') + '/' + folderInput
 			})
 			.then(function(response) {
-				console.log(response);
 				closePopup();
 			})
 			.catch(function(error) {
@@ -61,8 +59,6 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		}
 	}
 
-
-	console.log(folderPath)
 
 	return ReactDOM.createPortal(
 		<div className='folder-popup' ref={folderPopupRef}>
