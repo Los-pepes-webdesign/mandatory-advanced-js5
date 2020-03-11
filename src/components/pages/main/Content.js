@@ -110,7 +110,6 @@ export default function Content() {
 						<tbody>
 							{files.map((file) => (
 								<tr className="file" key={file.id}>
-									{console.log(file)}
 									<td className="file__thumbnail">
 										{file['.tag'] === 'folder' ? (
 											<FolderIcon

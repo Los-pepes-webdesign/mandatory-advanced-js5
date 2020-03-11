@@ -13,8 +13,9 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const { files } = useObservable(state$);
 	const [ folderList, setFolderList ] = useState(files);
 	const folderPopupRef = useRef(null);
-	const [ chosen, setChosen ] = useState(false);
-	const prevPathRef = useRef();
+	const [chosen, setChosen] = useState(false);
+	const [ parent, setParent ] = useState('');
+	let pathcopy;
 
 	function newFolder(e) {
 		e.preventDefault();
@@ -42,22 +43,25 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 		initFolderPopup(folderPopupRef.current);
 	}, []);
 
-	useEffect(
-		() => {
-			dropbox
-				.filesListFolder({ path: folderPath === '/' ? '' : folderPath })
-				.then(({ entries }) => {
-					const { folders } = sortFiles(entries);
-					setFolderList(folders);
-				})
-				.then(() => {
-					prevPathRef.current = folderPath;
-				});
-		},
-		[ folderPath ]
-	);
+	useEffect(() => {
+		dropbox.filesListFolder({ path: folderPath === '/' ? '' : folderPath }).then(({ entries }) => {
+			const { folders } = sortFiles(entries);
+			setFolderList(folders);
+		})
+	}, [folderPath])
 
-	const prevPath = prevPathRef.current;
+
+	function toPrevPath () {
+		if ((folderPath.match(/\//g)||[]).length === 1 ) {
+			pathcopy = '';
+		}
+		else {
+				pathcopy = pathcopy.substr(0, pathcopy.lastIndexOf("/") + 1);
+		}
+
+		console.log(pathcopy);
+
+	}
 
 	return ReactDOM.createPortal(
 		<div className='folder-popup' ref={folderPopupRef}>
@@ -85,26 +89,27 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 			<div className='popup-folders'>
 				<div
 					onClick={() => {
-						setFolderPath(prevPath);
-					}}
-				>
-					Go to parent
-				</div>
-				{folderList.filter((file) => file['.tag'] === 'folder').map((file) => (
-					<div
-						style={{ backgroundColor: chosen === file.id ? '#FFC30F' : '' }}
-						key={file.id}
-						count={file.id}
-						active={file.id === chosen ? chosen : undefined}
-						onClick={() => {
-							setFolderPath(folderPath === file.path_lower ? path : file.path_lower);
-							setChosen(chosen === file.id ? '' : file.id);
-						}}
-					>
-						<FolderIcon />
-						<p>{file.name}</p>
-					</div>
-				))}
+						setFolderPath(pathcopy);
+						toPrevPath();
+					}}>
+					Go to parent</div>
+				{folderList
+					.filter((file) => file['.tag'] === 'folder')
+					.map((file) => (
+						<div
+							style={{backgroundColor: chosen === file.id ? '#FFC30F' : '' }}
+							key={file.id}
+							count={file.id}
+							active={file.id === chosen ? chosen : undefined}
+							onClick={() => {
+								setFolderPath(folderPath === file.path_lower ? path : file.path_lower);
+								setChosen(chosen === file.id ? '' : file.id);
+							}}
+						>
+							<FolderIcon />
+							<p>{file.name}</p>
+						</div>
+					))}
 			</div>
 		</div>,
 		document.querySelector('body')
