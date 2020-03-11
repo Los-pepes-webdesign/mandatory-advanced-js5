@@ -96,9 +96,6 @@ export default function FileMore(props) {
 				<div className="fileMore__textContainer" onClick={copy}>
 					<p className="fileMore__textContainer__text">Copy</p>
 				</div>
-				<div className="fileMore__textContainer">
-					<p className="fileMore__textContainer__text">Favorite</p>
-				</div>
 				<div
 					className="fileMore__textContainer"
 					onClick={() =>
