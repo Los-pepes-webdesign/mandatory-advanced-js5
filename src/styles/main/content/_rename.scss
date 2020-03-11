@@ -30,7 +30,7 @@
   display: flex;
   width: 100px;
   justify-content: space-evenly;
-  
+
 
   button{
     width: 100%;
@@ -51,4 +51,22 @@
 
 .rename__inputContainer {
   display: flex;
+}
+
+.rename__buttonClose {
+  border: 1px solid black;
+  background: $wine;
+  color: $yellow;
+  cursor: pointer;
+
+}
+
+.rename__buttonClose:hover {
+  background: $yellow;
+  color: $wine;
+}
+
+.rename__buttonClose:active {
+  background-color: $purple;
+  color: $yellow;
 }

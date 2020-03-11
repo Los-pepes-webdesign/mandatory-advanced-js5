@@ -87,22 +87,19 @@ export default function Move(props) {
 					onClick={(e) => e.stopPropagation()}
 				>
 					<div className="move__container">
+						<button
+							className="move__buttonClose"
+							onClick={closeBox}>
+							x
+						</button>
 						<h1>Copy file</h1>
 						<p className="move__text">
 							Current location:PepesBox{currentPath}
 						</p>
 						<div className="move__inputContainer">
 							<p className="move__inputPrefix">
-								New location: PepesBox/
+								New location: PepesBox{path}{currentFile}
 							</p>
-							<input
-								className="move__input"
-								type="text"
-								onChange={onChange}
-								value={path}
-								placeholder="Leave blank to move to ROOT..."
-							/>
-							<p className="move__input__ext">{currentFile}</p>
 						</div>
 
 						<div className="move__buttonContainer">
