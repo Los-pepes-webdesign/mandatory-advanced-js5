@@ -10,18 +10,16 @@ export default function Move(props) {
 	const [ path, updatePath ] = useState('');
 	const currentPath = props.fileMove.path_lower;
 	const { files } = useObservable(state$);
-	const [ parent, setParent ] = useState([]);
+	const [ parent, setParent ] = useState([ '' ]);
 	const [ folderList, setFolderList ] = useState(files);
 	let currentFile = '/' + currentPath.split('/').pop();
 
 	const folderDepth = useCallback(
 		(filePathLower) => {
-			if (parent.length < 0) {
-				setParent(filePathLower);
-			} else {
-				if (parent[parent.length - 1] !== filePathLower) {
-					setParent([ ...parent, filePathLower ]);
-				}
+			if (parent[parent.length - 1] !== filePathLower) {
+				console.log(filePathLower);
+
+				setParent([ ...parent, filePathLower ]);
 			}
 
 			dropbox
@@ -29,19 +27,18 @@ export default function Move(props) {
 				.then(({ entries }) => {
 					const { folders } = sortFiles(entries);
 					setFolderList(folders);
+					updatePath(filePathLower);
 				});
-
-			updatePath(filePathLower);
 		},
 		[ parent ]
 	);
 
-	useEffect(
-		() => {
-			folderDepth('');
-		},
-		[ folderDepth ]
-	);
+	useEffect(() => {
+		dropbox.filesListFolder({ path: '' }).then(({ entries }) => {
+			const { folders } = sortFiles(entries);
+			setFolderList(folders);
+		});
+	}, []);
 
 	function onChange(e) {
 		const value = e.target.value;
@@ -62,7 +59,7 @@ export default function Move(props) {
 		};
 		dropbox
 			.filesMoveV2(move)
-			.then((response) => {
+			.then(() => {
 				props.onDone();
 			})
 			.catch((error) => {
@@ -88,9 +85,7 @@ export default function Move(props) {
 				<div
 					className="move"
 					style={{ marginLeft: '30px' }}
-					onClick={(e) => {
-						e.stopPropagation();
-					}}
+					onClick={(e) => e.stopPropagation()}
 				>
 					<div className="move__container">
 						<h1>Move file</h1>

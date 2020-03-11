@@ -16,12 +16,8 @@ export default function Move(props) {
 
 	const folderDepth = useCallback(
 		(filePathLower) => {
-			if (parent.length <= 0) {
-				setParent(filePathLower);
-			} else {
-				if (parent[parent.length - 1] !== filePathLower) {
-					setParent([ ...parent, filePathLower ]);
-				}
+			if (parent[parent.length - 1] !== filePathLower) {
+				setParent([ ...parent, filePathLower ]);
 			}
 
 			dropbox
@@ -36,12 +32,12 @@ export default function Move(props) {
 		[ parent ]
 	);
 
-	useEffect(
-		() => {
-			folderDepth('');
-		},
-		[ folderDepth ]
-	);
+	useEffect(() => {
+		dropbox.filesListFolder({ path: '' }).then(({ entries }) => {
+			const { folders } = sortFiles(entries);
+			setFolderList(folders);
+		});
+	}, []);
 
 	function onChange(e) {
 		const value = e.target.value;
@@ -62,7 +58,7 @@ export default function Move(props) {
 		};
 		dropbox
 			.filesCopyV2(copy)
-			.then((response) => {
+			.then(() => {
 				props.onDone();
 			})
 			.catch((error) => {
@@ -79,7 +75,7 @@ export default function Move(props) {
 			parent.pop();
 			const parentFolder = parent[parent.length - 1];
 			folderDepth(parentFolder);
-		}
+		} else folderDepth('');
 	}
 
 	return ReactDOM.createPortal(
@@ -88,9 +84,7 @@ export default function Move(props) {
 				<div
 					className="move"
 					style={{ marginLeft: '30px' }}
-					onClick={(e) => {
-						e.stopPropagation();
-					}}
+					onClick={(e) => e.stopPropagation()}
 				>
 					<div className="move__container">
 						<h1>Copy file</h1>

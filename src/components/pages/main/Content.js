@@ -44,47 +44,45 @@ export default function Content() {
 			setPaths(formatPaths(paths));
 
 			if (files.length !== 0) setIsLoading(false);
-
 		},
 		[ files, hash ]
 	);
 
 	function getButtonPosition(e, fileId) {
-		console.log("SET BUTTON POS");
 		if (showMore === fileId) {
 			updateShowMore(false);
-		} else {
+		}
+		else {
 			updateShowMore(fileId);
 		}
 
 		const buttonPosY = e.target.getBoundingClientRect().y;
-		const clickPos = {x: e.clientX, y: e.clientY};
+		const clickPos = { x: e.clientX, y: e.clientY };
 
 		if (buttonPosY > refTableContent.current.offsetHeight) {
 			updateButtonPos({ x: clickPos.x - 276, y: clickPos.y - 270 });
-		} else {
+		}
+		else {
 			updateButtonPos({ x: clickPos.x - 276, y: clickPos.y - 118 });
 		}
 	}
 
 	return (
 		<React.Fragment>
-			<main className="content">
-				<section className="tableHeader">
-					<div className="path">
+			<main className='content'>
+				<section className='tableHeader'>
+					<div className='path'>
 						<span>
-							<Link to="/">Pepebox</Link>
+							<Link to='/'>Pepebox</Link>
 							<span>&nbsp;</span>
 						</span>
 						{paths.map((path) => (
 							<span key={path.path}>
-								<Link to={path.path}>
-									&gt;&nbsp;{path.title}&nbsp;
-								</Link>
+								<Link to={path.path}>&gt;&nbsp;{path.title}&nbsp;</Link>
 							</span>
 						))}
 					</div>
-					<table className="fileTable ">
+					<table className='fileTable '>
 						<thead>
 							<tr>
 								{/* thumbnail */}
@@ -106,74 +104,57 @@ export default function Content() {
 						</thead>
 					</table>
 				</section>
-				<section className="tableContent" ref={refTableContent}>
+				<section className='tableContent' ref={refTableContent}>
 					{isLoading && <Spinner />}
-					<table className="fileTable">
+					<table className='fileTable'>
 						<tbody>
 							{files.map((file) => (
-								<tr className="file" key={file.id}>
-									<td className="file__thumbnail">
+								<tr className='file' key={file.id}>
+									<td className='file__thumbnail'>
 										{file['.tag'] === 'folder' ? (
-											<FolderIcon
-												style={{ fontSize: 45 }}
-											/>
+											<FolderIcon style={{ fontSize: 45 }} />
 										) : file.thumbnail ? (
 											<img
 												src={`data:image/png;base64, ${file.thumbnail}`}
-												alt=""
+												alt=''
 											/>
 										) : (
-											<InsertDriveFileIcon
-												style={{ fontSize: 45 }}
-											/>
+											<InsertDriveFileIcon style={{ fontSize: 45 }} />
 										)}
 									</td>
-									<td className="file__name">
+									<td className='file__name'>
 										<span>
 											{file['.tag'] === 'folder' ? (
-												<Link to={file.path_lower}>
-													{' '}
-													{file.name}
-												</Link>
+												<Link to={file.path_lower}> {file.name}</Link>
 											) : (
-												<a
-													href={file.link}
-													download={file.name}
-												>
+												<a href={file.link} download={file.name}>
 													{file.name}
 												</a>
 											)}
 										</span>
 									</td>
-									<td className="file__modified">
+									<td className='file__modified'>
 										<span>
-											<Moment format="YYYY/MM/DD">
+											<Moment format='YYYY/MM/DD'>
 												{file.server_modified}
 											</Moment>
 										</span>
 									</td>
-									<td className="file__size">
+									<td className='file__size'>
 										<span>{file.size}</span>
 									</td>
-									<td
-										className="file__starred"
-										onClick={() => toggleStar(file)}
-									>
+									<td className='file__starred' onClick={() => toggleStar(file)}>
 										{file.starred ? (
 											<StarRoundedIcon />
 										) : (
 											<StarBorderRoundedIcon />
 										)}
 									</td>
-									<td className="file__more">
+									<td className='file__more'>
 										<div>
 											<button
-												className="fileMoreButton"
-												onClick={(e) =>
-													getButtonPosition(
-														e,
-														file.id
-													)}
+												className='fileMoreButton'
+												onClick={(e) => getButtonPosition(e, file.id)}
 											>
 												<MoreVertIcon />
 											</button>
@@ -181,11 +162,8 @@ export default function Content() {
 												<FileMore
 													buttonPosition={buttonPos}
 													fileDetails={file}
-													showMoreFunction={
-														updateShowMore
-													}
-													onClose={() =>
-														updateShowMore(false)}
+													showMoreFunction={updateShowMore}
+													onClose={() => updateShowMore(false)}
 												/>
 											)}
 										</div>
@@ -195,7 +173,7 @@ export default function Content() {
 						</tbody>
 					</table>
 					{hasMore && <MoreFiles />}
-					<div className="spacer" />
+					<div className='spacer' />
 				</section>
 			</main>
 		</React.Fragment>

@@ -21,31 +21,30 @@ export default function ProgressBarPopup(props) {
 
 	return (
 		<React.Fragment>
-			<div className="hotMexicanGuys" ref={hotMexicanGuysRef} />
-			<div className="progressBarPopup">
-				<p className="progressBarPopup__text">
-					Uploading {props.fileUploading.name}
-				</p>
-				<div className="progressBarPopup__graphicsContainer">
+			<div
+				className='hotMexicanGuys'
+				ref={hotMexicanGuysRef}
+				style={{
+					backgroundImage: `url(${process.env.PUBLIC_URL}/assets/hotMexicanGuys.png)`
+				}}
+			/>
+			<div className='progressBarPopup'>
+				<p className='progressBarPopup__text'>Uploading {props.fileUploading.name}</p>
+				<div className='progressBarPopup__graphicsContainer'>
 					<div
-						className="progressBarPopup__graphicsContainer__progress"
+						className='progressBarPopup__graphicsContainer__progress'
 						style={progressStyle}
 					/>
 				</div>
 				{finished ? (
-					<div className="progressBarPopup__finished">
-						<p className="progressbarPopup__finished__text">
-							Upload Complete
-						</p>
-						<button
-							className="progressBarPopup__finished__button"
-							onClick={onClick}
-						>
+					<div className='progressBarPopup__finished'>
+						<p className='progressbarPopup__finished__text'>Upload Complete</p>
+						<button className='progressBarPopup__finished__button' onClick={onClick}>
 							Arriba!
 						</button>
 					</div>
 				) : (
-					<div className="progressBarPopup__dummy" />
+					<div className='progressBarPopup__dummy' />
 				)}
 			</div>
 		</React.Fragment>
