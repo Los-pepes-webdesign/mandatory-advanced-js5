@@ -15,7 +15,7 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 	const folderPopupRef = useRef(null);
 	const [chosen, setChosen] = useState(false);
 	const [ parent, setParent ] = useState('');
-	const prevPathRef = useRef();
+	let pathcopy;
 
 	function newFolder(e) {
 		e.preventDefault();
@@ -50,13 +50,20 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 			const { folders } = sortFiles(entries);
 			setFolderList(folders);
 		})
-		.then(() => {
-			prevPathRef.current = folderPath;
-
-		});
 	}, [folderPath])
 
-	const prevPath = prevPathRef.current;
+
+	function toPrevPath () {
+		if ((folderPath.match(/\//g)||[]).length === 1 ) {
+			pathcopy = '';
+		}
+		else {
+				pathcopy = pathcopy.substr(0, pathcopy.lastIndexOf("/") + 1);
+		}
+
+		console.log(pathcopy);
+
+	}
 
 	return ReactDOM.createPortal(
 		<div className="folder-popup" ref={folderPopupRef}>
@@ -84,7 +91,8 @@ export default function FolderPopup({ onSubmit, closePopup, path }) {
 			<div className="popup-folders">
 				<div
 					onClick={() => {
-						setFolderPath(prevPath);
+						setFolderPath(pathcopy);
+						toPrevPath();
 					}}>
 					Go to parent</div>
 				{folderList
