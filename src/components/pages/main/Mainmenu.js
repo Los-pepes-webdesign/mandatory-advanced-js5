@@ -41,16 +41,16 @@ export default function Mainmenu({ path }) {
 					console.error(error);
 				});
 			return;
-		}
-		else if (file.size < 10 * 1024 * 1024 && file.size >= 1024 * 1024) {
+		} else if (file.size < 10 * 1024 * 1024 && file.size >= 1024 * 1024) {
 			// Max chunk size is set to 10 % of total file size rounded to the nearest integer, needed in order to create a upload progressbar
 			maxChunk = Math.round(file.size / 4);
-		}
-		else if (file.size < UPLOAD_FILE_SIZE_LIMIT && file.size >= 10 * 1024 * 1024) {
+		} else if (
+			file.size < UPLOAD_FILE_SIZE_LIMIT &&
+			file.size >= 10 * 1024 * 1024
+		) {
 			// Max chunk size is set to 10 % of total file size rounded to the nearest integer, needed in order to create a upload progressbar
 			maxChunk = Math.round(file.size / 10);
-		}
-		else if (file.size >= UPLOAD_FILE_SIZE_LIMIT) {
+		} else if (file.size >= UPLOAD_FILE_SIZE_LIMIT) {
 			// Max chunk size is set to 8 MB (recommended chunk size for Dropbox API)
 			maxChunk = 8 * 1024 * 1024;
 		}
@@ -75,8 +75,7 @@ export default function Mainmenu({ path }) {
 						})
 						.then((response) => response.session_id);
 				});
-			}
-			else if (fileId < items.length - 1) {
+			} else if (fileId < items.length - 1) {
 				// Append part to the upload session
 				return acc.then(function(sessionId) {
 					let cursor = {
@@ -92,8 +91,7 @@ export default function Mainmenu({ path }) {
 						})
 						.then(() => sessionId);
 				});
-			}
-			else {
+			} else {
 				// Last chunk of data, close session
 				return acc.then(function(sessionId) {
 					let cursor = {
@@ -146,53 +144,61 @@ export default function Mainmenu({ path }) {
 			{uploadInProgress && (
 				<ProgressBarPopup
 					uploadProgress={progress}
+					updateProgress={updateProgress}
 					uploadPopup={updateUploadInProgress}
 					fileUploading={currentFile}
 				/>
 			)}
-			{visible && <FolderPopup path={path} closePopup={() => toggleVisible(false)} />}
+			{visible && (
+				<FolderPopup
+					path={path}
+					closePopup={() => toggleVisible(false)}
+				/>
+			)}
 			<aside
-				className='mainmenu'
+				className="mainmenu"
 				style={{
-					backgroundImage: `url(${process.env.PUBLIC_URL}/assets/MexicanCactusandSun.png)`
+					backgroundImage: `url(${process.env
+						.PUBLIC_URL}/assets/MexicanCactusandSun.png)`
 				}}
 			>
 				<div
-					className='mainmenu__hotMexicanGuy'
+					className="mainmenu__hotMexicanGuy"
 					style={{
-						backgroundImage: `url(${process.env.PUBLIC_URL}/assets/hotMexicanGuy.png)`
+						backgroundImage: `url(${process.env
+							.PUBLIC_URL}/assets/hotMexicanGuy.png)`
 					}}
 				/>
-				<div className='mainmenu__links'>
-					<div className='mainmenu__home'>
-						<Link to='/'>
+				<div className="mainmenu__links">
+					<div className="mainmenu__home">
+						<Link to="/">
 							<HomeIcon />
 							<label>Home</label>
 						</Link>
 					</div>
-					<div className='mainmenu__favorite'>
-						<Link to='/starred'>
+					<div className="mainmenu__favorite">
+						<Link to="/starred">
 							<StarIcon />
 							<label>Favorites</label>
 						</Link>
 					</div>
-					<div className='mainmenu__upload'>
-						<form onSubmit={fileUpload} id='file-upload-form'>
+					<div className="mainmenu__upload">
+						<form onSubmit={fileUpload} id="file-upload-form">
 							<PublishIcon />
-							<label id='folder_label'>
+							<label id="folder_label">
 								Upload File
 								<input
 									ref={fileInputRef}
 									onChange={fileUpload}
-									placeholder='Upload File'
-									type='file'
-									id='file-upload-input'
-									className='hidden'
+									placeholder="Upload File"
+									type="file"
+									id="file-upload-input"
+									className="hidden"
 								/>
 							</label>
 						</form>
 					</div>
-					<div className='mainmenu__newfolder'>
+					<div className="mainmenu__newfolder">
 						<button onClick={showPopup}>
 							<CreateNewFolderIcon />
 							<label>New Folder</label>

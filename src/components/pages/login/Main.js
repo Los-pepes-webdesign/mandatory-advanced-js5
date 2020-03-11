@@ -5,13 +5,13 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 export default function Main() {
 	return (
-		<main className='login__main'>
+		<main className="login__main">
 			<a
-				href={dropbox.getAuthenticationUrl('https://legal-question.surge.sh/')}
-				className='login__main__buttonContainer'
+				href={dropbox.getAuthenticationUrl('http://localhost:3000/')}
+				className="login__main__buttonContainer"
 			>
-				<div className='login__main__button'>
-					<div tabIndex='0' className='login__main__icon'>
+				<div className="login__main__button">
+					<div tabIndex="0" className="login__main__icon">
 						<ArrowForwardIcon />
 					</div>
 				</div>
