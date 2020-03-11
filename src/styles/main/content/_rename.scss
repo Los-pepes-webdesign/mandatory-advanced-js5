@@ -5,16 +5,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+
   background-color: $body;
   border-radius: 10px;
 
   -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+}
+
+.rename__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .rename__text {
@@ -41,7 +45,13 @@
     background-color: $wine;
 
     &:hover{
-      color: $hover;
+      color: $wine;
+      background-color: $yellow;
+
+    }
+    &:active{
+      color: $yellow;
+      background-color: $purple;
 
     }
   }
@@ -54,7 +64,11 @@
 }
 
 .rename__buttonClose {
-  border: 1px solid black;
+  position: fixed;
+  left: 100%;
+  top: 0;
+  margin-left: -19px;
+  border-radius: 0 5px 0 0;
   background: $wine;
   color: $yellow;
   cursor: pointer;
@@ -69,4 +83,15 @@
 .rename__buttonClose:active {
   background-color: $purple;
   color: $yellow;
+}
+
+.rename__top {
+  width: 100%;
+  height: 40px;
+  background-color: $wine;
+  position: relative;
+  color: white;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 10px;
 }

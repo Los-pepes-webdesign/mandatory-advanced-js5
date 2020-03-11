@@ -87,13 +87,15 @@ export default function Move(props) {
 					style={{ marginLeft: '30px' }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					<div className="move__container">
+					<div className="move__container__top">
+						<h1>Move file</h1>
 						<button
 							className="move__buttonClose"
 							onClick={closeBox}>
 							x
 						</button>
-						<h1>Move file</h1>
+					</div>
+					<div className="move__container">
 						<p className="move__text">
 							Current location:PepesBox{currentPath}
 						</p>

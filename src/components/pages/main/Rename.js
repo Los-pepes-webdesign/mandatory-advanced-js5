@@ -55,12 +55,15 @@ export default function Rename(props) {
 				style={{ marginLeft: '30px' }}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<button
-					className="rename__buttonClose"
-					onClick={closeBox}>
-					x
-				</button>
-				<h1>Rename file</h1>
+			<div className="rename__top">
+			<h1>Rename file</h1>
+			<button
+				className="rename__buttonClose"
+				onClick={closeBox}>
+				x
+			</button>
+			</div>
+			<div className="rename__container">
 				<p className='rename__text'>Change name of: {oldName}</p>
 				<div className='rename__inputContainer'>
 					<input
@@ -79,6 +82,7 @@ export default function Rename(props) {
 						Cancel
 					</button>
 				</div>
+			</div>
 			</div>
 		</div>,
 		document.querySelector('body')

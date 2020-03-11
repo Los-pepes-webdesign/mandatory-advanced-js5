@@ -16,10 +16,7 @@ backdrop-filter: blur(4px);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+
   background-color: $body;
   border-radius: 5px;
   z-index: 2;
@@ -58,8 +55,7 @@ backdrop-filter: blur(4px);
 
 
    button{
-    margin: 5px 15px;
-    margin-bottom: 10px;
+    margin: 15px 15px 20px 0;
     width: 100%;
     height: 20px;
     border-radius: 5px;
@@ -70,7 +66,13 @@ backdrop-filter: blur(4px);
   }
 
   button:hover{
-    color: $hover;
+    background-color: $yellow;
+    color: $wine;
+  }
+
+  button:active{
+    background-color: $purple;
+    color: $yellow;
   }
 }
 
@@ -86,6 +88,7 @@ backdrop-filter: blur(4px);
   background-color: white;
   overflow-y: scroll;
   padding-left: 20px;
+  margin: auto;
 }
 
 .move__galleryContainer__folder{
@@ -117,15 +120,30 @@ backdrop-filter: blur(4px);
 
 }
 
+.move__container__top {
+  border-radius: 5px 5px 0 0;
+  height: 50px;
+  width: 700px;
+  background-color: $wine;
+  position: relative;
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
 .move__galleryContainer__parentButton:hover{
   color: $wine;
 }
 
 .move__buttonClose {
-  border: 1px solid black;
+  position: fixed;
+  border-radius: 0 5px 0 0;
   background: $wine;
   color: $yellow;
   cursor: pointer;
+  left: 100%;
+  margin-left: -20px;
+  margin-top: -41px;
 }
 
 .move__buttonClose:hover {
