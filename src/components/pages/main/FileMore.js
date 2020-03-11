@@ -15,13 +15,10 @@ export default function FileMore(props) {
 	const [ popCopy, updatePopCopy ] = useState(false);
 	const [ clickPos, setClickPos ] = useState({});
 
-	useEffect(
-		() => {
-			window.addEventListener('click', close);
-			return () => window.removeEventListener('click', close);
-		},
-		[close]
-	);
+	useEffect(() => {
+		window.addEventListener('click', close);
+		return () => window.removeEventListener('click', close);
+	}, []);
 
 	function rename() {
 		updatePopRename(!popRename);
@@ -35,7 +32,7 @@ export default function FileMore(props) {
 		updatePopCopy(!popCopy);
 	}
 
-	function close(){
+	function close() {
 		props.showMoreFunction(false);
 	}
 

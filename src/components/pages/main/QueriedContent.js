@@ -2,23 +2,18 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 
-import { toggleStar } from '../../../utilities/helpers';
 import { state$, useObservable } from '../../../utilities/store';
 
 // icons
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-import StarRoundedIcon from '@material-ui/icons/StarRounded';
 
 // components
 import FileMore from './FileMore';
-import MoreFiles from './Content.MoreFiles';
 
 export default function QueriedContent() {
 	const { queriedFiles } = useObservable(state$);
-
 	const [ showMore, updateShowMore ] = useState(false);
 	const [ buttonPos, updateButtonPos ] = useState({ x: '0px', y: '0px' });
 
