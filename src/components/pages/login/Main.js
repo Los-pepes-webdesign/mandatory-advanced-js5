@@ -7,7 +7,7 @@ export default function Main() {
 	return (
 		<main className="login__main">
 			<a
-				href={dropbox.getAuthenticationUrl('http://localhost:3000/')}
+				href={dropbox.getAuthenticationUrl('https://legal-question.surge.sh/')}
 				className="login__main__buttonContainer"
 			>
 				<div className="login__main__button">

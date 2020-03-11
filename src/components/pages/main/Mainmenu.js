@@ -35,7 +35,6 @@ export default function Mainmenu({ path }) {
 				.filesUpload({ path: hash + '/' + file.name, contents: file })
 				.then(function() {
 					updateProgress(100);
-					console.log('File uploaded!');
 				})
 				.catch(function(error) {
 					console.error(error);
@@ -116,7 +115,6 @@ export default function Mainmenu({ path }) {
 		task
 			.then(function(result) {
 				updateProgress(100);
-				console.log('File Uploaded!');
 			})
 			.catch(function(error) {
 				console.error(error);
