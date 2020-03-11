@@ -3,6 +3,7 @@
   color: $yellow;
   @extend %flexCC;
 
+
   &__sombrero{
     z-index: 1;
     pointer-events: none;
@@ -12,18 +13,17 @@
     width: 60px;
     height: 60px;
     transform: rotate(-0.04turn);
-    background-image: url("../../Images/Sombrero.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
   }
-  
+
   &__info {
     width: 200px;
     height: 50px;
     display: flex;
-   
     align-items: center;
+
     &__greeting {
       margin-left: 10px;
       margin-top: 5px;
@@ -59,13 +59,13 @@
     margin-top: 3px;
     background-color: $yellow;
     border-radius: 10px;
-   background-image: url("../../Images/MexicanSkull.png");
    background-position: center;
    background-repeat: no-repeat;
    background-size: 21px;
   }
 
   &__more {
+    z-index: 2;
     @extend %flexColumnCC;
     color: $red;
     justify-content: space-around;
@@ -106,14 +106,14 @@
         height: 2px;
         background-color: $yellow;
       }
-      
+
     }
-    
+
     &__logoutButton {
       width: 100px;
       height: 20px;
-      &:hover { color: $wine; background-color: $hover; border-radius: 10px;}
-      &:active { color: $yellow; background-color: $wine; border-radius: 10px; }
+      &:hover { color: $wine; background-color: $yellow; border-radius: 10px;}
+      &:active { color: $yellow; background-color: $purple; border-radius: 10px; }
     }
     &__profileInfo__email__text {
       padding-top: 5px;
@@ -124,12 +124,12 @@
       position: relative;
       width: 150px;
       height: 30px;
-      background-color: $yellow;
+      background-color: $wine;
       border-radius: 10px;
-      color: $wine;
-      &:hover { background-color: $hover; }
+      color: $yellow;
+      &:hover { background-color: $yellow; color: $wine }
       &:active {
-        background-color: $wine;
+        background-color: $purple;
         color: $yellow;
       }
       &__linkIcon { transform: rotate(45deg); }

@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { hotMexicanGuysPopup } from '../../../utilities/animation';
 
 export default function ProgressBarPopup(props) {
 	const [ finished, updateFinished ] = useState(false);
+	const [ mexicanSong, setMexicanSong ] = useState(false);
 	const hotMexicanGuysRef = useRef(null);
 	let progress = props.uploadProgress;
 
@@ -12,16 +14,38 @@ export default function ProgressBarPopup(props) {
 
 	if (progress === 100 && !finished) {
 		updateFinished(true);
+		setMexicanSong(true);
 		hotMexicanGuysPopup(hotMexicanGuysRef.current);
 	}
 
 	function onClick() {
+		setMexicanSong(false);
+		updateFinished(false);
+		props.updateProgress(0);
 		props.uploadPopup(false);
 	}
 
-	return (
+	return ReactDOM.createPortal(
 		<React.Fragment>
-			<div className="hotMexicanGuys" ref={hotMexicanGuysRef} />
+			<div
+				className="hotMexicanGuys"
+				ref={hotMexicanGuysRef}
+				style={{
+					backgroundImage: `url(${process.env
+						.PUBLIC_URL}/assets/hotMexicanGuys.png)`
+				}}
+			/>
+
+			{mexicanSong && (
+				<audio
+					controls
+					style={{ display: 'none ' }}
+					src="mexico.mp3"
+					type="audio/mpeg"
+					autoPlay
+				/>
+			)}
+
 			<div className="progressBarPopup">
 				<p className="progressBarPopup__text">
 					Uploading {props.fileUploading.name}
@@ -48,6 +72,7 @@ export default function ProgressBarPopup(props) {
 					<div className="progressBarPopup__dummy" />
 				)}
 			</div>
-		</React.Fragment>
+		</React.Fragment>,
+		document.querySelector('body')
 	);
 }

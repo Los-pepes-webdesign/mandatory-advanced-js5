@@ -58,12 +58,12 @@ export function formatMaxSpace(size) {
 	}
 }
 
-export function formatPaths(stones) {
-	const paths = stones.map((stone, i) =>
-		stones.reduce((acc, val, idx) => {
+export function formatPaths(paths) {
+	const _paths = paths.map((path, i) =>
+		paths.reduce((acc, val, idx) => {
 			if (idx === i) {
 				return {
-					title: stone === '' ? '' : stone,
+					title: path === '' ? '' : path,
 					path: `${acc}/${val}`
 				};
 			}
@@ -76,9 +76,9 @@ export function formatPaths(stones) {
 		})
 	);
 
-	paths.shift();
+	_paths.shift();
 
-	return paths;
+	return _paths;
 }
 
 export function toggleStar(file) {

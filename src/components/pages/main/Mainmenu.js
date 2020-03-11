@@ -35,7 +35,6 @@ export default function Mainmenu({ path }) {
 				.filesUpload({ path: hash + '/' + file.name, contents: file })
 				.then(function() {
 					updateProgress(100);
-					console.log('File uploaded!');
 				})
 				.catch(function(error) {
 					console.error(error);
@@ -116,7 +115,6 @@ export default function Mainmenu({ path }) {
 		task
 			.then(function(result) {
 				updateProgress(100);
-				console.log('File Uploaded!');
 			})
 			.catch(function(error) {
 				console.error(error);
@@ -144,6 +142,7 @@ export default function Mainmenu({ path }) {
 			{uploadInProgress && (
 				<ProgressBarPopup
 					uploadProgress={progress}
+					updateProgress={updateProgress}
 					uploadPopup={updateUploadInProgress}
 					fileUploading={currentFile}
 				/>
@@ -154,8 +153,20 @@ export default function Mainmenu({ path }) {
 					closePopup={() => toggleVisible(false)}
 				/>
 			)}
-			<aside className="mainmenu">
-				<div className="mainmenu__hotMexicanGuy" />
+			<aside
+				className="mainmenu"
+				style={{
+					backgroundImage: `url(${process.env
+						.PUBLIC_URL}/assets/MexicanCactusandSun.png)`
+				}}
+			>
+				<div
+					className="mainmenu__hotMexicanGuy"
+					style={{
+						backgroundImage: `url(${process.env
+							.PUBLIC_URL}/assets/hotMexicanGuy.png)`
+					}}
+				/>
 				<div className="mainmenu__links">
 					<div className="mainmenu__home">
 						<Link to="/">

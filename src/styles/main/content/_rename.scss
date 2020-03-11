@@ -5,15 +5,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+
   background-color: $body;
+  border-radius: 10px;
 
   -webkit-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   -moz-box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.21);
   box-shadow: -1px 3px 9px 0px rgba(0,0,0,0.12);
+}
+
+.rename__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .rename__text {
@@ -28,9 +33,65 @@
 .rename__buttonContainer {
   display: flex;
   width: 100px;
-  justify-content: space-between;
+  justify-content: space-evenly;
+
+
+  button{
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    color: $yellow;
+    background-color: $wine;
+
+    &:hover{
+      color: $wine;
+      background-color: $yellow;
+
+    }
+    &:active{
+      color: $yellow;
+      background-color: $purple;
+
+    }
+  }
+
+
 }
 
 .rename__inputContainer {
   display: flex;
+}
+
+.rename__buttonClose {
+  position: fixed;
+  left: 100%;
+  top: 0;
+  margin-left: -19px;
+  border-radius: 0 5px 0 0;
+  background: $wine;
+  color: $yellow;
+  cursor: pointer;
+
+}
+
+.rename__buttonClose:hover {
+  background: $yellow;
+  color: $wine;
+}
+
+.rename__buttonClose:active {
+  background-color: $purple;
+  color: $yellow;
+}
+
+.rename__top {
+  width: 100%;
+  height: 40px;
+  background-color: $wine;
+  position: relative;
+  color: white;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 10px;
 }

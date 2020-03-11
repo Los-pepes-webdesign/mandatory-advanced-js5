@@ -49,20 +49,40 @@ export default function Rename(props) {
 	}
 
 	return ReactDOM.createPortal(
-		<div className='rename' style={{ marginLeft: '30px' }}>
+		<div className='backdropBlur'>
+			<div
+				className='rename'
+				style={{ marginLeft: '30px' }}
+				onClick={(e) => e.stopPropagation()}
+			>
+			<div className="rename__top">
 			<h1>Rename file</h1>
-			<p className='rename__text'>Change name of: {oldName}</p>
-			<div className='rename__inputContainer'>
-				<input className='rename__input' type='text' onChange={onChange} value={filename} />
-				<p className='rename__input__ext'>{extension}</p>
+			<button
+				className="rename__buttonClose"
+				onClick={closeBox}>
+				x
+			</button>
 			</div>
-			<div className='rename__buttonContainer'>
-				<button className='rename__buttonOk' onClick={executeChange}>
-					Ok
-				</button>
-				<button className='rename__buttonCancel' onClick={closeBox}>
-					Cancel
-				</button>
+			<div className="rename__container">
+				<p className='rename__text'>Change name of: {oldName}</p>
+				<div className='rename__inputContainer'>
+					<input
+						className='rename__input'
+						type='text'
+						onChange={onChange}
+						value={filename}
+					/>
+					<p className='rename__input__ext'>{extension}</p>
+				</div>
+				<div className='rename__buttonContainer'>
+					<button className='rename__buttonOk' onClick={executeChange}>
+						Ok
+					</button>
+					<button className='rename__buttonCancel' onClick={closeBox}>
+						Cancel
+					</button>
+				</div>
+			</div>
 			</div>
 		</div>,
 		document.querySelector('body')

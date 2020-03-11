@@ -8,19 +8,17 @@
     align-items: center;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url("../../Images/MexicanCactusandSun.png");
     background-position: -30px 98.7%;
     
     &__hotMexicanGuy{
       width:100%;
       height: 30%;
-      background-image: url("../../Images/hotMexicanGuy.png");
       background-size: 140%;
       background-position: center;
       background-repeat: no-repeat;
     }
 
-    label {cursor: pointer;}
+    label { cursor: pointer; }
 
     .hidden {
       display: none;
